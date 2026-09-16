@@ -69,5 +69,13 @@ export const WA_MESSAGES = {
   SEDE_CALI: "Hola, deseo agendar una consulta presencial en la sede de AMF Firma Legal en Cali. ¿Qué fechas y horarios tienen disponibles?",
   SEDE_PIENDAMO: "Hola, deseo agendar una consulta presencial en la sede de AMF Firma Legal en Piendamó. ¿Qué fechas y horarios tienen disponibles?",
   SEDE_MEDELLIN: "Hola, deseo agendar una consulta presencial en la sede de AMF Firma Legal en Medellín. ¿Qué fechas y horarios tienen disponibles?",
-  ATENCION_VIRTUAL: "Hola, deseo programar una asesoría jurídica virtual con AMF Firma Legal. ¿Cómo es el proceso y qué disponibilidad tienen?"
+  ATENCION_VIRTUAL: "Hola, deseo programar una asesoría jurídica virtual con AMF Firma Legal. ¿Cómo es el proceso y qué disponibilidad tienen?",
+
+  // Compliance & Penal Corporativo
+  COMPLIANCE_DIAGNOSTICO: "Hola, me comunico desde la web de AMF Firma Legal en representación de una empresa. Solicito un diagnóstico de prevención penal y gestión de riesgos normativos.",
+  COMPLIANCE_INVESTIGACIONES: "Hola, requerimos asesoría jurídica especializada de AMF para una investigación interna / contingencia penal corporativa.",
+
+  // Centro Jurídico / Artículos
+  ARTICULO_CONSULTA: "Hola, leí su artículo en el Centro Jurídico de AMF Firma Legal y requiero asesoría legal especializada sobre este tema."
 };
+

@@ -1,0 +1,218 @@
+/* ==========================================================================
+   CENTRO JURÍDICO - STYLES
+   ========================================================================== */
+
+.cj-hero {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cj-hero-title {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: var(--color-wine);
+  margin-bottom: 1rem;
+}
+
+.cj-hero-lead {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.cj-search-box {
+  position: relative;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.cj-search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-wine);
+}
+
+.cj-search-input {
+  width: 100%;
+  padding: 1rem 1.2rem 1rem 3.2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 4px 16px rgba(53, 1, 8, 0.06);
+  transition: all var(--transition-fast);
+}
+
+.cj-search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.cj-search-input:focus {
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(169, 134, 62, 0.25);
+}
+
+/* Barra de Filtros */
+.cj-filters-bar {
+  background-color: var(--color-paper);
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cj-categories-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.cj-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cj-pill:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.cj-pill.active {
+  background-color: var(--color-wine);
+  color: var(--color-paper);
+  border-color: var(--color-wine);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Tarjeta de Artículo */
+.cj-article-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  padding: 1.8rem;
+}
+
+.cj-article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-gold);
+}
+
+.cj-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.cj-category-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-wine);
+  background-color: var(--color-cream);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cj-readtime {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.cj-card-title {
+  font-size: 1.28rem;
+  color: var(--color-wine);
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+  transition: color var(--transition-fast);
+}
+
+.cj-article-card:hover .cj-card-title {
+  color: var(--color-wine-hover);
+}
+
+.cj-card-snippet {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cj-card-footer {
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cj-author-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cj-author-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cj-author-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+.cj-author-role {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.cj-readmore-link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}

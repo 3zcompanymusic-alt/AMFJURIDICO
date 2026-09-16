@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ShieldCheck, Scale, Award, X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Scale, Award, X, ChevronLeft, ChevronRight, ArrowRight, Users } from 'lucide-react';
 import { whatsappLink, WA_MESSAGES, getAssetUrl } from '../config/siteConfig';
 import { SEOHead } from '../components/SEOHead';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
@@ -108,12 +108,16 @@ export const Equipo = () => {
         })}</script>
       </Helmet>
       {/* Header Equipo */}
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.5rem' }}>
-        <div className="container text-center" style={{ maxWidth: '850px', margin: '0 auto' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <Users size={16} />
+            <span>ABOGADOS LITIGANTES &amp; ESPECIALISTAS ASOCIADOS</span>
+          </span>
           <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
             Equipo Profesional AMF Firma Legal
           </h1>
-          <p style={{ fontSize: '1.15rem', color: 'var(--color-ink)', lineHeight: '1.65' }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.65' }}>
             Litigantes penalistas, administrativistas, especialistas en contratación estatal y contadores integrados bajo una estrategia de alto nivel.
           </p>
         </div>
@@ -238,6 +242,8 @@ export const Equipo = () => {
                   className="team-modal-photo"
                   width={190}
                   height={190}
+                  loading="lazy"
+                  decoding="async"
                   style={{ objectPosition: activeMember.objectPosition || 'top center', ...(activeMember.imgStyle || {}) }}
                 />
               </div>
@@ -267,6 +273,26 @@ export const Equipo = () => {
               <p style={{ fontSize: '1rem', color: 'var(--color-ink)', lineHeight: '1.7', whiteSpace: 'pre-line' }}>
                 {activeMember.bio}
               </p>
+            </div>
+
+            {/* Enlaces E-E-A-T a Artículos del Centro Jurídico */}
+            <div style={{ backgroundColor: 'var(--color-paper)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', padding: '1.2rem' }}>
+              <h5 style={{ fontSize: '0.92rem', color: 'var(--color-wine)', fontWeight: 700, marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span>Artículos &amp; Guías en el Centro Jurídico</span>
+              </h5>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a
+                  href="/centro-juridico"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedMemberIndex(null);
+                    window.location.href = '/centro-juridico';
+                  }}
+                  style={{ fontSize: '0.88rem', color: 'var(--color-gold-hover)', textDecoration: 'underline', fontWeight: 600 }}
+                >
+                  Ver publicaciones e intervenciones jurídicas de AMF →
+                </a>
+              </div>
             </div>
 
             {/* CTA directo dentro del modal */}

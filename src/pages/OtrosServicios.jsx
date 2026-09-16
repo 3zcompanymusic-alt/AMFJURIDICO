@@ -33,12 +33,16 @@ export const OtrosServicios = () => {
   return (
     <main>
       <SEOHead pageKey="otrosServicios" />
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.2rem', paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <Briefcase size={16} />
+            <span>ÁREAS DE PRÁCTICA &amp; SERVICIOS LEGALES</span>
+          </span>
+          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
             Otras Áreas Jurídicas de AMF
           </h1>
-          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.65' }}>
             Además de nuestras líneas principales de Fuerza Pública y Defensa Penal 24/7, nuestra firma cuenta con especialistas para atender diversas controversias legales.
           </p>
         </div>

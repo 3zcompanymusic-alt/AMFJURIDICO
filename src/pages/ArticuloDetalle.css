@@ -1,0 +1,360 @@
+/* ==========================================================================
+   ARTÍCULO DETALLE (PLANTILLA 10 PASOS) - STYLES
+   ========================================================================== */
+
+.art-page {
+  background-color: var(--color-paper);
+}
+
+.art-header {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.art-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--color-wine);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.art-back-btn:hover {
+  color: var(--color-gold);
+}
+
+.art-main-title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  color: var(--color-wine);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.art-meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid rgba(53, 1, 8, 0.12);
+  padding-top: 1rem;
+}
+
+.art-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Paso 2: Tarjeta Respuesta Rápida */
+.art-quick-answer-card {
+  background-color: #FFFFFF;
+  border-left: 5px solid var(--color-wine);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-md);
+  border-top: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.art-quick-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-wine);
+  margin-bottom: 0.8rem;
+}
+
+.art-quick-text {
+  font-size: 1.12rem;
+  color: var(--color-text-primary);
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+/* Bloques de sección */
+.art-block {
+  margin-bottom: 3rem;
+}
+
+.art-h2 {
+  font-size: 1.65rem;
+  color: var(--color-wine);
+  margin-bottom: 1.2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-cream);
+}
+
+/* Paso 3: Ejemplo cotidiano */
+.art-example-box {
+  background-color: var(--color-cream);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  font-size: 1.02rem;
+  color: var(--color-ink);
+  line-height: 1.7;
+  border-left: 4px solid var(--color-gold);
+}
+
+/* Paso 4: Explicación jurídica */
+.art-legal-content {
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  line-height: 1.75;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Paso 5: Checklist */
+.art-checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.art-check-col {
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  border: 1px solid var(--color-border);
+}
+
+.art-check-col-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.art-check-dos {
+  background-color: #F4FBF6;
+  border-color: #BDE4CB;
+  color: #1A542D;
+}
+
+.art-check-dos .art-check-col-title {
+  color: #1A542D;
+}
+
+.art-check-donts {
+  background-color: #FCF5F5;
+  border-color: #EBC1C4;
+  color: #7D151F;
+}
+
+.art-check-donts .art-check-col-title {
+  color: #7D151F;
+}
+
+.art-check-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.art-check-col li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.art-check-dos li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.art-check-donts li::before {
+  content: "✕";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Paso 6: FAQs */
+.art-faqs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.art-faq-card {
+  background-color: #FFFFFF;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--color-border);
+}
+
+.art-faq-q {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  color: var(--color-wine);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+}
+
+.art-faq-a {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  padding-left: 1.7rem;
+}
+
+/* Paso 7: CTA Banner */
+.art-cta-banner {
+  background: linear-gradient(135deg, #350108 0%, #1A0004 100%);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  color: var(--color-paper);
+  text-align: center;
+  margin: 3.5rem 0;
+  border: 1px solid var(--color-border-gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.art-cta-title {
+  font-size: 1.8rem;
+  color: var(--color-paper);
+  margin-bottom: 0.8rem;
+}
+
+.art-cta-text {
+  font-size: 1.05rem;
+  color: var(--color-text-on-dark-muted);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto 1.8rem auto;
+}
+
+.art-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  font-size: 1.02rem;
+}
+
+/* Paso 8: Autoridad E-E-A-T */
+.art-eeat-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2.5rem;
+}
+
+.art-eeat-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.art-eeat-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-hover);
+}
+
+.art-eeat-name {
+  font-size: 1.3rem;
+  color: var(--color-wine);
+  margin: 0.2rem 0;
+}
+
+.art-eeat-role {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.art-eeat-credentials {
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+.art-reviewer-note {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.art-eeat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-wine);
+  transition: color var(--transition-fast);
+}
+
+.art-eeat-link:hover {
+  color: var(--color-gold);
+}
+
+/* Paso 9: Enlaces Internos */
+.art-internallinks-box {
+  background-color: var(--color-cream);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+}
+
+.art-links-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.art-link-pill {
+  display: inline-block;
+  background-color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-wine);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+}
+
+.art-link-pill:hover {
+  background-color: var(--color-wine);
+  color: var(--color-paper);
+  border-color: var(--color-wine);
+}
+
+@media (max-width: 768px) {
+  .art-checklist-grid {
+    grid-template-columns: 1fr;
+  }
+}

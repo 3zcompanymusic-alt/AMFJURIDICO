@@ -249,12 +249,16 @@ export const Formulario = () => {
   return (
     <main>
       <SEOHead pageKey="formulario" />
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '820px', margin: '0 auto' }}>
-          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <Phone size={16} />
+            <span>ATENCIÓN DIRECTA &amp; CONTACTO PRIORITARIO</span>
+          </span>
+          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
             Formulario de Contacto y Asesoría Legal
           </h1>
-          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.65' }}>
             Diligencia tus datos a continuación. El formulario organizará tu consulta y abrirá <strong>WhatsApp</strong> listo para enviar a nuestro equipo de abogados.
           </p>
         </div>

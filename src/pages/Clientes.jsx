@@ -58,8 +58,12 @@ export const Clientes = () => {
       <SEOHead pageKey="clientes" />
 
       {/* Hero Header Estándar de las Subpáginas */}
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.2rem', paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <Building2 size={16} />
+            <span>RESPALDO CORPORATIVO &amp; CONFIANZA INSTITUCIONAL</span>
+          </span>
           <h1
             className="text-serif"
             style={{

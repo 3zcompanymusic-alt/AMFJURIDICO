@@ -7,6 +7,10 @@ import { Home } from './pages/Home';
 import { FuerzaPublica } from './pages/FuerzaPublica';
 import { Planes } from './pages/Planes';
 import { DerechoPenal } from './pages/DerechoPenal';
+import { ComplianceCorporativo } from './pages/ComplianceCorporativo';
+import { CentroJuridico } from './pages/CentroJuridico';
+import { ArticuloDetalle } from './pages/ArticuloDetalle';
+import { LocalCity } from './pages/LocalCity';
 import { OtrosServicios } from './pages/OtrosServicios';
 import { Equipo } from './pages/Equipo';
 import { Ubicaciones } from './pages/Ubicaciones';
@@ -33,15 +37,34 @@ export function App() {
         <div className="page-content-wrapper">
           <Routes>
             <Route path="/" element={<Home />} />
+
+            {/* Trípode Comercial Canónico y Alias Retrocompatibles */}
+            <Route path="/suscripcion-juridica-fuerza-publica" element={<FuerzaPublica />} />
             <Route path="/fuerza-publica" element={<FuerzaPublica />} />
             <Route path="/planes" element={<Planes />} />
+
+            <Route path="/defensa-penal" element={<DerechoPenal />} />
             <Route path="/derecho-penal" element={<DerechoPenal />} />
+
+            <Route path="/compliance-penal-corporativo" element={<ComplianceCorporativo />} />
+
+            {/* Centro Jurídico & Artículos */}
+            <Route path="/centro-juridico" element={<CentroJuridico />} />
+            <Route path="/centro-juridico/:slug" element={<ArticuloDetalle />} />
+
+            {/* SEO Local Ciudades */}
+            <Route path="/bogota" element={<LocalCity cityKey="bogota" />} />
+            <Route path="/cali" element={<LocalCity cityKey="cali" />} />
+            <Route path="/medellin" element={<LocalCity cityKey="medellin" />} />
+
+            {/* Secciones Institucionales */}
             <Route path="/otros-servicios" element={<OtrosServicios />} />
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/equipo" element={<Equipo />} />
             <Route path="/ubicaciones" element={<Ubicaciones />} />
             <Route path="/formulario" element={<Formulario />} />
             <Route path="/privacidad" element={<Privacidad />} />
+
             {/* 404 — ruta catch-all real */}
             <Route path="*" element={<NotFound />} />
           </Routes>

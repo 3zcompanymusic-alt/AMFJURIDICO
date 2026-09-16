@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './FuerzaPublica.css';
 import { SEOHead } from '../components/SEOHead';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
@@ -17,7 +17,8 @@ import {
   X,
   Sparkles,
   Info,
-  ChevronRight
+  ChevronRight,
+  BookOpen
 } from 'lucide-react';
 import { whatsappLink, WA_MESSAGES, PAYMENT_LINKS } from '../config/siteConfig';
 
@@ -138,9 +139,13 @@ export const FuerzaPublica = () => {
         })}</script>
       </Helmet>
       {/* SECCIÓN ENCABEZADO ESTÁNDAR */}
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.2rem', paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <ShieldCheck size={16} />
+            <span>SUSCRIPCIÓN JURÍDICA &amp; FUERZA PÚBLICA</span>
+          </span>
+          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
             Suscripción Jurídica para Fuerza Pública
           </h1>
 
@@ -580,6 +585,69 @@ export const FuerzaPublica = () => {
           </div>
         </div>
       )}
+
+      {/* SECCIÓN ARTÍCULOS Y GUÍAS PRÁCTICAS PARA FUERZA PÚBLICA */}
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem auto' }}>
+            <span className="badge badge-gold" style={{ marginBottom: '0.8rem' }}>
+              <BookOpen size={14} /> CENTRO JURÍDICO ESPECIALIZADO
+            </span>
+            <h2 className="text-serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.7rem)', color: 'var(--color-wine)', marginBottom: '0.8rem' }}>
+              Guías Procesales para Miembros del Uniforme
+            </h2>
+            <p style={{ fontSize: '1.05rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
+              Conoce tus garantías y términos perentorios ante investigaciones disciplinarias y decisiones administrativas del mando institucional.
+            </p>
+          </div>
+
+          <div className="grid-2" style={{ gap: '2rem' }}>
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  ESTATUTO DISCIPLINARIO POLICIAL
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.35rem', color: 'var(--color-wine)', margin: '0.6rem 0 0.8rem 0' }}>
+                  Investigación disciplinaria bajo la Ley 2196 de 2022
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                  ¿Cuándo necesitas un abogado defensor? Diferencias entre indagación previa e investigación formal, recaudación de minutas y protección de tu hoja de vida y ascenso.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/investigacion-disciplinaria-policia-nacional-ley-2196"
+                className="btn btn-secondary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <span>Leer Guía Paso a Paso</span>
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  NULIDAD Y RESTABLECIMIENTO DEL DERECHO
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.35rem', color: 'var(--color-wine)', margin: '0.6rem 0 0.8rem 0' }}>
+                  Retiro por facultad discrecional: demanda de reintegro
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                  Término fatal de 4 meses para demandar ante el Tribunal Administrativo. Cómo desvirtuar la desviación de poder y lograr el reintegro al escalafón con sueldos caídos indexados.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/demanda-retiro-discrecional-policia-nacional-reintegro"
+                className="btn btn-secondary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <span>Leer Guía Paso a Paso</span>
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Final Fuerza Pública */}
       <section className="section section-dark" style={{ textAlign: 'center' }}>

@@ -45,14 +45,23 @@ export const Navbar = () => {
   }, []);
 
   const navItems = [
-    { label: 'Fuerza Pública', path: '/fuerza-publica' },
-    { label: 'Derecho Penal 24/7', path: '/derecho-penal' },
-    { label: 'Planes', path: '/planes' },
-    { label: 'Otros Servicios', path: '/otros-servicios' },
+    { label: 'Fuerza Pública', path: '/suscripcion-juridica-fuerza-publica' },
+    { label: 'Defensa Penal 24/7', path: '/defensa-penal' },
+    { label: 'Compliance Empresas', path: '/compliance-penal-corporativo' },
+    { label: 'Centro Jurídico', path: '/centro-juridico' },
     { label: 'Clientes', path: '/clientes' },
     { label: 'Equipo', path: '/equipo' },
-    { label: 'Ubicaciones', path: '/ubicaciones' },
+    { label: 'Sedes', path: '/ubicaciones' },
   ];
+
+  const isLinkActive = (itemPath) => {
+    if (location.pathname === itemPath) return true;
+    if (itemPath === '/suscripcion-juridica-fuerza-publica' && (location.pathname === '/fuerza-publica' || location.pathname === '/planes')) return true;
+    if (itemPath === '/defensa-penal' && location.pathname === '/derecho-penal') return true;
+    if (itemPath === '/centro-juridico' && location.pathname.startsWith('/centro-juridico')) return true;
+    if (itemPath === '/ubicaciones' && (location.pathname === '/bogota' || location.pathname === '/cali' || location.pathname === '/medellin')) return true;
+    return false;
+  };
 
   return (
     <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''} ${isDarkNav ? 'navbar-dark' : ''}`}>
@@ -65,6 +74,10 @@ export const Navbar = () => {
               src={isDarkNav ? logoCrema : logoWine}
               alt="AMF Firma Legal - Abogados en Colombia"
               className="navbar-logo-img"
+              width={160}
+              height={48}
+              fetchpriority="high"
+              decoding="async"
               onError={(e) => {
                 // Fallback text if logo file is not loaded
                 e.target.style.display = 'none';
@@ -84,7 +97,7 @@ export const Navbar = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                    className={`nav-link ${isLinkActive(item.path) ? 'active' : ''}`}
                   >
                     {item.label}
                   </Link>
@@ -135,10 +148,10 @@ export const Navbar = () => {
                 onClick={() => setMobileOpen(false)}
                 style={{
                   fontSize: '1.05rem',
-                  fontWeight: location.pathname === item.path ? '700' : '500',
+                  fontWeight: isLinkActive(item.path) ? '700' : '500',
                   color: isDarkNav
-                    ? (location.pathname === item.path ? 'var(--color-gold)' : 'var(--color-paper)')
-                    : (location.pathname === item.path ? '#34110B' : 'var(--color-ink)'),
+                    ? (isLinkActive(item.path) ? 'var(--color-gold)' : 'var(--color-paper)')
+                    : (isLinkActive(item.path) ? '#34110B' : 'var(--color-ink)'),
                   padding: '0.85rem 0.5rem',
                   display: 'flex',
                   alignItems: 'center',

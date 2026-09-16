@@ -11,12 +11,16 @@ export const Planes = () => {
     <main>
       <SEOHead pageKey="planes" />
       {/* Header Planes */}
-      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.2rem', paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', paddingTop: '2.5rem', paddingBottom: '3.2rem' }}>
+        <div className="container text-center" style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <span className="badge badge-wine" style={{ marginBottom: '1rem' }}>
+            <ShieldCheck size={16} />
+            <span>SUSCRIPCIÓN JURÍDICA &amp; PLANES MENSUALES</span>
+          </span>
+          <h1 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', color: 'var(--color-wine)', marginBottom: '1rem' }}>
             Elige el nivel de protección que necesitas
           </h1>
-          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: '1.65' }}>
             Sin sorpresas ni costos ocultos. Todas nuestras suscripciones incluyen consultas jurídicas ilimitadas y respaldo ante problemas de salud o derechos fundamentales.
           </p>
         </div>

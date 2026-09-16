@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Home.css';
 import { SEOHead } from '../components/SEOHead';
 import {
@@ -16,7 +16,8 @@ import {
   Gavel,
   HeartPulse,
   Landmark,
-  Briefcase
+  Briefcase,
+  BookOpen
 } from 'lucide-react';
 import { InteractiveCarousel } from '../components/InteractiveCarousel';
 import { whatsappLink, WA_MESSAGES, getAssetUrl } from '../config/siteConfig';
@@ -99,7 +100,7 @@ export const Home = () => {
             {/* 1. Suscripciones Fuerza Pública */}
             <div
               className="card"
-              onClick={() => navigate('/fuerza-publica')}
+              onClick={() => navigate('/suscripcion-juridica-fuerza-publica')}
               style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#FFF' }}
             >
               <div>
@@ -110,7 +111,7 @@ export const Home = () => {
                   Suscripciones Fuerza Pública
                 </h3>
                 <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                  Protección mensual para Policía Nacional, Ejército, Armada y FAC. Consultas ilimitadas, procesos disciplinarios y respaldo constitucional familiar.
+                  Protección mensual continua para Policía Nacional, Ejército, Armada y FAC. Investigaciones disciplinarias (Ley 2196), penal militar y respaldo familiar.
                 </p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.95rem' }}>
@@ -121,7 +122,7 @@ export const Home = () => {
             {/* 2. Defensa Penal 24/7 */}
             <div
               className="card"
-              onClick={() => navigate('/derecho-penal')}
+              onClick={() => navigate('/defensa-penal')}
               style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#FFF' }}
             >
               <div>
@@ -130,7 +131,7 @@ export const Home = () => {
                   Defensa Penal Estratégica 24/7
                 </h3>
                 <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                  Respuesta inmediata ante capturas, investigaciones, citaciones de Fiscalía, audiencias y delitos de alta complejidad procesal.
+                  Respuesta inmediata ante capturas, flagrancia, citaciones de Fiscalía, audiencias de control de garantías y litigio penal complejo en Colombia.
                 </p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.95rem' }}>
@@ -138,7 +139,27 @@ export const Home = () => {
               </div>
             </div>
 
-            {/* 3. Justicia Penal Militar & Policial */}
+            {/* 3. Compliance & Penal Corporativo */}
+            <div
+              className="card"
+              onClick={() => navigate('/compliance-penal-corporativo')}
+              style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#FFF' }}
+            >
+              <div>
+                <Building2 size={36} className="text-gold" style={{ marginBottom: '1rem' }} />
+                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-wine)', marginBottom: '0.6rem', fontFamily: 'var(--font-serif)' }}>
+                  Compliance &amp; Penal Corporativo
+                </h3>
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+                  Blindaje para empresas y directivos. Circular 100-000020 de 2026 de Supersociedades (SAGRILAFT/PTEE), investigaciones internas y prevención penal.
+                </p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.95rem' }}>
+                <span>Ver compliance corporativo →</span>
+              </div>
+            </div>
+
+            {/* 4. Justicia Penal Militar & Policial */}
             <div
               className="card"
               onClick={() => navigate('/otros-servicios')}
@@ -158,7 +179,7 @@ export const Home = () => {
               </div>
             </div>
 
-            {/* 4. Protección Constitucional & Familiar */}
+            {/* 5. Protección Constitucional & Familiar */}
             <div
               className="card"
               onClick={() => navigate('/otros-servicios')}
@@ -178,7 +199,7 @@ export const Home = () => {
               </div>
             </div>
 
-            {/* 5. Derecho Disciplinario & Administrativo */}
+            {/* 6. Disciplinario, Administrativo & Civil */}
             <div
               className="card"
               onClick={() => navigate('/otros-servicios')}
@@ -197,50 +218,30 @@ export const Home = () => {
                 <span>Ver defensa disciplinaria →</span>
               </div>
             </div>
-
-            {/* 6. Otras Áreas Jurídicas Especializadas */}
-            <div
-              className="card"
-              onClick={() => navigate('/otros-servicios')}
-              style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#FFF' }}
-            >
-              <div>
-                <Briefcase size={36} className="text-gold" style={{ marginBottom: '1rem' }} />
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-wine)', marginBottom: '0.6rem', fontFamily: 'var(--font-serif)' }}>
-                  Familia, Civil & Laboral
-                </h3>
-                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                  Asesoría y representación en controversias de derecho de familia, patrimoniales, laborales e insolvencia de personas naturales.
-                </p>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.95rem' }}>
-                <span>Ver otras áreas →</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. GRAN CTA FINAL */}
+      {/* 5. GRAN CTA FINAL (TRÍPODE COMERCIAL) */}
       <section className="section section-dark" style={{ textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div className="container container-narrow" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
 
           <h2 className="text-serif" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', color: 'var(--color-paper)', marginBottom: '1.2rem' }}>
             No necesitas saber qué tipo de abogado necesitas.<br />
             <span style={{ color: 'var(--color-gold)', fontStyle: 'italic' }}>Solo cuéntanos qué está pasando.</span>
           </h2>
 
-          <p style={{ fontSize: '1.2rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '2.5rem' }}>
-            En AMF escuchamos tu situación, evaluamos tus riesgos y te damos una solución clara de inmediato.
+          <p style={{ fontSize: '1.2rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '2.5rem', maxWidth: '800px', margin: '0 auto 2.5rem auto' }}>
+            En AMF escuchamos tu situación, evaluamos tus riesgos y te damos una solución jurídica clara de inmediato.
           </p>
 
-          <div className="grid-2" style={{ gap: '1.8rem', maxWidth: '820px', margin: '0 auto' }}>
+          <div className="grid-3" style={{ gap: '1.8rem', maxWidth: '1180px', margin: '0 auto' }}>
 
-            {/* Tarjeta 1: Fuerza Pública con background del carrusel y bandera de Colombia en la esquina */}
+            {/* Tarjeta 1: Fuerza Pública */}
             <div
               className="card card-dark"
               style={{
-                padding: '2.2rem',
+                padding: '2rem',
                 textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
@@ -254,30 +255,30 @@ export const Home = () => {
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>PROTECCIÓN PERMANENTE</span>
-                  <ColombiaFlagIcon width={36} height={24} />
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>CARRERA &amp; FAMILIA</span>
+                  <ColombiaFlagIcon width={34} height={22} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
                   Soy Fuerza Pública
                 </h3>
-                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
-                  Quiero suscripción con consultas ilimitadas y protección familiar.
+                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
+                  Suscripción continua ante investigaciones disciplinarias, penal militar y protección familiar.
                 </p>
               </div>
               <button
-                onClick={() => navigate('/planes')}
+                onClick={() => navigate('/suscripcion-juridica-fuerza-publica')}
                 className="btn btn-gold"
-                style={{ width: '100%', fontSize: '0.98rem' }}
+                style={{ width: '100%', fontSize: '0.95rem' }}
               >
                 Ver suscripciones →
               </button>
             </div>
 
-            {/* Tarjeta 2: Defensa Penal con background #1d0304, botón dorado e icono de WhatsApp */}
+            {/* Tarjeta 2: Defensa Penal */}
             <div
               className="card card-dark"
               style={{
-                padding: '2.2rem',
+                padding: '2rem',
                 textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
@@ -292,30 +293,176 @@ export const Home = () => {
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>NECESITO ACTUAR AHORA</span>
-                  <Scale size={28} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>LIBERTAD &amp; URGENCIAS</span>
+                  <Scale size={26} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
                 </div>
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
-                  Tengo una situación penal
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
+                  Tengo una urgencia penal
                 </h3>
-                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
-                  Investigaciones, citaciones, capturas u orientación penal 24/7.
+                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
+                  Capturas, primeras 36 horas, audiencias concentradas y citaciones de Fiscalía 24/7.
                 </p>
               </div>
               <button
                 onClick={() => window.open(whatsappLink(undefined, WA_MESSAGES.DESDE_PENAL), '_blank')}
                 className="btn btn-gold"
-                style={{ width: '100%', fontSize: '0.98rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                style={{ width: '100%', fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
               >
-                <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
-                <span>Hablar con AMF 24/7 →</span>
+                <WhatsAppIcon size={18} />
+                <span>Hablar con Penalista 24/7 →</span>
+              </button>
+            </div>
+
+            {/* Tarjeta 3: Compliance Empresarial */}
+            <div
+              className="card card-dark"
+              style={{
+                padding: '2rem',
+                textAlign: 'left',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                background: 'linear-gradient(135deg, rgba(20, 1, 4, 0.94) 0%, rgba(45, 2, 7, 0.9) 100%)',
+                border: '1px solid var(--color-border-gold)',
+                boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)'
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>EMPRESA &amp; DIRECTIVOS</span>
+                  <Building2 size={26} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
+                </div>
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
+                  Represento a una empresa
+                </h3>
+                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
+                  Prevención penal corporativa, Circular 100-000020 de 2026 e investigaciones internas.
+                </p>
+              </div>
+              <button
+                onClick={() => navigate('/compliance-penal-corporativo')}
+                className="btn btn-gold"
+                style={{ width: '100%', fontSize: '0.95rem' }}
+              >
+                Ver blindaje empresarial →
               </button>
             </div>
 
           </div>
 
+        </div>
+      </section>
+
+      {/* 4. CENTRO JURÍDICO: GUÍAS & RESPUESTAS INMEDIATAS */}
+      <section className="section" style={{ backgroundColor: 'var(--color-cream)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem auto' }}>
+            <span className="badge badge-gold" style={{ marginBottom: '0.8rem' }}>
+              <BookOpen size={14} /> CONOCIMIENTO JURÍDICO PRÁCTICO
+            </span>
+            <h2 className="text-serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.7rem)', color: 'var(--color-wine)', marginBottom: '0.8rem' }}>
+              Centro Jurídico AMF: Respuestas Claras a Dudas Reales
+            </h2>
+            <p style={{ fontSize: '1.05rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
+              Artículos prácticos estructurados en 10 pasos con sustento legal, casos reales y qué hacer de inmediato para no perjudicar tu situación.
+            </p>
+          </div>
+
+          <div className="grid-2" style={{ gap: '1.8rem' }}>
+            {/* Guía 1 */}
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '1.8rem' }}>
+              <div>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-wine)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  URGENCIA PENAL 24/7
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.25rem', color: 'var(--color-wine)', margin: '0.5rem 0 0.8rem 0' }}>
+                  ¿Qué hacer si capturan a un familiar en Colombia? Guía de las primeras 36 horas
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.2rem' }}>
+                  Término perentorio del Artículo 28 constitucional, audiencias concentradas preliminares y el papel decisivo del arraigo familiar y laboral.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/que-hacer-captura-familiar-colombia-primeras-36-horas"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+              >
+                <span>Leer guía completa →</span>
+              </Link>
+            </div>
+
+            {/* Guía 2 */}
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '1.8rem' }}>
+              <div>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-wine)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  INDAGACIÓN PREVIA
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.25rem', color: 'var(--color-wine)', margin: '0.5rem 0 0.8rem 0' }}>
+                  ¿Qué hacer si me citaron a interrogatorio en la Fiscalía General de la Nación?
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.2rem' }}>
+                  Por qué nunca debes acudir solo ni rendir declaraciones informales. Derecho fundamental a guardar silencio (Art. 33 CP) y defensa técnica.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/que-hacer-me-citaron-interrogatorio-fiscalia"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+              >
+                <span>Leer guía completa →</span>
+              </Link>
+            </div>
+
+            {/* Guía 3 */}
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '1.8rem' }}>
+              <div>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-wine)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  FUERZA PÚBLICA
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.25rem', color: 'var(--color-wine)', margin: '0.5rem 0 0.8rem 0' }}>
+                  Investigación disciplinaria en la Policía Nacional (Ley 2196 de 2022)
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.2rem' }}>
+                  Cuándo requieres abogado particular, cómo solicitar pruebas técnicas y cómo blindar tu ascenso y estabilidad económica.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/investigacion-disciplinaria-policia-nacional-ley-2196"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+              >
+                <span>Leer guía completa →</span>
+              </Link>
+            </div>
+
+            {/* Guía 4 */}
+            <div className="card" style={{ backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '1.8rem' }}>
+              <div>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-wine)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  COMPLIANCE EMPRESARIAL
+                </span>
+                <h3 className="text-serif" style={{ fontSize: '1.25rem', color: 'var(--color-wine)', margin: '0.5rem 0 0.8rem 0' }}>
+                  Circular 100-000020 de 2026: Nuevo Sistema Integral de Riesgos (SAGRILAFT/PTEE)
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '1.2rem' }}>
+                  Análisis práctico de la unificación normativa de Supersociedades, debida diligencia de contrapartes y prevención penal directiva.
+                </p>
+              </div>
+              <Link
+                to="/centro-juridico/circular-100-000020-supersociedades-nuevo-sistema-riesgos-sagrilaft-ptee"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+              >
+                <span>Leer guía completa →</span>
+              </Link>
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <button
+              onClick={() => navigate('/centro-juridico')}
+              className="btn btn-primary"
+            >
+              <span>Explorar todos los artículos en el Centro Jurídico</span>
+              <ArrowRight size={18} />
+            </button>
+          </div>
         </div>
       </section>
 

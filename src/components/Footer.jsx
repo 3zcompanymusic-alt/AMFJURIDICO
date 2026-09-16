@@ -35,49 +35,68 @@ export const Footer = () => {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.95rem' }}>
               <li>
-                <Link to="/fuerza-publica" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                <Link to="/suscripcion-juridica-fuerza-publica" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
                   Suscripciones Fuerza Pública
                 </Link>
               </li>
               <li>
-                <Link to="/planes" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
-                  Planes y Precios (Escudo, Fortaleza, Bastión)
-                </Link>
-              </li>
-              <li>
-                <Link to="/derecho-penal" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                <Link to="/defensa-penal" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
                   Defensa Penal Estratégica 24/7
                 </Link>
               </li>
               <li>
-                <Link to="/otros-servicios" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
-                  Otras Áreas Jurídicas
+                <Link to="/compliance-penal-corporativo" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                  Compliance &amp; Penal Corporativo
+                </Link>
+              </li>
+              <li>
+                <Link to="/centro-juridico" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                  Centro Jurídico &amp; Guías Legales
+                </Link>
+              </li>
+              <li>
+                <Link to="/planes" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                  Planes (Escudo, Fortaleza, Bastión)
                 </Link>
               </li>
               <li>
                 <Link to="/clientes" style={{ color: 'var(--color-text-on-dark-muted)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
-                  Clientes Corporativos
+                  Clientes &amp; Aliados
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Atención Presencial & Transparencia */}
+          {/* Column 3: Atención Presencial & Sedes Locales */}
           <div>
             <h4 style={{ color: 'var(--color-gold)', fontSize: '1.1rem', marginBottom: '1.2rem', fontFamily: 'var(--font-serif)' }}>
-              Atención Presencial & Virtual
+              Sedes &amp; Cobertura Local
             </h4>
-            <p style={{ color: 'var(--color-text-on-dark-muted)', fontSize: '0.9rem', marginBottom: '1rem', lineHeight: '1.5' }}>
-              Atención presencial siempre mediante <strong>agendamiento previo</strong> en nuestras sedes de Bogotá, Cali, Piendamó y Medellín.
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.92rem', marginBottom: '1.2rem' }}>
+              <li>
+                <Link to="/bogota" style={{ color: 'var(--color-text-on-dark-muted)' }}>
+                  • Abogados en Bogotá (Bulevar Tequendama)
+                </Link>
+              </li>
+              <li>
+                <Link to="/cali" style={{ color: 'var(--color-text-on-dark-muted)' }}>
+                  • Abogados en Cali (Calle 5)
+                </Link>
+              </li>
+              <li>
+                <Link to="/medellin" style={{ color: 'var(--color-text-on-dark-muted)' }}>
+                  • Abogados en Medellín (Agendamiento Previo)
+                </Link>
+              </li>
+              <li>
+                <Link to="/ubicaciones" style={{ color: 'var(--color-text-on-dark-muted)' }}>
+                  • Todas las Sedes &amp; Piendamó
+                </Link>
+              </li>
+            </ul>
+            <p style={{ color: 'var(--color-text-on-dark-muted)', fontSize: '0.82rem', opacity: 0.85, lineHeight: '1.4' }}>
+              * Atención presencial mediante agendamiento previo.
             </p>
-            <Link
-              to="/ubicaciones"
-              className="btn btn-outline-light"
-              style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', width: 'fit-content' }}
-            >
-              Ver Sedes y Agendamiento
-              <ArrowUpRight size={14} />
-            </Link>
           </div>
 
           {/* Column 4: Contacto Directo */}
