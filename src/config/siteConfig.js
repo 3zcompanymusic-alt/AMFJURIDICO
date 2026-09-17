@@ -16,9 +16,9 @@ export const CONTACT_EMAIL = "notificaciones@amfjuridico.com";
 export const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // ← REEMPLAZAR CON TU CLAVE REAL
 
 export const PAYMENT_LINKS = {
-  escudo: "",   // PLACEHOLDER: URL de pasarela para el Plan Escudo ($59.900/mes)
-  fortaleza: "", // PLACEHOLDER: URL de pasarela para el Plan Fortaleza ($79.900/mes)
-  bastion: ""    // PLACEHOLDER: URL de pasarela para el Plan Bastión ($119.900/mes)
+  escudo: "https://checkout.wompi.co/l/test_56ctzs",   // Link Wompi Sandbox de prueba
+  fortaleza: "https://checkout.wompi.co/l/test_56ctzs", // Link Wompi Sandbox de prueba
+  bastion: "https://checkout.wompi.co/l/test_56ctzs"    // Link Wompi Sandbox de prueba
 };
 
 /**
