@@ -16,9 +16,9 @@ export const CONTACT_EMAIL = "notificaciones@amfjuridico.com";
 export const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // ← REEMPLAZAR CON TU CLAVE REAL
 
 export const PAYMENT_LINKS = {
-  escudo: "https://checkout.wompi.co/l/test_56ctzs",   // Link Wompi Sandbox de prueba
-  fortaleza: "https://checkout.wompi.co/l/test_56ctzs", // Link Wompi Sandbox de prueba
-  bastion: "https://checkout.wompi.co/l/test_56ctzs"    // Link Wompi Sandbox de prueba
+  escudo: "https://subscription-landing.epayco.co/plan/ab49ea65bc656146d052e87",   // Link ePayco suscripción recurrente de prueba
+  fortaleza: "https://subscription-landing.epayco.co/plan/ab49ea65bc656146d052e87", // Link ePayco suscripción recurrente de prueba
+  bastion: "https://subscription-landing.epayco.co/plan/ab49ea65bc656146d052e87"    // Link ePayco suscripción recurrente de prueba
 };
 
 /**

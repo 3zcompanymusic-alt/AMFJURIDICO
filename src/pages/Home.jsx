@@ -259,10 +259,10 @@ export const Home = () => {
                   <ColombiaFlagIcon width={34} height={22} />
                 </div>
                 <h3 style={{ fontSize: '1.35rem', color: 'var(--color-paper)', margin: '0.5rem 0 0.8rem 0', fontFamily: 'var(--font-serif)' }}>
-                  Soy Fuerza Pública
+                  Soy integrante de la Fuerza Pública
                 </h3>
                 <p style={{ fontSize: '0.92rem', color: 'var(--color-text-on-dark-muted)', marginBottom: '1.8rem', lineHeight: '1.55' }}>
-                  Suscripción continua ante investigaciones disciplinarias, penal militar y protección familiar.
+                  Policía Nacional, Ejército Nacional, Armada de Colombia, Fuerza Aeroespacial Colombiana e INPEC. Planes jurídicos con consultas ilimitadas y defensa disciplinaria incluida.
                 </p>
               </div>
               <button
@@ -270,7 +270,7 @@ export const Home = () => {
                 className="btn btn-gold"
                 style={{ width: '100%', fontSize: '0.95rem' }}
               >
-                Ver suscripciones →
+                Conocer planes y coberturas
               </button>
             </div>
 
@@ -384,9 +384,11 @@ export const Home = () => {
               </div>
               <Link
                 to="/centro-juridico/que-hacer-captura-familiar-colombia-primeras-36-horas"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', padding: '0.75rem 1rem', fontSize: '0.92rem' }}
               >
-                <span>Leer guía completa →</span>
+                <span>Leer guía completa</span>
+                <ArrowRight size={16} />
               </Link>
             </div>
 
@@ -405,9 +407,11 @@ export const Home = () => {
               </div>
               <Link
                 to="/centro-juridico/que-hacer-me-citaron-interrogatorio-fiscalia"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', padding: '0.75rem 1rem', fontSize: '0.92rem' }}
               >
-                <span>Leer guía completa →</span>
+                <span>Leer guía completa</span>
+                <ArrowRight size={16} />
               </Link>
             </div>
 
@@ -426,9 +430,11 @@ export const Home = () => {
               </div>
               <Link
                 to="/centro-juridico/investigacion-disciplinaria-policia-nacional-ley-2196"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', padding: '0.75rem 1rem', fontSize: '0.92rem' }}
               >
-                <span>Leer guía completa →</span>
+                <span>Leer guía completa</span>
+                <ArrowRight size={16} />
               </Link>
             </div>
 
@@ -447,9 +453,11 @@ export const Home = () => {
               </div>
               <Link
                 to="/centro-juridico/circular-100-000020-supersociedades-nuevo-sistema-riesgos-sagrilaft-ptee"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-gold)', fontWeight: 700, fontSize: '0.92rem' }}
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', padding: '0.75rem 1rem', fontSize: '0.92rem' }}
               >
-                <span>Leer guía completa →</span>
+                <span>Leer guía completa</span>
+                <ArrowRight size={16} />
               </Link>
             </div>
           </div>

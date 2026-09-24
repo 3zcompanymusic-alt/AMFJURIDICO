@@ -45,7 +45,7 @@ export const Navbar = () => {
   }, []);
 
   const navItems = [
-    { label: 'Fuerza Pública', path: '/suscripcion-juridica-fuerza-publica' },
+    { label: 'Planes para uniformados', path: '/suscripcion-juridica-fuerza-publica' },
     { label: 'Defensa Penal 24/7', path: '/defensa-penal' },
     { label: 'Compliance Empresas', path: '/compliance-penal-corporativo' },
     { label: 'Centro Jurídico', path: '/centro-juridico' },

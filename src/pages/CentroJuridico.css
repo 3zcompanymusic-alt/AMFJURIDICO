@@ -173,16 +173,17 @@
 
 .cj-card-footer {
   border-top: 1px solid var(--color-border);
-  padding-top: 1.2rem;
+  padding-top: 1.1rem;
+  margin-top: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.9rem;
 }
 
 .cj-author-info {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 
 .cj-author-avatar {
@@ -190,29 +191,59 @@
   height: 34px;
   border-radius: var(--radius-full);
   background-color: var(--color-cream);
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .cj-author-name {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--color-ink);
   line-height: 1.2;
 }
 
 .cj-author-role {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--color-text-muted);
   line-height: 1.2;
 }
 
-.cj-readmore-link {
+.cj-read-btn {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.88rem;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.82rem 1.25rem;
+  background-color: var(--card-accent, var(--color-wine));
+  color: #ffffff;
   font-weight: 700;
-  color: var(--color-gold);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
 }
+
+.cj-read-arrow {
+  color: #f7c96d;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.cj-article-card:hover .cj-read-btn {
+  filter: brightness(1.15);
+  border-color: #f7c96d;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+}
+
+.cj-article-card:hover .cj-read-arrow {
+  transform: translateX(5px);
+}
+

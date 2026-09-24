@@ -924,6 +924,486 @@ export const ARTICLES_DATA = [
       { text: "Atención corporativa en Bogotá", url: "/bogota" },
       { text: "Atención corporativa en Medellín", url: "/medellin" }
     ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – PROCESO PENAL Y PRUEBA
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "me-denunciaron-penalmente-no-me-llama-la-fiscalia",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Me denunciaron penalmente, pero todavía no me llama la Fiscalía: ¿qué debo hacer?",
+    metaTitle: "Me denunciaron penalmente y no me llama la Fiscalía: ¿qué hago? | AMF Legal",
+    metaDescription: "Si te denunciaron penalmente pero aún no recibes citación de la Fiscalía, conviene verificar el estado del proceso y preservar evidencia desde ya. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Juzgados Penales de Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "Conviene verificar si existe actuación, su estado y la calidad en la que aparece la persona. También deben preservarse chats, documentos, videos y demás información relevante desde el primer momento, antes de que la Fiscalía se comunique.",
+    example: "Una persona se entera por terceros de que su ex pareja la denunció por violencia intrafamiliar hace tres meses. No ha recibido citación alguna. Sin embargo, el proceso puede estar activo en el SPOA y su situación procesal ya puede estar definida. Actuar tarde puede costar la oportunidad de aportar pruebas favorables en la etapa de indagación.",
+    legalExplanation: `El sistema penal acusatorio colombiano (Ley 906 de 2004) prevé una etapa de indagación previa que puede durar meses sin que el indiciado sea notificado formalmente:\n\n1. **Verificación del SPOA:** Mediante número de cédula o nombre, un abogado puede consultar si existe noticia criminal activa, el fiscal asignado y la etapa procesal.\n2. **Calidad procesal:** No es igual ser testigo, víctima o indiciado. La estrategia varía según la calidad asignada.\n3. **Preservación anticipada de pruebas:** Chats, correos, registros de ubicación, contratos, fotografías y videos deben asegurarse desde ya. La evidencia puede desaparecer o ser alterada con el tiempo.\n4. **Presentación voluntaria:** En algunos casos conviene presentarse ante el fiscal de conocimiento antes de recibir citación, lo que puede demostrar arraigo y buena fe.`,
+    checklist: {
+      dos: ["Consultar con un abogado si existe proceso activo en el SPOA.", "Preservar toda comunicación relevante sin alterarla.", "Documentar pruebas de arraigo y actividad laboral.", "Identificar testigos que puedan respaldar su versión."],
+      donts: ["No contactar a quien denunció para reclamar o intentar convencerla.", "No eliminar conversaciones ni registros digitales.", "No esperar pasivamente la citación sin tomar medidas de defensa."]
+    },
+    faqs: [
+      { question: "¿Cómo sé si la Fiscalía me tiene en la mira?", answer: "Un abogado puede consultar el Sistema Penal Oral Acusatorio (SPOA) con sus datos y verificar si existe noticia criminal activa, su estado y la calidad procesal asignada." },
+      { question: "¿Puedo hacer algo antes de que me citen?", answer: "Sí. Puede preservar pruebas, identificar testigos, consultar el estado del proceso y preparar su defensa técnica antes de la primera diligencia." },
+      { question: "¿Qué riesgo tiene no hacer nada?", answer: "El proceso puede avanzar sin su conocimiento. Si la Fiscalía decide imputar cargos, llegar sin defensa técnica preparada puede costar libertad y oportunidades procesales." }
+    ],
+    cta: { badge: "Defensa Penal Estratégica", title: "¿Te denunciaron y no sabes qué está pasando?", text: "Verificamos el estado del proceso, tu calidad procesal y diseñamos la estrategia de defensa desde el primer momento.", buttonText: "Consultar mi Situación Penal", waMessage: "Hola, me denunciaron penalmente pero no he recibido citación y quiero saber qué está pasando en el proceso." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+  {
+    slug: "me-llamo-la-fiscalia-tengo-que-ir-con-abogado",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Me llamó la Fiscalía: ¿tengo que ir con abogado?",
+    metaTitle: "Me llamó la Fiscalía: ¿debo ir con abogado? | AMF Legal",
+    metaDescription: "Depende de la calidad de la citación. No es igual ser testigo que indiciado. Antes de declarar conviene conocer el objeto de la diligencia y los derechos aplicables.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", avatar: "/assets/Equipo fotos/Esteban Avila.png", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    reviewer: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", credentials: "Ex funcionario judicial con amplia trayectoria en litigio penal." },
+    quickAnswer: "Depende de la calidad de la citación. No es igual ser testigo que indiciado. Antes de asistir a cualquier diligencia, conviene conocer el objeto exacto de la misma y los derechos que aplican según su calidad procesal.",
+    example: "Una persona recibe llamada del CTI citándola 'para rendir declaración'. Sin conocer su calidad —testigo o indiciado— acude sola y termina haciendo manifestaciones que el fiscal registra como indicios de responsabilidad.",
+    legalExplanation: `La Ley 906 de 2004 distingue claramente entre diligencias según la calidad del citado:\n\n1. **Testigo vs. Indiciado:** El testigo puede ser citado a entrevista o declaración. El indiciado goza de derechos adicionales, entre ellos el derecho a no autoincriminarse y a contar con defensor.\n2. **Objeto de la diligencia:** Antes de asistir, es posible —y recomendable— que el abogado consulte con la Fiscalía el propósito exacto de la citación.\n3. **Presencia de defensor:** Si la persona es indiciada o puede llegar a serlo, la presencia de un abogado en la diligencia es indispensable para garantizar el debido proceso.`,
+    checklist: {
+      dos: ["Identificar si la citación es como testigo o como indiciado.", "Consultar con un abogado antes de acudir.", "Solicitar información sobre el objeto de la diligencia.", "Acudir acompañado de defensor técnico si existe cualquier duda."],
+      donts: ["No acudir solo si sospecha que puede ser indiciado.", "No firmar actas sin haberlas leído con su abogado.", "No hacer declaraciones espontáneas antes de la diligencia."]
+    },
+    faqs: [
+      { question: "¿Puedo pedir que me informen por qué me citan?", answer: "Sí. Su abogado puede contactar al fiscal de conocimiento para conocer el objeto de la diligencia antes de la fecha fijada." },
+      { question: "¿Qué pasa si voy como testigo y terminan imputándome?", answer: "Si en el transcurso de la diligencia surge la calidad de indiciado, tiene derecho a suspender la actuación y solicitar un defensor antes de continuar." }
+    ],
+    cta: { badge: "Asesoría Previa a Diligencias", title: "¿Te citó la Fiscalía y no sabes por qué?", text: "Verificamos tu calidad procesal y te preparamos antes de cualquier diligencia para que no cometas errores que afecten tu defensa.", buttonText: "Preparar mi Asistencia a Fiscalía", waMessage: "Hola, me citó la Fiscalía y quiero saber si debo ir con abogado y cuál es mi calidad procesal." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "¿Qué hacer si me citaron a interrogatorio?", url: "/centro-juridico/que-hacer-me-citaron-interrogatorio-fiscalia" }]
+  },
+  {
+    slug: "puedo-guardar-silencio-si-me-estan-investigando",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "¿Puedo guardar silencio si me están investigando?",
+    metaTitle: "¿Puedo guardar silencio en una investigación penal en Colombia? | AMF Legal",
+    metaDescription: "Sí. El derecho a no autoincriminarse es una garantía constitucional en Colombia. Guardar silencio no equivale a aceptar responsabilidad. Guía AMF Legal.",
+    readTime: "4 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "Sí. El derecho a no autoincriminarse es una garantía constitucional (Art. 33 de la Constitución Política). Guardar silencio no equivale a aceptar responsabilidad y no puede utilizarse como indicio de culpabilidad en su contra.",
+    example: "Una persona citada como indiciada decide declarar 'para aclarar las cosas' sin asesoría previa. Sus palabras, fuera de contexto, se convierten en el principal elemento de imputación. Ejercer el silencio habría protegido su posición procesal mientras el abogado preparaba la estrategia.",
+    legalExplanation: `El artículo 33 de la Constitución Política y el artículo 282 del Código de Procedimiento Penal consagran el derecho al silencio:\n\n1. **Nadie puede ser obligado a declarar contra sí mismo:** Esta garantía aplica desde la primera diligencia hasta el juicio oral.\n2. **El silencio no es indicio de culpa:** La ley prohíbe expresamente que el ejercicio de este derecho sea presentado o interpretado como reconocimiento de responsabilidad.\n3. **Estrategia de defensa:** En muchos casos, guardar silencio mientras se recopila evidencia favorable es la decisión táctica más inteligente.`,
+    checklist: {
+      dos: ["Informar al fiscal que ejercerá su derecho a guardar silencio.", "Coordinar con su abogado qué información es estratégicamente conveniente revelar.", "Solicitar suspensión de la diligencia si no cuenta con abogado."],
+      donts: ["No declarar espontáneamente antes de consultar con su defensor.", "No sentirse obligado a 'explicar todo' para parecer colaborador.", "No firmar actas de versión libre sin revisión previa."]
+    },
+    faqs: [
+      { question: "¿El juez puede tomar el silencio como señal de culpa?", answer: "No. La ley prohíbe expresamente esta interpretación. El silencio es un derecho fundamental que no puede valorarse negativamente en ninguna etapa del proceso." },
+      { question: "¿Cuándo conviene hablar y cuándo guardar silencio?", answer: "Esta decisión debe tomarse con el abogado defensor después de analizar el expediente, las pruebas existentes y la etapa procesal. No existe una respuesta universal." }
+    ],
+    cta: { badge: "Derechos del Investigado", title: "¿Te están investigando y no sabes cómo actuar?", text: "Le explicamos cuándo ejercer el silencio y cuándo declarar puede ser favorable. La estrategia correcta puede marcar la diferencia.", buttonText: "Consultar Estrategia de Defensa", waMessage: "Hola, estoy siendo investigado penalmente y quiero saber si debo guardar silencio o cómo actuar." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Me llamó la Fiscalía, ¿qué hago?", url: "/centro-juridico/me-llamo-la-fiscalia-tengo-que-ir-con-abogado" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – DELITOS CONTRA LA ADMINISTRACIÓN PÚBLICA
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "toda-irregularidad-funcionario-publico-es-delito",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "¿Toda irregularidad cometida por un funcionario público es un delito?",
+    metaTitle: "¿Toda irregularidad de un funcionario público es un delito? | AMF Legal",
+    metaDescription: "No. Una irregularidad administrativa o disciplinaria no se convierte automáticamente en delito. Deben demostrarse todos los elementos del tipo penal. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "No. Una irregularidad administrativa o disciplinaria no se convierte automáticamente en delito. Para que exista responsabilidad penal deben demostrarse todos los elementos del tipo penal específico y la responsabilidad personal del funcionario.",
+    example: "Un alcalde firma un decreto con un error de procedimiento que provoca la nulidad del acto administrativo. Un concejal eleva denuncia penal por prevaricato. Sin embargo, el error procedimental sin dolo ni manifiesta contrariedad al derecho no configura el delito.",
+    legalExplanation: `El ordenamiento jurídico colombiano distingue claramente entre tres ámbitos de responsabilidad del funcionario público:\n\n1. **Responsabilidad disciplinaria:** Ante la Procuraduría o la oficina de control disciplinario por infracción de deberes funcionales.\n2. **Responsabilidad administrativa y civil:** Ante la jurisdicción contencioso-administrativa por daños causados al Estado o a particulares.\n3. **Responsabilidad penal:** Requiere la demostración de todos los elementos del tipo penal: conducta típica, antijurídica y culpable, con dolo o culpa según el delito específico.\n\nLa confusión entre estos ámbitos genera denuncias penales sin fundamento que afectan gravemente el buen nombre y la carrera de funcionarios que cometieron errores administrativos, no conductas delictivas.`,
+    checklist: {
+      dos: ["Analizar si la conducta cumple todos los elementos del tipo penal imputado.", "Revisar si existió dolo o si se trató de un error de procedimiento.", "Documentar la normativa aplicada y las razones de la decisión cuestionada.", "Diferencia entre el ámbito disciplinario y el penal desde el inicio."],
+      donts: ["No asumir que una denuncia penal equivale a responsabilidad penal.", "No confundir irregularidad con delito.", "No responder sin asesoría jurídica especializada."]
+    },
+    faqs: [
+      { question: "¿Puedo ser investigado por los mismos hechos en lo disciplinario y en lo penal?", answer: "Sí. Son ámbitos independientes. Los mismos hechos pueden generar actuaciones simultáneas en ambas instancias, con estrategias que deben coordinarse para evitar contradicciones." },
+      { question: "¿Qué es el principio de legalidad en materia penal?", answer: "Exige que la conducta esté exactamente definida como delito en la ley antes de la comisión del hecho. Una irregularidad no tipificada penalmente no puede generar condena." }
+    ],
+    cta: { badge: "Defensa de Funcionarios Públicos", title: "¿Lo denunciaron penalmente por una decisión administrativa?", text: "Analizamos si la conducta configura realmente un delito o si se trata de una irregularidad que corresponde a otro ámbito. La diferencia es fundamental.", buttonText: "Consultar mi Caso como Funcionario", waMessage: "Hola, soy funcionario público y me denunciaron penalmente por una decisión administrativa. Quiero saber si realmente configura un delito." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+  {
+    slug: "un-alcalde-responde-penalmente-por-todo-lo-que-hacen-sus-funcionarios",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "¿Un alcalde, secretario o director responde penalmente por todo lo que hacen sus funcionarios?",
+    metaTitle: "¿Un alcalde o director responde por todos sus funcionarios? | AMF Legal",
+    metaDescription: "No. La responsabilidad penal es personal. Para imputar a un superior deben estudiarse competencias, delegaciones, conocimiento e intervención concreta. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal." },
+    quickAnswer: "No. La responsabilidad penal es estrictamente personal. Para que un superior jerárquico sea imputado por conductas de sus subalternos, deben estudiarse sus competencias específicas, delegaciones formales, conocimiento real de los hechos e intervención concreta en la conducta.",
+    example: "Un director de contratación municipal es investigado porque un funcionario de su dependencia firmó un contrato irregular. El director puede demostrar que el trámite estaba completamente delegado, que no tuvo acceso al expediente y que no conocía las irregularidades.",
+    legalExplanation: `El principio de responsabilidad penal personal impide la responsabilidad objetiva:\n\n1. **No hay responsabilidad por el solo cargo:** Ocupar un cargo de dirección no convierte automáticamente al superior en responsable de todos los actos de sus subordinados.\n2. **Posición de garante:** En algunos casos la ley exige que quien tiene la función de vigilar y controlar responda por las omisiones que permitieron el daño. Pero esta posición debe estar claramente definida en la ley o el reglamento.\n3. **Delegación formal:** Si la función fue válidamente delegada y el delegatario actuó por fuera de las instrucciones, la responsabilidad se concentra en quien actuó materialmente.`,
+    checklist: {
+      dos: ["Documentar las delegaciones formales y sus límites.", "Demostrar qué conocimiento real tenía el superior sobre los hechos imputados.", "Revisar los manuales de funciones y los actos administrativos de delegación.", "Aportar evidencia de controles ejercidos y alertas ignoradas por otros."],
+      donts: ["No asumir responsabilidad por el solo hecho de ostentar el cargo directivo.", "No declarar sin revisar previamente qué dice el expediente sobre su intervención."]
+    },
+    faqs: [
+      { question: "¿Qué es la autoría mediata y cómo aplica a directivos?", answer: "La autoría mediata existe cuando alguien utiliza a otro como instrumento para cometer el delito. Requiere demostrar control directo sobre la decisión y el resultado, no simplemente la jerarquía." },
+      { question: "¿Puede un funcionario de menor jerarquía ser condenado sin involucrar al jefe?", answer: "Sí. La responsabilidad de cada persona se analiza individualmente. Un subalterno puede ser condenado sin que ello implique responsabilidad del superior si este no tuvo intervención ni conocimiento." }
+    ],
+    cta: { badge: "Defensa de Servidores Públicos", title: "¿Lo investigan por actos de sus subordinados?", text: "Analizamos si su intervención real configura responsabilidad penal o si se trata de una imputación por cargo sin sustento probatorio.", buttonText: "Consultar mi Caso", waMessage: "Hola, soy servidor público y me investigan por actos de mis funcionarios. Quiero saber si tengo responsabilidad penal." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "¿Toda irregularidad es un delito?", url: "/centro-juridico/toda-irregularidad-funcionario-publico-es-delito" }]
+  },
+  {
+    slug: "decision-equivocada-funcionario-es-prevaricato",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "¿Una decisión equivocada de un funcionario es automáticamente prevaricato?",
+    metaTitle: "¿Una decisión equivocada es prevaricato? | AMF Legal Colombia",
+    metaDescription: "No. El error o desacuerdo jurídico no equivale automáticamente a prevaricato. Deben acreditarse los elementos específicos del tipo penal. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "No. El error jurídico o el desacuerdo con una decisión no equivale automáticamente a prevaricato. Deben acreditarse los elementos específicos del tipo penal: una resolución, dictamen u opinión manifiestamente contraria a la ley, con dolo del funcionario.",
+    example: "Un juez niega una medida de aseguramiento que el fiscal solicitaba. El fiscal interpreta que la decisión fue injusta y eleva denuncia por prevaricato. Sin embargo, el desacuerdo jurídico y la simple equivocación —incluso grave— no configuran el delito si el funcionario actuó dentro de su margen de interpretación y sin dolo.",
+    legalExplanation: `El delito de prevaricato (Art. 413 y siguientes del Código Penal) exige elementos específicos que van más allá del simple error:\n\n1. **Manifiesta contrariedad a la ley:** La decisión debe contradecir de forma evidente y grosera la norma aplicable, no simplemente ser discutible o incorrecta.\n2. **Dolo:** El funcionario debe conocer que su decisión es contraria a derecho y querer emitirla así. El error de buena fe excluye el dolo.\n3. **Margen de interpretación:** Los jueces y funcionarios gozan de un margen de autonomía interpretativa. Las decisiones dentro de ese margen, aunque equivocadas, no configuran prevaricato.\n4. **Diferencia con la tutela o el recurso:** El mecanismo correcto para corregir decisiones erróneas es la impugnación, no la denuncia penal.`,
+    checklist: {
+      dos: ["Analizar si la decisión era realmente manifiestamente contraria a la ley.", "Demostrar la fundamentación jurídica de la decisión cuestionada.", "Documentar el marco normativo y jurisprudencial que sustentó la decisión.", "Diferenciar el error jurídico del dolo necesario para el prevaricato."],
+      donts: ["No confundir el desacuerdo jurídico con la comisión del delito.", "No aceptar responsabilidad sin análisis técnico previo."]
+    },
+    faqs: [
+      { question: "¿Puede un funcionario ser condenado por prevaricato si hay jurisprudencia contradictoria?", answer: "La existencia de jurisprudencia contradictoria o debate doctrinal refuerza la posición de que la decisión no era manifiestamente contraria a la ley, lo que dificulta la configuración del delito." },
+      { question: "¿Qué pasa si el superior jerárquico ordena una actuación que el subalterno considera irregular?", answer: "El subalterno debe analizar si la orden es manifiestamente ilegal. Si lo es, tiene el deber de abstenerse. Si es simplemente discutible, puede ejecutarla sin responsabilidad penal propia." }
+    ],
+    cta: { badge: "Defensa por Prevaricato", title: "¿Lo acusan de prevaricato por una decisión que tomó?", text: "Analizamos si su decisión configura realmente el tipo penal o si se trata de un error jurídico que no puede generar responsabilidad penal.", buttonText: "Consultar mi Defensa por Prevaricato", waMessage: "Hola, me acusan de prevaricato por una decisión que tomé como funcionario y quiero asesoría jurídica." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "¿Toda irregularidad es delito?", url: "/centro-juridico/toda-irregularidad-funcionario-publico-es-delito" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – DELITOS SEXUALES
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "me-denunciaron-por-delito-sexual-que-hacer-primero",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Me denunciaron por un delito sexual: ¿qué debo hacer primero?",
+    metaTitle: "Me denunciaron por un delito sexual: ¿qué hago primero? | AMF Legal",
+    metaDescription: "Ante una denuncia por delito sexual: evite contactar al denunciante, preserve evidencia y estructure su defensa antes de declarar. Guía AMF Legal Colombia.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "Debe evitarse de inmediato todo contacto con quien denunció para reclamar o intentar modificar su versión. Conviene preservar chats, llamadas, ubicaciones, fotografías y videos, y estructurar la defensa técnica antes de hacer cualquier declaración.",
+    example: "Una persona recibe notificación de que fue denunciada por un supuesto delito sexual ocurrido semanas antes. Su primer impulso es contactar a la persona denunciante para pedir explicaciones. Ese contacto puede interpretarse como obstrucción a la justicia y agravar su situación.",
+    legalExplanation: `Los delitos sexuales generan procesos con características particulares que exigen una defensa técnica especializada desde el inicio:\n\n1. **Prohibición de contacto:** Cualquier comunicación con la persona denunciante puede tipificarse como constreñimiento, fraude procesal u obstaculización a la justicia.\n2. **Preservación de evidencia digital:** Chats, llamadas, ubicaciones y fotos pueden reconstruir el contexto y la secuencia de los hechos.\n3. **Defensa antes de declarar:** Nunca debe rendirse versión libre ni atenderse ninguna citación sin haber revisado el expediente con el abogado defensor.\n4. **Valoración del conjunto probatorio:** La condena en estos delitos exige prueba más allá de toda duda razonable, no solo el testimonio de la víctima.`,
+    checklist: {
+      dos: ["Consultar de inmediato con un abogado penalista especializado.", "Preservar toda comunicación previa con la denunciante.", "Documentar registros de ubicación en las fechas relevantes.", "Identificar testigos de los hechos o del contexto."],
+      donts: ["No contactar a la persona que denunció bajo ninguna circunstancia.", "No hacer declaraciones públicas ni en redes sociales.", "No acudir a diligencias sin abogado defensor."]
+    },
+    faqs: [
+      { question: "¿Una denuncia por delito sexual es suficiente para que me capturen?", answer: "No automáticamente. Para una medida de aseguramiento la Fiscalía debe demostrar inferencia razonable de autoría y al menos uno de los fines constitucionales: riesgo de fuga, peligro para la comunidad u obstaculización de la justicia." },
+      { question: "¿El consentimiento puede demostrarse?", answer: "Sí. Puede reconstruirse mediante comunicaciones previas y posteriores, contexto de la relación, testimonios y otras evidencias. Este análisis es central en muchos casos de esta naturaleza." }
+    ],
+    cta: { badge: "Defensa en Delitos Sexuales", title: "¿Lo denunciaron por un delito sexual?", text: "En estos casos la defensa técnica especializada desde el primer momento es decisiva. No cometa errores que agraven su situación.", buttonText: "Hablar con un Abogado Penalista", waMessage: "Hola, me denunciaron por un delito sexual y necesito asesoría urgente sobre qué hacer primero." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "¿Puedo guardar silencio si me investigan?", url: "/centro-juridico/puedo-guardar-silencio-si-me-estan-investigando" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – ESTAFA, DEUDAS Y ABUSO DE CONFIANZA
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "no-pagar-deuda-es-estafa-colombia",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "¿No pagar una deuda es estafa en Colombia?",
+    metaTitle: "¿No pagar una deuda es estafa en Colombia? | AMF Legal",
+    metaDescription: "No automáticamente. El incumplimiento civil no equivale por sí mismo a estafa. Debe analizarse si existió engaño antecedente o concurrente. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "No automáticamente. El incumplimiento de una obligación civil no equivale por sí mismo a estafa. Para que exista el delito debe analizarse si hubo engaño antecedente o concurrente que indujo a error a la víctima y provocó una disposición patrimonial en su perjuicio.",
+    example: "Una persona tomó un crédito en una cooperativa y no pudo pagarlo por dificultades económicas. La cooperativa la denuncia por estafa. El impago solo genera responsabilidad civil, no penal, a menos que se demuestre que desde el inicio la persona actuó con engaño para obtener el dinero sin intención de pagarlo.",
+    legalExplanation: `El delito de estafa (Art. 246 del Código Penal) exige elementos objetivos y subjetivos que van más allá del simple incumplimiento:\n\n1. **Engaño:** Debe existir una conducta activa de inducción a error, no simplemente el incumplimiento posterior de una obligación.\n2. **Error en la víctima:** El engaño debe provocar una representación equivocada de la realidad en quien entrega el dinero o bien.\n3. **Disposición patrimonial:** La víctima debe haber entregado algo de valor como consecuencia directa del error provocado.\n4. **Perjuicio:** Debe causarse un daño patrimonial efectivo.\n5. **Dolo:** El engaño debe ser intencional y anterior o simultáneo a la obtención del dinero.`,
+    checklist: {
+      dos: ["Demostrar que las dificultades de pago son posteriores y no previstas al momento del crédito.", "Aportar evidencia de intentos de pago parcial o negociación.", "Demostrar que existía capacidad económica inicial y cambio de circunstancias.", "Distinguir el incumplimiento civil de la conducta engañosa propia del delito."],
+      donts: ["No ignorar la denuncia penal aunque sea infundada.", "No confundir la obligación de pagar con responsabilidad penal."]
+    },
+    faqs: [
+      { question: "¿Pueden arrestarme por no pagar una deuda?", answer: "No. La prisión por deudas está prohibida constitucionalmente en Colombia salvo en casos de obligaciones alimentarias. El incumplimiento de obligaciones civiles no genera privación de la libertad directa." },
+      { question: "¿Qué diferencia existe entre estafa y abuso de confianza?", answer: "La estafa gira alrededor del engaño que produce error y disposición patrimonial. El abuso de confianza parte de determinadas formas de entrega de un bien ajeno y su posterior apropiación indebida." }
+    ],
+    cta: { badge: "Defensa en Casos de Estafa", title: "¿Lo denunciaron por estafa por no pagar una deuda?", text: "Analizamos si realmente existe el delito o si se trata de un incumplimiento civil mal tipificado penalmente. La diferencia puede significar su libertad.", buttonText: "Consultar mi Caso de Estafa", waMessage: "Hola, me denunciaron por estafa porque no pude pagar una deuda y quiero saber si realmente es un delito." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – LAVADO DE ACTIVOS Y ENRIQUECIMIENTO ILÍCITO
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "recibi-dinero-en-mi-cuenta-de-actividad-ilegal-pueden-investigarme-por-lavado",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Recibí dinero en mi cuenta y después descubrí que provenía de una actividad ilegal: ¿pueden investigarme por lavado?",
+    metaTitle: "Recibí dinero ilegal en mi cuenta: ¿me investigan por lavado? | AMF Legal",
+    metaDescription: "Recibir dinero no determina automáticamente responsabilidad por lavado de activos. Deben probarse los elementos objetivos y subjetivos del delito. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Juan Gregorio Minda Cerón", role: "Contador Público y Abogado – Especialista en Finanzas y Auditoría", slug: "juan-minda", avatar: "/assets/Equipo fotos/Juan Gregorio.png", credentials: "Especialista en Finanzas y Derecho Procesal Penal." },
+    reviewer: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    quickAnswer: "Puede originarse una investigación, pero recibir dinero en la cuenta no determina automáticamente responsabilidad por lavado de activos. Deben probarse los elementos objetivos y subjetivos del delito, especialmente el conocimiento del origen ilícito de los recursos.",
+    example: "Una persona recibe una transferencia de alguien que conoce ocasionalmente. Meses después, descubre que ese contacto era investigado por narcotráfico y que el dinero transferido provenía de esa actividad. La investigación que se origina no significa automáticamente que haya cometido lavado de activos.",
+    legalExplanation: `El delito de lavado de activos (Art. 323 del Código Penal) exige elementos específicos:\n\n1. **Conocimiento del origen ilícito:** El elemento subjetivo más importante es que el sujeto sabía o podía inferir que los recursos provenían de actividades delictivas.\n2. **Conducta de legalización:** El delito requiere actos orientados a ocultar, encubrir o dar apariencia de legalidad a recursos de origen ilícito.\n3. **Autonomía del delito:** El lavado puede investigarse independientemente del delito fuente, pero igualmente deben demostrarse todos sus elementos.\n4. **Desconocimiento del origen:** Quien demuestra que no conocía ni podía razonablemente conocer el origen ilícito de los recursos tiene argumentos sólidos de defensa.`,
+    checklist: {
+      dos: ["Demostrar que desconocía el origen ilícito del dinero.", "Acreditar la existencia de una razón legítima para la transacción.", "Conservar toda documentación de la relación con quien envió los recursos.", "Reportar voluntariamente si descubrió la situación después de los hechos."],
+      donts: ["No mover ni transferir los recursos si existe sospecha.", "No intentar devolver el dinero sin asesoría previa.", "No eliminar evidencia de la transacción."]
+    },
+    faqs: [
+      { question: "¿El lavado de activos puede prescribir?", answer: "Sí. El término de prescripción depende de la pena máxima prevista para el delito. En lavado de activos los términos son amplios dado que las penas son elevadas." },
+      { question: "¿Puedo ser investigado por lavado aunque no haya cometido el delito que produjo el dinero?", answer: "Sí. El lavado tiene autonomía propia. Sin embargo, igualmente deben acreditarse los presupuestos relativos al origen ilícito de los recursos y el conocimiento de ese origen." }
+    ],
+    cta: { badge: "Defensa en Lavado de Activos", title: "¿Lo investigan por dinero que recibió en su cuenta?", text: "Analizamos si existen los elementos del delito de lavado o si su situación puede defenderse demostrando desconocimiento del origen ilícito.", buttonText: "Consultar mi Caso de Lavado", waMessage: "Hola, recibí dinero en mi cuenta que resultó ser de origen ilícito y quiero saber si me pueden investigar por lavado de activos." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – ARMAS DE FUEGO
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "encontraron-un-arma-cerca-de-mi-pero-no-era-mia-pueden-condenarme",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Encontraron un arma cerca de mí, pero no era mía: ¿me pueden condenar?",
+    metaTitle: "Encontraron un arma cerca de mí pero no era mía: ¿me condenan? | AMF Legal",
+    metaDescription: "Hallazgo y atribución son problemas distintos. La Fiscalía debe demostrar las circunstancias que permiten relacionar materialmente el arma con la persona. Guía AMF.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "Hallazgo y atribución son problemas distintos. La Fiscalía debe demostrar las circunstancias concretas que permiten relacionar materialmente el arma con la persona. La proximidad física por sí sola no es suficiente para una condena.",
+    example: "Durante un procedimiento de policía, encuentran un arma abandonada a tres metros de donde estaba parada una persona. Los agentes afirman que 'la vieron arrojar el arma', pero no hay video y otros testigos contradicen esa versión.",
+    legalExplanation: `El porte ilegal de armas requiere demostrar la tenencia material o disposición del arma:\n\n1. **Hallazgo vs. atribución:** Que el arma esté cerca de alguien no prueba que la portara. La atribución requiere evidencia adicional.\n2. **Cadena de custodia:** El procedimiento de levantamiento, embalaje y rotulado del arma es crucial. Irregularidades pueden afectar el valor probatorio.\n3. **Versiones contradictorias:** Cuando policías y testigos civiles contradicen sus versiones, deben analizarse las condiciones de percepción, videos disponibles y la secuencia del procedimiento.\n4. **Huellas y ADN:** Pueden ser relevantes pero no son indispensables. La ausencia de huellas puede ser un argumento de defensa poderoso.`,
+    checklist: {
+      dos: ["Verificar inmediatamente la existencia de cámaras en el lugar del procedimiento.", "Identificar testigos presenciales y obtener sus datos.", "Revisar el procedimiento de cadena de custodia del arma.", "Solicitar análisis de huellas y ADN sobre el arma."],
+      donts: ["No tocar el arma si aún está en el lugar.", "No declarar sobre la procedencia del arma sin asesoría previa."]
+    },
+    faqs: [
+      { question: "¿Las huellas o el ADN son indispensables para demostrar el porte?", answer: "No necesariamente. Pueden ser relevantes, pero la responsabilidad se establece con el conjunto probatorio disponible. La ausencia de huellas puede ser un argumento de defensa." },
+      { question: "¿Qué pasa si encuentran un arma en un carro donde viajamos varias personas?", answer: "La presencia en el vehículo no convierte automáticamente a todos en responsables. Importan la ubicación del arma, el acceso de cada persona, su disponibilidad, el conocimiento de su existencia y el demás material probatorio." }
+    ],
+    cta: { badge: "Defensa en Porte de Armas", title: "¿Lo acusan de portar un arma que no era suya?", text: "Analizamos el procedimiento policial, la cadena de custodia y la evidencia disponible para construir su defensa.", buttonText: "Consultar mi Caso de Armas", waMessage: "Hola, encontraron un arma cerca de mí pero no era mía y me acusan de porte ilegal. Necesito asesoría." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO PENAL – ESTUPEFACIENTES
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "me-encontraron-droga-es-trafico-de-estupefacientes",
+    category: "penal",
+    categoryLabel: "Derecho Penal",
+    title: "Me encontraron droga: ¿eso significa automáticamente que cometí tráfico de estupefacientes?",
+    metaTitle: "Me encontraron droga: ¿es automáticamente tráfico? | AMF Legal Colombia",
+    metaDescription: "No. Que haya droga no concluye tráfico. Deben analizarse cantidad, circunstancias, finalidad y demás elementos del caso. Guía AMF Legal Colombia.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Especialista en Derecho Penal", slug: "jorge-florez", avatar: "/assets/Equipo fotos/Jorge Florez.png", credentials: "Ex funcionario judicial de la Rama Judicial en Cali." },
+    reviewer: { name: "Esteban Ávila Meneses", role: "Socio Fundador – Especialista en Derecho Procesal Penal", slug: "esteban-avila", credentials: "Especialista en Derecho Procesal Penal de la Universidad Externado de Colombia." },
+    quickAnswer: "No puede concluirse únicamente por la existencia material de la sustancia. Para determinar si hay tráfico de estupefacientes deben analizarse la cantidad encontrada, las circunstancias del hallazgo, la finalidad aparente y el conjunto de los elementos materiales probatorios.",
+    example: "Una persona es detenida con una cantidad de sustancia que la policía clasifica como 'para tráfico'. Sin embargo, la cantidad puede corresponder al consumo personal según las circunstancias específicas del caso, y la defensa puede argumentar que no existía destinación comercial.",
+    legalExplanation: `La Ley 30 de 1986 y la jurisprudencia de la Corte Suprema de Justicia establecen distintos marcos para el consumo personal y el tráfico:\n\n1. **Dosis mínima y consumo personal:** La Corte Constitucional ha reconocido que el consumo personal es una conducta protegida en determinadas circunstancias. La cantidad es un factor, pero no el único.\n2. **Finalidad:** La destinación de la sustancia —consumo propio o distribución— es determinante. La Fiscalía debe demostrar la finalidad de tráfico, no solo el hallazgo.\n3. **Circunstancias del hallazgo:** El lugar, la forma de empaque, los útiles asociados y el contexto general son indicios que se valoran junto con la cantidad.\n4. **Responsabilidad en espacios compartidos:** Si el arma o la droga se encuentran en un lugar que comparten varias personas, debe individualizarse la relación de cada una con la sustancia.`,
+    checklist: {
+      dos: ["Analizar la cantidad encontrada frente a los parámetros jurisprudenciales.", "Documentar cualquier circunstancia que indique consumo personal.", "Revisar el procedimiento policial y la cadena de custodia.", "Identificar si hubo testigos del procedimiento."],
+      donts: ["No declarar sobre la procedencia o finalidad sin asesoría previa.", "No aceptar calificación de tráfico sin análisis técnico."]
+    },
+    faqs: [
+      { question: "¿Qué pasa si encuentran droga en un carro donde viajamos varias personas?", answer: "El hallazgo no determina responsabilidad de todos. Debe individualizarse la relación de cada persona con la sustancia: quién la portaba, quién la conocía, dónde estaba exactamente y qué evidencia existe de esa relación." },
+      { question: "¿Transportar un paquete sin saber que contiene droga genera responsabilidad?", answer: "El conocimiento es central. Debe establecerse qué sabía la persona sobre el contenido del paquete y qué circunstancias permiten inferirlo o descartarlo razonablemente." }
+    ],
+    cta: { badge: "Defensa en Casos de Estupefacientes", title: "¿Lo acusan de tráfico de estupefacientes?", text: "Analizamos las circunstancias del hallazgo, la cantidad, la cadena de custodia y los demás elementos para construir su defensa.", buttonText: "Consultar mi Caso de Drogas", waMessage: "Hola, me encontraron sustancias y me acusan de tráfico. Quiero saber si realmente configura ese delito." },
+    internalLinks: [{ text: "Defensa Penal Estratégica 24/7", url: "/defensa-penal" }, { text: "Centro Jurídico AMF", url: "/centro-juridico" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // DERECHO DISCIPLINARIO
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "soy-militar-o-policia-me-abrieron-investigacion-disciplinaria-que-hago",
+    category: "disciplinario",
+    categoryLabel: "Derecho Disciplinario",
+    title: "Soy militar o policía y me abrieron una investigación disciplinaria: ¿qué debo hacer?",
+    metaTitle: "Me abrieron investigación disciplinaria: ¿qué hago? Militares y Policías | AMF",
+    metaDescription: "Ante una investigación disciplinaria como militar o policía: identifique la etapa, revise los soportes y cuente con abogado antes de rendir explicaciones. AMF Legal.",
+    readTime: "6 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Steven Alegrías Bolaños", role: "Abogado Especialista en Derecho Administrativo y Disciplinario", slug: "steven-alegrias", avatar: "/assets/Equipo fotos/Steven Alegrias.png", credentials: "Especialista de la Universidad del Cauca en asesoría institucional y derecho sancionatorio." },
+    reviewer: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Litigante", slug: "jorge-florez", credentials: "Sólida experiencia en litigio contencioso administrativo y disciplinario." },
+    quickAnswer: "Debe identificarse el hecho investigado, la etapa procesal y la calidad procesal asignada. Antes de rendir cualquier explicación conviene revisar informes, órdenes de servicio, videos, minutas y demás soportes disponibles con asesoría jurídica.",
+    example: "Un patrullero recibe notificación de apertura de investigación disciplinaria por un procedimiento de uso de la fuerza. Sin revisar el expediente ni consultar un abogado, rinde versión libre con imprecisiones que la oficina disciplinaria utiliza para formular cargos graves.",
+    legalExplanation: `El proceso disciplinario para la Fuerza Pública tiene características especiales según la institución y el régimen aplicable:\n\n1. **Estatuto disciplinario policial (Ley 2196 de 2022):** Aplica a la Policía Nacional con tipos disciplinarios específicos y sanciones que pueden llegar a la destitución.\n2. **Régimen disciplinario militar:** Aplica a las Fuerzas Militares con sus propias normas y procedimientos.\n3. **Etapas del proceso:** Indagación preliminar, investigación formal, formulación de cargos y juzgamiento. Cada etapa tiene oportunidades procesales propias.\n4. **Derechos del disciplinado:** Presunción de inocencia, derecho a guardar silencio, derecho a defensa técnica, derecho a aportar y solicitar pruebas.\n5. **Impacto en la carrera:** Las sanciones pueden incluir suspensión, multa, destitución e inhabilidad, lo que afecta directamente la carrera militar o policial.`,
+    checklist: {
+      dos: ["Exigir copia íntegra del expediente desde la notificación.", "Verificar los soportes documentales del hecho investigado.", "Consultar con abogado especializado antes de rendir versión.", "Vigilar los términos procesales para evitar preclusión de oportunidades."],
+      donts: ["No rendir versión libre sin haber revisado el expediente.", "No asumir que la defensa institucional priorizará su interés personal.", "No firmar notificaciones con fechas retroactivas."]
+    },
+    faqs: [
+      { question: "¿Una investigación disciplinaria puede afectar mi ascenso?", answer: "Puede producir consecuencias profesionales según el régimen, la etapa y el resultado de la actuación. En muchos regímenes, una investigación activa puede bloquear el ascenso hasta su terminación." },
+      { question: "¿Puedo guardar silencio dentro de una actuación disciplinaria?", answer: "Las garantías dependen de la calidad procesal y del tipo de actuación. El riesgo de autoincriminación debe analizarse cuidadosamente con el abogado, especialmente si existen actuaciones penales paralelas." },
+      { question: "¿Un mismo hecho puede generar proceso disciplinario y proceso penal?", answer: "Sí. Son ámbitos distintos que pueden tramitarse simultáneamente. Las estrategias deben coordinarse cuidadosamente para evitar contradicciones entre las dos actuaciones." }
+    ],
+    cta: { badge: "Protección de Carrera Militar y Policial", title: "¿Te abrieron investigación disciplinaria?", text: "En AMF nos especializamos en la defensa de uniformados ante procesos disciplinarios. Actuamos desde la notificación para proteger tu carrera.", buttonText: "Conocer Planes de Protección", waMessage: "Hola, soy militar/policía y me abrieron una investigación disciplinaria. Necesito asesoría para proteger mi carrera." },
+    internalLinks: [{ text: "Planes para Uniformados", url: "/suscripcion-juridica-fuerza-publica" }, { text: "Investigación disciplinaria Policía Nacional", url: "/centro-juridico/investigacion-disciplinaria-policia-nacional-ley-2196" }]
+  },
+  {
+    slug: "puedo-ser-investigado-disciplinariamente-por-uso-de-la-fuerza",
+    category: "disciplinario",
+    categoryLabel: "Derecho Disciplinario",
+    title: "¿Puedo ser investigado disciplinariamente por el uso de la fuerza?",
+    metaTitle: "¿Me pueden investigar disciplinariamente por el uso de la fuerza? | AMF Legal",
+    metaDescription: "Sí puede haber revisión disciplinaria del uso de la fuerza. La situación enfrentada, la actuación concreta y los medios utilizados son determinantes. Guía AMF.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Steven Alegrías Bolaños", role: "Abogado Especialista en Derecho Administrativo y Disciplinario", slug: "steven-alegrias", avatar: "/assets/Equipo fotos/Steven Alegrias.png", credentials: "Especialista en derecho sancionatorio y asesoría institucional." },
+    reviewer: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Litigante", slug: "jorge-florez", credentials: "Amplia experiencia en litigio disciplinario y penal." },
+    quickAnswer: "Sí puede existir revisión disciplinaria del uso de la fuerza. Los factores determinantes son la situación concretamente enfrentada, la actuación desplegada, los medios utilizados y la evidencia disponible de todo el procedimiento.",
+    example: "Un agente utiliza la fuerza para controlar una situación de orden público. Un video parcial publicado en redes muestra un tramo del procedimiento sin contexto. La oficina disciplinaria abre investigación. La defensa debe reconstruir la totalidad de la situación para demostrar que el uso de la fuerza fue necesario y proporcional.",
+    legalExplanation: `El uso de la fuerza por parte de uniformados está reglado por normas nacionales e internacionales:\n\n1. **Principios del uso de la fuerza:** Necesidad, proporcionalidad y distinción son los principios que rigen la actuación. La investigación disciplinaria analizará si se respetaron.\n2. **Contexto completo:** Un video parcial puede distorsionar la realidad. La defensa debe aportar el contexto completo de la situación que motivó el uso de la fuerza.\n3. **Documentación del procedimiento:** Partes, informes, minutas, bodycams y otros registros son esenciales para la defensa.\n4. **Actuación conforme al entrenamiento:** Demostrar que el agente actuó conforme a su entrenamiento y a los protocolos institucionales es un argumento de defensa relevante.`,
+    checklist: {
+      dos: ["Asegurar inmediatamente grabaciones de bodycam y cámaras disponibles.", "Documentar el contexto previo de la situación que originó el uso de la fuerza.", "Identificar testigos del procedimiento completo.", "Consultar con abogado antes de rendir cualquier informe."],
+      donts: ["No rendirse a rendir informes sin asesoría previa.", "No hacer declaraciones públicas sobre el procedimiento."]
+    },
+    faqs: [
+      { question: "¿Un informe policial puede generar investigación disciplinaria aunque el procedimiento fuera correcto?", answer: "Sí. La investigación puede originarse en denuncias ciudadanas, videos en redes o de oficio. Lo importante es contar con la evidencia que demuestre la legalidad y proporcionalidad del procedimiento." },
+      { question: "¿El derecho a la legítima defensa aplica en el contexto disciplinario?", answer: "Los institutos del derecho penal como la legítima defensa pueden ser analizados como causales de exclusión de responsabilidad disciplinaria, aunque con matices propios del régimen sancionatorio." }
+    ],
+    cta: { badge: "Defensa en Uso de la Fuerza", title: "¿Lo investigan por un procedimiento con uso de la fuerza?", text: "Reconstruimos el contexto completo del procedimiento y construimos su defensa con la evidencia disponible.", buttonText: "Consultar mi Caso Disciplinario", waMessage: "Hola, me investigan disciplinariamente por el uso de la fuerza en un procedimiento y necesito asesoría." },
+    internalLinks: [{ text: "Planes para Uniformados", url: "/suscripcion-juridica-fuerza-publica" }, { text: "Investigación disciplinaria en la Policía", url: "/centro-juridico/investigacion-disciplinaria-policia-nacional-ley-2196" }]
+  },
+  {
+    slug: "que-pasa-si-mi-superior-me-dio-una-orden-irregular-o-ilegal",
+    category: "disciplinario",
+    categoryLabel: "Derecho Disciplinario",
+    title: "¿Qué pasa si mi superior me dio una orden que considero irregular o ilegal?",
+    metaTitle: "Mi superior me dio una orden irregular: ¿qué hago? Militares y Policías | AMF",
+    metaDescription: "La naturaleza de la orden, las funciones del subordinado y las circunstancias concretas determinan si debe cumplirse o si existe deber de abstención. Guía AMF Legal.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Steven Alegrías Bolaños", role: "Abogado Especialista en Derecho Administrativo y Disciplinario", slug: "steven-alegrias", avatar: "/assets/Equipo fotos/Steven Alegrias.png", credentials: "Especialista en derecho disciplinario y asesoría institucional." },
+    reviewer: { name: "Jorge Ernesto Flórez Martínez", role: "Socio Fundador – Litigante", slug: "jorge-florez", credentials: "Amplia experiencia en litigio disciplinario y penal." },
+    quickAnswer: "Debe analizarse la naturaleza específica de la orden, las funciones propias del cargo, las circunstancias concretas y las reglas propias del servicio antes de tomar cualquier decisión.",
+    example: "Un suboficial recibe orden de su superior que considera contraria al reglamento. Si la cumple y resulta irregular, puede ser investigado por cumplir una orden ilegal. Si no la cumple, puede ser investigado por desobediencia. La distinción entre orden manifiestamente ilegal y orden simplemente discutible es crucial.",
+    legalExplanation: `El régimen de obediencia debida en las instituciones castrenses y de policía tiene límites claros:\n\n1. **Obediencia reflexiva:** No existe obediencia ciega en el ordenamiento colombiano. El subordinado no puede eximir su responsabilidad simplemente alegando que cumplía órdenes.\n2. **Orden manifiestamente ilegal:** Existe un deber de abstención cuando la orden viola de forma flagrante la Constitución, la ley o los derechos humanos. En estos casos, cumplirla genera responsabilidad.\n3. **Orden simplemente irregular o discutible:** Puede cumplirse y la responsabilidad se concentra en quien la emite, siempre que el subordinado haga constar su disenso.\n4. **Deber de dejar constancia:** En situaciones de duda, dejar constancia escrita de la orden recibida y de la reserva del subordinado es una práctica defensiva esencial.`,
+    checklist: {
+      dos: ["Evaluar si la orden viola de forma evidente normas constitucionales o legales.", "Dejar constancia escrita de la orden recibida.", "Consultar con abogado si la ilegalidad de la orden no es clara.", "Documentar su posición frente a la orden."],
+      donts: ["No cumplir ciegamente órdenes manifiestamente ilegales.", "No negarse a cumplir órdenes simplemente porque parezcan irregulares sin análisis previo."]
+    },
+    faqs: [
+      { question: "¿Qué pasa si ejecuto una orden y después resulta que era ilegal?", answer: "Si la ilegalidad no era manifiesta, puede alegar que actuó de buena fe siguiendo instrucciones superiores. Si era manifiestamente ilegal, la responsabilidad puede distribuirse entre quien ordenó y quien ejecutó." },
+      { question: "¿Puedo negarme a cumplir una orden sin consecuencias disciplinarias?", answer: "Depende de si la orden era manifiestamente ilegal. En ese caso, el deber de abstención lo protege. Si no era manifiestamente ilegal, la negativa puede generar responsabilidad disciplinaria." }
+    ],
+    cta: { badge: "Defensa ante Órdenes Irregulares", title: "¿Lo investigan por cumplir o negarse a cumplir una orden?", text: "Analizamos la naturaleza de la orden, sus obligaciones y la estrategia de defensa correcta para su caso.", buttonText: "Consultar mi Situación Disciplinaria", waMessage: "Hola, me investigan disciplinariamente por una situación relacionada con una orden de mi superior y necesito asesoría." },
+    internalLinks: [{ text: "Planes para Uniformados", url: "/suscripcion-juridica-fuerza-publica" }, { text: "Soy militar o policía y me abrieron investigación", url: "/centro-juridico/soy-militar-o-policia-me-abrieron-investigacion-disciplinaria-que-hago" }]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COMPLIANCE
+  // ─────────────────────────────────────────────────────────────
+  {
+    slug: "representante-legal-responde-penalmente-por-empleados",
+    category: "compliance",
+    categoryLabel: "Compliance",
+    title: "Soy representante legal: ¿respondo penalmente por todo lo que haga un empleado?",
+    metaTitle: "¿El representante legal responde por todo lo que haga un empleado? | AMF Legal",
+    metaDescription: "No. La responsabilidad penal es personal. Deben analizarse intervención, conocimiento y deberes concretos del representante. Guía AMF Legal Colombia.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Juan Gregorio Minda Cerón", role: "Contador Público y Abogado – Especialista en Finanzas y Auditoría", slug: "juan-minda", avatar: "/assets/Equipo fotos/Juan Gregorio.png", credentials: "Especialista en Finanzas y Derecho Procesal Penal." },
+    reviewer: { name: "David Fernando Pechené Torres", role: "Abogado Especialista y Magíster", slug: "david-pechene", credentials: "Magíster en Contratación Estatal e Infraestructura Pública." },
+    quickAnswer: "No. La responsabilidad penal es estrictamente personal. Para que el representante legal responda por conductas de un empleado deben analizarse su intervención concreta, el conocimiento que tenía de los hechos y los deberes específicos que le correspondían según su cargo.",
+    example: "Un gerente firma contratos que un empleado de su área preparó con información falsa. La firma del gerente puede generar investigación, pero si demuestra que no conocía la falsedad, que actuó de buena fe y que ejerció los controles que le correspondían, puede excluir su responsabilidad penal.",
+    legalExplanation: `La responsabilidad penal de los administradores empresariales requiere análisis de posición de garante:\n\n1. **Principio de responsabilidad personal:** Nadie responde penalmente por el solo hecho de ocupar un cargo directivo.\n2. **Posición de garante:** En determinados casos el representante tiene deberes de supervisión y control cuya omisión puede generar responsabilidad. Pero esa posición debe estar claramente establecida.\n3. **Conocimiento:** El representante solo responde si conocía o debía conocer los hechos irregulares y no actuó para impedirlos.\n4. **Programa de compliance:** Un programa de cumplimiento efectivo puede demostrar que el representante adoptó las medidas razonables de prevención, lo que refuerza su defensa.`,
+    checklist: {
+      dos: ["Implementar un programa de compliance que documente los controles adoptados.", "Establecer canales de reporte de irregularidades.", "Delimitar claramente las funciones y responsabilidades en manuales internos.", "Documentar las decisiones relevantes y las razones que las sustentaron."],
+      donts: ["No firmar documentos sin revisión cuando existe obligación legal de verificar.", "No ignorar alertas o señales de irregularidades."]
+    },
+    faqs: [
+      { question: "¿Para qué sirve realmente un programa de compliance?", answer: "Para identificar riesgos, establecer controles, detectar alertas, documentar decisiones y reaccionar organizadamente ante irregularidades. Un programa efectivo puede ser la principal línea de defensa del representante." },
+      { question: "¿Qué debe hacer una empresa cuando descubre un posible fraude interno?", answer: "Preservar la evidencia disponible, impedir alteraciones, definir responsables de la investigación interna y establecer un método lícito de recopilación de información antes de tomar decisiones." }
+    ],
+    cta: { badge: "Compliance y Protección Directiva", title: "¿Su empresa necesita protección jurídica corporativa?", text: "Diseñamos programas de compliance que protegen a los representantes legales y establecen los controles necesarios para prevenir responsabilidad penal.", buttonText: "Consultar Compliance Corporativo", waMessage: "Hola, soy representante legal y quiero saber cómo protegerme penalmente de los actos de mis empleados mediante un programa de compliance." },
+    internalLinks: [{ text: "Compliance & Penal Corporativo", url: "/compliance-penal-corporativo" }, { text: "Circular 100-000020 Supersociedades", url: "/centro-juridico/circular-100-000020-supersociedades-nuevo-sistema-riesgos-sagrilaft-ptee" }]
+  },
+  {
+    slug: "empresa-contrata-con-estado-que-riesgos-controlar",
+    category: "compliance",
+    categoryLabel: "Compliance",
+    title: "Mi empresa contrata con el Estado: ¿qué riesgos debe controlar?",
+    metaTitle: "Empresa contratante con el Estado: ¿qué riesgos controlar? | AMF Legal",
+    metaDescription: "Pagos, intermediarios, conflictos de interés, regalos y relaciones con funcionarios requieren controles y trazabilidad en la contratación estatal. Guía AMF Legal.",
+    readTime: "6 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "David Fernando Pechené Torres", role: "Abogado Especialista y Magíster", slug: "david-pechene", avatar: "/assets/Equipo fotos/David Pechene.png", credentials: "Magíster en Contratación Estatal e Infraestructura Pública." },
+    reviewer: { name: "Juan Gregorio Minda Cerón", role: "Contador Público y Abogado – Especialista en Finanzas", slug: "juan-minda", credentials: "Especialista en Finanzas y Derecho Procesal Penal." },
+    quickAnswer: "Los pagos a intermediarios, los conflictos de interés, los regalos y hospitalidades a funcionarios, y las relaciones con personas expuestas políticamente son los principales riesgos que toda empresa contratante con el Estado debe controlar y documentar con trazabilidad.",
+    example: "Una empresa de construcción contrata a un intermediario que 'gestiona' la relación con la entidad contratante. Ese intermediario resulta ser familiar de un funcionario clave. Si hay irregularidades en el contrato, la empresa puede quedar expuesta a investigaciones por corrupción aunque no haya participado directamente en el soborno.",
+    legalExplanation: `La contratación estatal en Colombia genera riesgos penales específicos para las empresas privadas:\n\n1. **Ley 2195 de 2022 (anticorrupción):** Reforzó las obligaciones de las empresas privadas en materia de prevención de la corrupción y estableció sanciones para personas jurídicas.\n2. **Debida diligencia de intermediarios:** Antes de contratar a un agente o intermediario que interactúa con entidades estatales, la empresa debe verificar su perfil, sus relaciones y la legitimidad de los servicios que ofrece.\n3. **Registro de regalos e invitaciones:** Cualquier regalo, hospitalidad o invitación a funcionarios públicos debe registrarse, evaluarse frente a políticas internas y cumplir los límites legales y éticos.\n4. **Conflictos de interés:** Los vínculos entre empleados de la empresa y funcionarios de las entidades contratantes deben declararse y gestionarse.`,
+    checklist: {
+      dos: ["Implementar una política de regalos y hospitalidades con límites claros.", "Hacer debida diligencia sobre todos los intermediarios que interactúan con el sector público.", "Documentar todas las reuniones con funcionarios públicos.", "Declarar y gestionar conflictos de interés."],
+      donts: ["No pagar comisiones sin contrato, servicio real y trazabilidad del beneficiario.", "No contratar intermediarios que ofrezcan 'contactos dentro de la entidad'."]
+    },
+    faqs: [
+      { question: "¿Puedo invitar a comer o dar un regalo a un funcionario público?", answer: "Debe evaluarse el valor, la oportunidad, la frecuencia, la finalidad y la relación con decisiones oficiales. Lo que parece una cortesía puede convertirse en una señal de alerta de corrupción si no se gestiona correctamente." },
+      { question: "¿Qué hago si un funcionario me pide dinero para ayudarme con un contrato?", answer: "La empresa no debe realizar el pago. Debe preservar la información disponible sobre el requerimiento y activar los mecanismos jurídicos y de compliance disponibles, incluida la posibilidad de denunciar." }
+    ],
+    cta: { badge: "Compliance en Contratación Estatal", title: "¿Su empresa contrata con el Estado?", text: "Implementamos controles, políticas y trazabilidad para proteger a su empresa y a sus directivos de riesgos de corrupción en la contratación estatal.", buttonText: "Consultar Compliance Estatal", waMessage: "Hola, mi empresa contrata con el Estado y quiero implementar controles para gestionar los riesgos de corrupción y proteger a los directivos." },
+    internalLinks: [{ text: "Compliance & Penal Corporativo", url: "/compliance-penal-corporativo" }, { text: "Circular 100-000020 Supersociedades", url: "/centro-juridico/circular-100-000020-supersociedades-nuevo-sistema-riesgos-sagrilaft-ptee" }]
+  },
+  {
+    slug: "como-debe-funcionar-un-canal-de-denuncias-interno",
+    category: "compliance",
+    categoryLabel: "Compliance",
+    title: "¿Cómo debe funcionar un canal de denuncias interno en una empresa?",
+    metaTitle: "¿Cómo funciona un canal de denuncias interno en una empresa? | AMF Legal",
+    metaDescription: "Un canal efectivo permite reportes seguros, define responsables, documenta actuaciones y reduce riesgos de represalias. Guía de compliance AMF Legal Colombia.",
+    readTime: "5 min de lectura",
+    publishDate: "2026-09-20",
+    updateDate: "2026-09-23",
+    author: { name: "Juan Gregorio Minda Cerón", role: "Contador Público y Abogado – Especialista en Finanzas y Auditoría", slug: "juan-minda", avatar: "/assets/Equipo fotos/Juan Gregorio.png", credentials: "Especialista en Finanzas y Derecho Procesal Penal." },
+    reviewer: { name: "David Fernando Pechené Torres", role: "Abogado Especialista y Magíster", slug: "david-pechene", credentials: "Magíster en Contratación Estatal e Infraestructura Pública." },
+    quickAnswer: "Un canal de denuncias efectivo debe permitir reportes seguros —incluyendo la opción anónima—, tener responsables claramente definidos con independencia del reporte, documentar todas las actuaciones y contar con mecanismos efectivos para reducir el riesgo de represalias contra quien denuncia.",
+    example: "Una empresa implementa un correo electrónico como 'canal de denuncias'. El correo lo administra el jefe del área donde se cometió la irregularidad. Un empleado que denuncia se expone directamente a quien denuncia. Este modelo no funciona como canal efectivo y genera responsabilidad para la empresa.",
+    legalExplanation: `La Ley 2195 de 2022 y las guías de la Superintendencia de Sociedades establecen parámetros para canales de denuncias efectivos:\n\n1. **Independencia:** El canal debe ser administrado por una persona u órgano independiente del área denunciada, idealmente el oficial de cumplimiento o un comité de ética.\n2. **Confidencialidad y anonimato:** Debe garantizarse la posibilidad de reportar de forma anónima sin comprometer la identidad del denunciante.\n3. **Protocolo de investigación:** Cada denuncia debe seguir un protocolo documentado de investigación con plazos y responsables definidos.\n4. **Protección al denunciante:** La empresa debe establecer medidas concretas para proteger al denunciante de cualquier forma de represalia.`,
+    checklist: {
+      dos: ["Designar un responsable independiente del canal con autoridad real.", "Garantizar la opción de reporte anónimo.", "Documentar todas las denuncias y las actuaciones realizadas.", "Establecer plazos de respuesta y comunicación al denunciante."],
+      donts: ["No permitir que el área denunciada administre el canal.", "No dejar denuncias sin respuesta ni seguimiento documentado."]
+    },
+    faqs: [
+      { question: "¿Qué debe hacer una empresa cuando un trabajador denuncia corrupción?", answer: "Preservar la información, evaluar el riesgo, evitar represalias y definir una investigación independiente y documentada con el soporte jurídico necesario." },
+      { question: "¿Una empresa está obligada a tener canal de denuncias?", answer: "Las empresas obligadas a implementar SAGRILAFT y PTEE bajo la Circular 100-000020 de 2026 de la Supersociedades deben contar con mecanismos de reporte internos. Para todas las demás, es una buena práctica que refuerza el programa de compliance." }
+    ],
+    cta: { badge: "Compliance Corporativo", title: "¿Su empresa necesita un canal de denuncias efectivo?", text: "Diseñamos e implementamos canales de denuncias con los estándares exigidos por la Supersociedades y las mejores prácticas de compliance.", buttonText: "Consultar Implementación", waMessage: "Hola, quiero implementar un canal de denuncias interno en mi empresa que cumpla con los estándares de compliance. Solicito orientación." },
+    internalLinks: [{ text: "Compliance & Penal Corporativo", url: "/compliance-penal-corporativo" }, { text: "Circular 100-000020 Supersociedades", url: "/centro-juridico/circular-100-000020-supersociedades-nuevo-sistema-riesgos-sagrilaft-ptee" }]
   }
 ];
 

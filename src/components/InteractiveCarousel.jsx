@@ -97,15 +97,15 @@ export const InteractiveCarousel = () => {
     {
       id: 'fuerza-publica',
       bgImage: getAssetUrl('/assets/BACKGROUNDS/FUERZAS ARMADAS.png'),
-      badge: 'DEFENSA PARA FUERZAS ARMADAS Y POLICÍA',
-      headline: 'Protección Jurídica para la Fuerza Pública',
-      subheadline: 'Consultas ilimitadas, defensa técnica disciplinaria y cobertura legal permanente para ti y tu familia.',
-      primaryBtnText: 'Afiliarme por WhatsApp',
-      primaryAction: () => {
-        window.open(whatsappLink(undefined, WA_MESSAGES.HOME_CAROUSEL_FUERZA_PUBLICA), '_blank');
+      badge: 'SUSCRIPCIÓN JURÍDICA PARA UNIFORMADOS',
+      headline: 'Tú proteges al país. Nosotros protegemos tu carrera.',
+      subheadline: 'Planes jurídicos para integrantes de la Policía Nacional, Ejército Nacional, Armada de Colombia, Fuerza Aeroespacial Colombiana e INPEC. Consultas ilimitadas y representaciones incluidas según la cobertura de cada plan.',
+      primaryBtnText: 'Conocer planes y coberturas',
+      primaryAction: () => navigate('/planes'),
+      secondaryBtnText: 'Contar mi situación por WhatsApp',
+      secondaryAction: () => {
+        window.open(whatsappLink(undefined, 'Hola, pertenezco a una institución de seguridad o defensa del Estado y quiero conocer los planes jurídicos de AMF.'), '_blank');
       },
-      secondaryBtnText: 'Ver Planes y Precios →',
-      secondaryAction: () => navigate('/planes'),
       titleIcon: <ColombiaFlagIcon width={40} height={26} />
     },
     {
@@ -118,7 +118,7 @@ export const InteractiveCarousel = () => {
       primaryAction: () => {
         window.open(whatsappLink(undefined, WA_MESSAGES.HOME_CAROUSEL_PENAL), '_blank');
       },
-      secondaryBtnText: 'Contar mi Caso en Formulario →',
+      secondaryBtnText: 'Contar mi Caso en Formulario',
       secondaryAction: () => navigate('/formulario'),
       titleIcon: <Scale size={38} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
     }
