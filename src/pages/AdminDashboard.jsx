@@ -44,7 +44,6 @@ const INITIAL_ANIV_FILTERS = {
   estadoRevision: '',
   ocurrioBogota: '',
   situacionActual: '',
-  decisionBeneficio: '',
   dateFrom: '',
   dateTo: '',
   page: 1,
@@ -504,18 +503,6 @@ export const AdminDashboard = () => {
                       {opt}
                     </option>
                   ))}
-                </select>
-                <select
-                  value={anivFilters.decisionBeneficio}
-                  onChange={(e) =>
-                    setAnivFilters({ ...anivFilters, decisionBeneficio: e.target.value, page: 1 })
-                  }
-                  className="admin-select"
-                >
-                  <option value="">Beneficio 60% (Todos)</option>
-                  <option value="quiero_asesoria">Quiere asesoría ($60k)</option>
-                  <option value="no_gracias">No gracias</option>
-                  <option value="pendiente">Pendiente</option>
                 </select>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button
