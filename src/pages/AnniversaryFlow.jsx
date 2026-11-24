@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
@@ -15,6 +15,7 @@ import {
   Loader2,
   Check,
   RotateCcw,
+  X,
 } from 'lucide-react';
 import {
   QUIEN_NECESITA_OPTIONS,
@@ -53,19 +54,52 @@ const INITIAL_FORM_STATE = {
 };
 
 export const AnniversaryFlow = () => {
-  const [step, setStep] = useState('form'); // 'form' | 'confirmacion' | 'beneficio' | 'finalizado'
+  const [step, setStep] = useState('form'); // 'form' | 'beneficio' | 'finalizado'
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [errors, setErrors] = useState({});
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [showPolicyModal, setShowPolicyModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [secondsLeft, setSecondsLeft] = useState(10);
 
   const [submissionRecord, setSubmissionRecord] = useState(null);
   const [benefitOpenedWhatsApp, setBenefitOpenedWhatsApp] = useState(false);
 
   const formSectionRef = useRef(null);
   const firstInputRef = useRef(null);
+
+  // Temporizador automático de 10 segundos para el modal flotante de confirmación
+  useEffect(() => {
+    if (!showSuccessModal) return undefined;
+
+    document.body.style.overflow = 'hidden';
+
+    const intervalId = window.setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          window.clearInterval(intervalId);
+          setShowSuccessModal(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowSuccessModal(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.clearInterval(intervalId);
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [showSuccessModal]);
 
   const scrollToForm = () => {
     formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -177,7 +211,9 @@ export const AnniversaryFlow = () => {
         ...created,
         nombrePostulante: sanitized.nombrePostulante,
       });
-      setStep('confirmacion');
+      setStep('beneficio');
+      setSecondsLeft(10);
+      setShowSuccessModal(true);
       scrollToTop();
     } catch (err) {
       if (err.fieldErrors) {
@@ -190,9 +226,8 @@ export const AnniversaryFlow = () => {
     }
   };
 
-  const handleContinueToBenefit = () => {
-    setStep('beneficio');
-    scrollToTop();
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
   };
 
   const handleSelectDiscountAdvice = () => {
@@ -225,6 +260,8 @@ export const AnniversaryFlow = () => {
     setSubmitError('');
     setSubmissionRecord(null);
     setBenefitOpenedWhatsApp(false);
+    setShowSuccessModal(false);
+    setSecondsLeft(10);
     setStep('form');
     scrollToTop();
   };
@@ -235,79 +272,7 @@ export const AnniversaryFlow = () => {
   });
 
   // ============================================================================
-  // PANTALLA 1. CONFIRMACIÓN
-  // ============================================================================
-  if (step === 'confirmacion') {
-    return (
-      <main className="aniv-stage-main">
-        <SEOHead pageKey="aniversarioBogota" />
-        <section className="section aniv-stage-section">
-          <div className="container container-narrow">
-            <div className="aniv-progress-pill">
-              <span>Paso 1 de 2 · Postulación confirmada</span>
-            </div>
-
-            <div className="card aniv-result-card aniv-confirm-card">
-              <div className="aniv-result-icon-wrap">
-                <CheckCircle2 size={56} className="text-gold" />
-              </div>
-
-              {submissionRecord?.codigoPostulacion && (
-                <div className="aniv-code-badge">
-                  Código de registro: <strong>{submissionRecord.codigoPostulacion}</strong>
-                </div>
-              )}
-
-              <h1 className="text-serif aniv-result-title">
-                ¡LISTO! TU CASO YA ESTÁ POSTULADO.
-              </h1>
-
-              <p className="aniv-result-lead">
-                <strong>¡Tu participación fue registrada con éxito!</strong>
-              </p>
-
-              <div className="aniv-result-copy">
-                <p>
-                  Gracias por hacer parte de la celebración de nuestro primer año en Bogotá.
-                </p>
-                <p>
-                  En AMF Firma Legal revisaremos las postulaciones y seleccionaremos un caso para
-                  brindar representación penal gratuita.
-                </p>
-                <p className="aniv-highlight-statement">
-                  No tienes que pagar nada. Ya estás participando.
-                </p>
-              </div>
-
-              <div className="aniv-trust-box">
-                <Lock size={18} className="text-gold" />
-                <span>Tu información será tratada con absoluta reserva y confidencialidad.</span>
-              </div>
-
-              <p className="aniv-disclaimer-text">
-                La postulación no garantiza que el caso sea seleccionado ni significa que ya tengas
-                un abogado asignado.
-              </p>
-
-              <div className="aniv-result-actions">
-                <button
-                  type="button"
-                  onClick={handleContinueToBenefit}
-                  className="btn btn-gold aniv-btn-lg"
-                >
-                  <span>CONTINUAR</span>
-                  <ArrowRight size={19} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    );
-  }
-
-  // ============================================================================
-  // PANTALLA 2. BENEFICIO ADICIONAL
+  // PANTALLA DE BENEFICIO ADICIONAL (+ MODAL FLOTANTE DE CONFIRMACIÓN 10s)
   // ============================================================================
   if (step === 'beneficio') {
     return (
@@ -316,7 +281,7 @@ export const AnniversaryFlow = () => {
         <section className="section aniv-stage-section">
           <div className="container container-narrow">
             <div className="aniv-progress-pill">
-              <span>Paso 2 de 2 · Beneficio especial de aniversario</span>
+              <span>Postulación confirmada · Beneficio especial de aniversario</span>
             </div>
 
             <div className="card aniv-result-card aniv-benefit-card">
@@ -415,6 +380,94 @@ export const AnniversaryFlow = () => {
             </div>
           </div>
         </section>
+
+        {showSuccessModal && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="aniv-success-modal-title"
+            className="aniv-success-modal-overlay"
+            onClick={handleCloseSuccessModal}
+          >
+            <div
+              className="aniv-success-modal-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={handleCloseSuccessModal}
+                aria-label="Cerrar confirmación"
+                className="aniv-success-modal-close"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="aniv-result-icon-wrap">
+                <CheckCircle2 size={54} className="text-gold" />
+              </div>
+
+              {submissionRecord?.codigoPostulacion && (
+                <div className="aniv-code-badge">
+                  Código de registro: <strong>{submissionRecord.codigoPostulacion}</strong>
+                </div>
+              )}
+
+              <h2 id="aniv-success-modal-title" className="text-serif aniv-success-modal-title">
+                ¡LISTO! TU CASO YA ESTÁ POSTULADO.
+              </h2>
+
+              <p className="aniv-result-lead" style={{ marginBottom: '1rem' }}>
+                <strong>¡Tu participación fue registrada con éxito!</strong>
+              </p>
+
+              <div className="aniv-result-copy" style={{ marginBottom: '1.25rem' }}>
+                <p>
+                  Gracias por hacer parte de la celebración de nuestro primer año en Bogotá.
+                </p>
+                <p>
+                  En AMF Firma Legal revisaremos las postulaciones y seleccionaremos un caso para
+                  brindar representación penal gratuita.
+                </p>
+                <p className="aniv-highlight-statement">
+                  No tienes que pagar nada. Ya estás participando.
+                </p>
+              </div>
+
+              <div className="aniv-trust-box" style={{ marginBottom: '1rem' }}>
+                <Lock size={17} className="text-gold" />
+                <span>Tu información será tratada con absoluta reserva y confidencialidad.</span>
+              </div>
+
+              <p className="aniv-disclaimer-text" style={{ marginBottom: '1.25rem' }}>
+                La postulación no garantiza que el caso sea seleccionado ni significa que ya tengas
+                un abogado asignado.
+              </p>
+
+              <div className="aniv-countdown-wrap">
+                <div className="aniv-countdown-bar-track">
+                  <div
+                    className="aniv-countdown-bar-fill"
+                    style={{ width: `${Math.max(0, Math.min(100, (secondsLeft / 10) * 100))}%` }}
+                  />
+                </div>
+                <span className="aniv-countdown-text">
+                  Este aviso se cerrará automáticamente en <strong>{secondsLeft}s</strong>
+                </span>
+              </div>
+
+              <div className="aniv-result-actions">
+                <button
+                  type="button"
+                  onClick={handleCloseSuccessModal}
+                  className="btn btn-gold aniv-btn-lg"
+                >
+                  <span>CONTINUAR</span>
+                  <ArrowRight size={19} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     );
   }
