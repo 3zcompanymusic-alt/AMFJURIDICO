@@ -257,6 +257,14 @@ const ROUTES = [
     changefreq: "monthly"
   },
   {
+    path: "/aniversario-bogota",
+    title: "1 Año en Bogotá | Postula tu Caso Penal Gratis | AMF Firma Legal S.A.S.",
+    description: "Celebramos nuestro primer año en Bogotá regalando una defensa penal gratuita. Postula tu caso o accede a una asesoría penal virtual con 60% de descuento.",
+    h1: "¡Cumplimos un año en Bogotá! Postula tu caso penal gratis",
+    priority: "0.85",
+    changefreq: "weekly"
+  },
+  {
     path: "/privacidad",
     title: "Política de Privacidad y Tratamiento de Datos | AMF Firma Legal",
     description: "Política de tratamiento de datos personales conforme a la Ley 1581 de 2012 de Colombia.",
@@ -347,6 +355,7 @@ console.log("✅ dist/sitemap.xml autogenerado con éxito.");
 const robotsTxt = `# robots.txt para AMF Firma Legal (amfjuridico.com)
 User-agent: *
 Allow: /
+Disallow: /admin
 
 Sitemap: ${SITE_DOMAIN}/sitemap.xml
 `;

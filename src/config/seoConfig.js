@@ -105,6 +105,13 @@ export const SEO_DATA = {
     keywords: "contacto amf firma legal, agendar cita abogado colombia, consulta juridica whatsapp",
     path: "/formulario",
     breadcrumbName: "Contacto"
+  },
+  aniversarioBogota: {
+    title: "1 Año en Bogotá | Postula tu Caso Penal Gratis | AMF Firma Legal S.A.S.",
+    description: "Celebramos nuestro primer año en Bogotá regalando una defensa penal gratuita. Postula tu caso o accede a una asesoría penal virtual con 60% de descuento.",
+    keywords: "amf firma legal bogota, abogado penalista gratis bogota, convocatoria aniversario amf, defensa penal bogota",
+    path: "/aniversario-bogota",
+    breadcrumbName: "Aniversario Bogotá"
   }
 };
 

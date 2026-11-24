@@ -13,6 +13,13 @@ dist/
 dist-ssr/
 *.local
 
+# Environment & local dev database fallback
+.env
+.env.*
+!.env.example
+.local-dev-store.json
+.local-dev-postulaciones.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

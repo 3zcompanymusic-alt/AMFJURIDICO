@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: amf-juridico-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_STATIC
+        value: "false"
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: AUTH_JWT_SECRET
+        sync: false
+      - key: ADMIN_BOOTSTRAP_CODE
+        sync: false
+      - key: COOKIE_DOMAIN
+        sync: false
+      - key: COOKIE_SAME_SITE
+        value: lax

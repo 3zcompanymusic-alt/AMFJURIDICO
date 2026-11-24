@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { WEB3FORMS_ACCESS_KEY, whatsappLink } from '../config/siteConfig';
-import { Send, CheckCircle2, ShieldCheck, Mail, Phone, MapPin, User, FileText, X, AlertCircle, BookOpen, Check } from 'lucide-react';
+import { whatsappLink } from '../config/siteConfig';
+import { submitConsultaGeneral } from '../services/formsApi';
+import { validateConsultaGeneralField } from '../../shared/validators';
+import { Send, CheckCircle2, ShieldCheck, Mail, Phone, MapPin, User, FileText, X, AlertCircle, BookOpen, Check, Loader2 } from 'lucide-react';
 import { SEOHead } from '../components/SEOHead';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import './Formulario.css';
@@ -79,35 +81,11 @@ export const Formulario = () => {
     }
   }, [searchParams]);
 
-  const [status, setStatus] = useState({ loading: false, success: false, error: null });
+  const [status, setStatus] = useState({ loading: false, success: false, error: null, codigoConsulta: null });
   const [errors, setErrors] = useState({});
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
-  const validateField = (name, value) => {
-    switch (name) {
-      case 'nombre':
-        if (!value || !value.toString().trim()) return 'El nombre completo es obligatorio.';
-        return '';
-      case 'telefono':
-        if (!value || !value.toString().trim()) return 'El número de WhatsApp o teléfono es obligatorio.';
-        return '';
-      case 'ciudad':
-        if (!value || !value.toString().trim()) return 'La ciudad es obligatoria.';
-        return '';
-      case 'email':
-        if (!value || !value.toString().trim()) return 'El correo electrónico es obligatorio.';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.toString().trim())) return 'Ingresa un correo electrónico válido.';
-        return '';
-      case 'detalles':
-        if (!value || !value.toString().trim()) return 'Por favor describe brevemente tu caso o consulta.';
-        return '';
-      case 'aceptaDatos':
-        if (!value) return 'Debes autorizar el tratamiento de datos personales conforme a la ley colombiana.';
-        return '';
-      default:
-        return '';
-    }
-  };
+  const validateField = (name, value) => validateConsultaGeneralField(name, value, 'formulario_general');
 
   const validateAll = () => {
     const newErrors = {};
@@ -163,8 +141,9 @@ export const Formulario = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (status.loading) return;
     setHasAttemptedSubmit(true);
 
     const validationErrors = validateAll();
@@ -173,7 +152,6 @@ export const Formulario = () => {
       if (validationErrors.aceptaDatos) {
         setErrorDatos(true);
       }
-      // Auto-scroll to the first field that has an error
       const firstKey = Object.keys(validationErrors)[0];
       const targetElement = document.getElementsByName(firstKey)[0] || document.getElementById(firstKey);
       if (targetElement) {
@@ -183,9 +161,43 @@ export const Formulario = () => {
       return;
     }
 
-    const msg = getWhatsAppMessageFromForm();
-    window.open(whatsappLink(undefined, msg), '_blank');
-    setStatus({ loading: false, success: true, error: null });
+    setStatus({ loading: true, success: false, error: null, codigoConsulta: null });
+    try {
+      const created = await submitConsultaGeneral({
+        origenFormulario: 'formulario_general',
+        nombre: formData.nombre,
+        telefono: formData.telefono,
+        email: formData.email,
+        ciudad: formData.ciudad,
+        necesidad: formData.necesidad,
+        institucion: formData.institucion,
+        planInteres: formData.planInteres,
+        situacionPenal: formData.situacionPenal,
+        audienciaProxima: formData.audienciaProxima,
+        urgencia: formData.urgencia,
+        detalles: formData.detalles,
+        aceptaDatos: formData.aceptaDatos,
+      });
+
+      const msg = getWhatsAppMessageFromForm(created?.codigoConsulta);
+      window.open(whatsappLink(undefined, msg), '_blank');
+      setStatus({
+        loading: false,
+        success: true,
+        error: null,
+        codigoConsulta: created?.codigoConsulta || null,
+      });
+    } catch (err) {
+      if (err.fieldErrors) {
+        setErrors(err.fieldErrors);
+      }
+      setStatus({
+        loading: false,
+        success: false,
+        error: err.message || 'No fue posible registrar tu consulta. Intenta nuevamente.',
+        codigoConsulta: null,
+      });
+    }
   };
 
   const getFieldStyle = (fieldName) => {
@@ -217,9 +229,10 @@ export const Formulario = () => {
   };
 
   // Helper to build custom prefilled WhatsApp message from form inputs
-  const getWhatsAppMessageFromForm = () => {
+  const getWhatsAppMessageFromForm = (codigoConsulta = status.codigoConsulta) => {
     const lines = [
       '*SOLICITUD DE ASESORÍA - AMF FIRMA LEGAL*',
+      codigoConsulta ? `*Código de registro:* ${codigoConsulta}` : null,
       '',
       `• *Nombre:* ${formData.nombre?.trim() || ''}`,
       `• *Teléfono:* ${formData.telefono?.trim() || ''}`,
@@ -272,11 +285,16 @@ export const Formulario = () => {
             {status.success ? (
               <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                 <CheckCircle2 size={64} className="text-gold" style={{ margin: '0 auto 1.5rem auto' }} />
+                {status.codigoConsulta && (
+                  <div style={{ display: 'inline-block', marginBottom: '1rem', padding: '0.35rem 1rem', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--color-cream)', border: '1px solid var(--color-border-gold)', color: 'var(--color-wine)', fontSize: '0.9rem' }}>
+                    Código de registro: <strong>{status.codigoConsulta}</strong>
+                  </div>
+                )}
                 <h2 className="text-serif" style={{ fontSize: '2rem', color: 'var(--color-wine)', marginBottom: '1rem' }}>
-                  ¡WhatsApp Abierto!
+                  ¡Consulta Registrada &amp; WhatsApp Listo!
                 </h2>
                 <p style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)', marginBottom: '2rem', lineHeight: '1.6' }}>
-                  Se ha generado el mensaje con tus datos. Presiona <strong>Enviar</strong> dentro del chat de WhatsApp para comunicarte con nuestro equipo legal de inmediato.
+                  Tus datos quedaron guardados de forma confidencial y se ha generado el mensaje con tu consulta. Presiona <strong>Enviar</strong> dentro del chat de WhatsApp para comunicarte con nuestro equipo legal de inmediato.
                 </p>
 
                 <div style={{ backgroundColor: 'var(--color-cream)', padding: '1.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-gold)', marginBottom: '1.5rem' }}>
@@ -284,7 +302,7 @@ export const Formulario = () => {
                     ¿No se abrió WhatsApp automáticamente?
                   </p>
                   <button
-                    onClick={() => window.open(whatsappLink(undefined, getWhatsAppMessageFromForm()), '_blank')}
+                    onClick={() => window.open(whatsappLink(undefined, getWhatsAppMessageFromForm(status.codigoConsulta)), '_blank')}
                     className="btn btn-gold"
                     style={{ fontSize: '1rem', width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   >
@@ -294,7 +312,7 @@ export const Formulario = () => {
                 </div>
 
                 <button 
-                  onClick={() => setStatus({ loading: false, success: false, error: null })} 
+                  onClick={() => setStatus({ loading: false, success: false, error: null, codigoConsulta: null })} 
                   className="btn btn-secondary"
                   style={{ fontSize: '0.9rem' }}
                 >
@@ -322,6 +340,27 @@ export const Formulario = () => {
                   >
                     <AlertCircle size={20} style={{ flexShrink: 0 }} />
                     <span>Por favor diligencia todos los campos requeridos señalados en rojo para poder enviar tu consulta.</span>
+                  </div>
+                )}
+
+                {status.error && (
+                  <div
+                    role="alert"
+                    style={{
+                      backgroundColor: '#FEF2F2',
+                      border: '1.5px solid #FCA5A5',
+                      borderRadius: 'var(--radius-sm)',
+                      padding: '0.9rem 1.25rem',
+                      color: '#991B1B',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.65rem',
+                      fontSize: '0.92rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    <AlertCircle size={20} style={{ flexShrink: 0 }} />
+                    <span>{status.error}</span>
                   </div>
                 )}
 
@@ -670,10 +709,10 @@ export const Formulario = () => {
                   )}
                 </div>
 
-                {/* Botón de Envío Directo a WhatsApp */}
+                {/* Botón de Envío Directo a BD + WhatsApp */}
                 <button 
                   type="submit" 
-                  disabled={!formData.aceptaDatos}
+                  disabled={!formData.aceptaDatos || status.loading}
                   className={`btn ${formData.aceptaDatos ? 'btn-gold' : ''}`}
                   style={{ 
                     fontSize: '1.05rem', 
@@ -683,8 +722,8 @@ export const Formulario = () => {
                     alignItems: 'center', 
                     justifyContent: 'center', 
                     gap: '0.5rem',
-                    cursor: formData.aceptaDatos ? 'pointer' : 'not-allowed',
-                    opacity: formData.aceptaDatos ? 1 : 0.6,
+                    cursor: (formData.aceptaDatos && !status.loading) ? 'pointer' : 'not-allowed',
+                    opacity: (formData.aceptaDatos && !status.loading) ? 1 : 0.6,
                     backgroundColor: formData.aceptaDatos ? 'var(--color-gold)' : '#D1C2A5',
                     color: formData.aceptaDatos ? 'var(--color-paper)' : '#5A4A35',
                     border: formData.aceptaDatos ? '1px solid var(--color-gold)' : '1px solid #D1C2A5',
@@ -693,10 +732,19 @@ export const Formulario = () => {
                   }}
                   title={!formData.aceptaDatos ? 'Debes autorizar el tratamiento de datos para habilitar el envío' : ''}
                 >
-                  <WhatsAppIcon size={20} />
-                  <span>
-                    {formData.necesidad === 'Planes y Suscripción Fuerza Pública' ? 'Enviar Solicitud de Afiliación por WhatsApp' : 'Enviar Consulta por WhatsApp'}
-                  </span>
+                  {status.loading ? (
+                    <>
+                      <Loader2 size={20} className="aniv-spin" />
+                      <span>Guardando consulta...</span>
+                    </>
+                  ) : (
+                    <>
+                      <WhatsAppIcon size={20} />
+                      <span>
+                        {formData.necesidad === 'Planes y Suscripción Fuerza Pública' ? 'Enviar Solicitud de Afiliación por WhatsApp' : 'Enviar Consulta por WhatsApp'}
+                      </span>
+                    </>
+                  )}
                 </button>
 
                 {!formData.aceptaDatos && (

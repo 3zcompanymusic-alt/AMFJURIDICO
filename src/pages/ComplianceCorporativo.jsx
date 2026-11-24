@@ -17,6 +17,7 @@ import {
 import { SEOHead } from '../components/SEOHead';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import { whatsappLink, WA_MESSAGES } from '../config/siteConfig';
+import { submitConsultaGeneral } from '../services/formsApi';
 import './ComplianceCorporativo.css';
 
 export const ComplianceCorporativo = () => {
@@ -29,25 +30,59 @@ export const ComplianceCorporativo = () => {
     tamano: 'Mediana (50 - 200 empleados)',
     preocupacion: 'Actualización Circular 100-000020 (SAGRILAFT/PTEE 2026)',
     contacto: '',
-    telefono: ''
+    telefono: '',
+    aceptaDatos: false
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  const [diagnosticState, setDiagnosticState] = useState({
+    loading: false,
+    error: '',
+    codigoConsulta: null,
+  });
 
-  const handleSubmitDiagnostic = (e) => {
+  const handleSubmitDiagnostic = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    const textMsg = `*Diagnóstico Corporativo Web AMF Firma Legal*\n\n` +
-      `• *Empresa:* ${formData.empresa || 'No especificada'}\n` +
-      `• *Sector:* ${formData.sector || 'General'}\n` +
-      `• *Tamaño:* ${formData.tamano}\n` +
-      `• *Prioridad:* ${formData.preocupacion}\n` +
-      `• *Contacto:* ${formData.contacto}\n` +
-      `• *Teléfono:* ${formData.telefono}`;
-    
-    setTimeout(() => {
-      window.open(whatsappLink(undefined, textMsg), '_blank');
-    }, 400);
+    if (diagnosticState.loading) return;
+
+    setDiagnosticState({ loading: true, error: '', codigoConsulta: null });
+    try {
+      const created = await submitConsultaGeneral({
+        origenFormulario: 'diagnostico_compliance',
+        empresaRazonSocial: formData.empresa,
+        empresaSector: formData.sector,
+        empresaTamano: formData.tamano,
+        necesidad: 'Diagnóstico Compliance Corporativo',
+        nombre: formData.contacto,
+        telefono: formData.telefono,
+        detalles: `Prioridad: ${formData.preocupacion}. Sector: ${formData.sector || 'General'}. Tamaño: ${formData.tamano}.`,
+        aceptaDatos: formData.aceptaDatos,
+      });
+
+      const textMsg = `*Diagnóstico Corporativo Web AMF Firma Legal*\n` +
+        (created?.codigoConsulta ? `*Código:* ${created.codigoConsulta}\n\n` : '\n') +
+        `• *Empresa:* ${formData.empresa || 'No especificada'}\n` +
+        `• *Sector:* ${formData.sector || 'General'}\n` +
+        `• *Tamaño:* ${formData.tamano}\n` +
+        `• *Prioridad:* ${formData.preocupacion}\n` +
+        `• *Contacto:* ${formData.contacto}\n` +
+        `• *Teléfono:* ${formData.telefono}`;
+
+      setDiagnosticState({
+        loading: false,
+        error: '',
+        codigoConsulta: created?.codigoConsulta || 'REGISTRADO',
+      });
+
+      setTimeout(() => {
+        window.open(whatsappLink(undefined, textMsg), '_blank');
+      }, 300);
+    } catch (err) {
+      setDiagnosticState({
+        loading: false,
+        error: err.message || 'Verifica los campos e intenta nuevamente.',
+        codigoConsulta: null,
+      });
+    }
   };
 
   return (
@@ -341,13 +376,39 @@ export const ComplianceCorporativo = () => {
                   </div>
                 </div>
 
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.84rem', color: 'var(--color-text-muted)', marginTop: '0.6rem', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    required
+                    checked={formData.aceptaDatos}
+                    onChange={(e) => setFormData({ ...formData, aceptaDatos: e.target.checked })}
+                    style={{ marginTop: '0.2rem', accentColor: 'var(--color-wine)' }}
+                  />
+                  <span>
+                    Autorizo el tratamiento de datos personales conforme a la <Link to="/privacidad" style={{ textDecoration: 'underline', color: 'var(--color-wine)', fontWeight: 600 }}>Política de Privacidad (Ley 1581 de 2012)</Link>.
+                  </span>
+                </label>
+
+                {diagnosticState.error && (
+                  <p style={{ color: '#DC2626', fontSize: '0.86rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                    {diagnosticState.error}
+                  </p>
+                )}
+
+                {diagnosticState.codigoConsulta && (
+                  <p style={{ color: '#065F46', backgroundColor: '#ECFDF5', padding: '0.65rem 0.85rem', borderRadius: '8px', fontSize: '0.86rem', fontWeight: 600, marginTop: '0.6rem' }}>
+                    Diagnóstico guardado ({diagnosticState.codigoConsulta}). Abriendo WhatsApp...
+                  </p>
+                )}
+
                 <button
                   type="submit"
+                  disabled={diagnosticState.loading}
                   className="btn btn-gold"
                   style={{ width: '100%', marginTop: '0.8rem', padding: '0.95rem' }}
                 >
                   <Send size={18} />
-                  <span>Enviar Diagnóstico vía WhatsApp</span>
+                  <span>{diagnosticState.loading ? 'Guardando diagnóstico...' : 'Enviar Diagnóstico vía WhatsApp'}</span>
                 </button>
               </form>
             </div>

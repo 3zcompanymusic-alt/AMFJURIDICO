@@ -251,6 +251,17 @@ textarea {
   box-shadow: var(--shadow-md);
 }
 
+.btn-outline-wine {
+  background-color: transparent;
+  color: var(--color-wine);
+  border: 1.5px solid var(--color-wine);
+}
+
+.btn-outline-wine:hover:not(:disabled) {
+  background-color: var(--color-wine-light);
+  transform: translateY(-1px);
+}
+
 .btn-outline-light {
   background-color: transparent;
   color: var(--color-paper);

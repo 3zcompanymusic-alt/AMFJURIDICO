@@ -64,6 +64,11 @@ export const Footer = () => {
                   Clientes &amp; Aliados
                 </Link>
               </li>
+              <li>
+                <Link to="/aniversario-bogota" style={{ color: 'var(--color-gold)', transition: 'color 0.2s', fontWeight: 600 }} onMouseEnter={(e) => e.target.style.color = '#FFF'}>
+                  Convocatoria Aniversario Bogotá
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -159,6 +164,9 @@ export const Footer = () => {
             <span>* Las representaciones y servicios están sujetos a los términos de cada plan.</span>
             <Link to="/privacidad" style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>
               Política de Privacidad (Ley 1581)
+            </Link>
+            <Link to="/admin" style={{ color: 'var(--color-text-on-dark-muted)', opacity: 0.78 }}>
+              Portal Interno
             </Link>
           </div>
         </div>
