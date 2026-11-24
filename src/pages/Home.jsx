@@ -17,7 +17,8 @@ import {
   HeartPulse,
   Landmark,
   Briefcase,
-  BookOpen
+  BookOpen,
+  Gift
 } from 'lucide-react';
 import { InteractiveCarousel } from '../components/InteractiveCarousel';
 import { whatsappLink, WA_MESSAGES, getAssetUrl } from '../config/siteConfig';
@@ -473,6 +474,22 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Burbuja flotante inferior izquierda: Regalo de aniversario */}
+      <Link
+        to="/aniversario-bogota"
+        className="home-anniv-bubble"
+        aria-label="Ir al formulario de regalo de aniversario en Bogotá"
+      >
+        <span className="home-anniv-bubble-icon" aria-hidden="true">
+          <Gift size={18} />
+        </span>
+        <span className="home-anniv-bubble-copy">
+          <span className="home-anniv-bubble-eyebrow">1 Año en Bogotá</span>
+          <span className="home-anniv-bubble-title">Regalo de aniversario</span>
+        </span>
+        <ArrowRight size={15} className="home-anniv-bubble-arrow" aria-hidden="true" />
+      </Link>
 
     </main>
   );
