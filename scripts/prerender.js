@@ -406,10 +406,13 @@ const htaccess = `# ============================================================
 fs.writeFileSync(path.join(DIST_DIR, '.htaccess'), htaccess, 'utf-8');
 console.log("✅ dist/.htaccess generado para cPanel / Apache.");
 
-// 5. Generar _redirects para Netlify / Cloudflare Pages / Vercel
-const redirects = `/*    /index.html   200\n`;
-fs.writeFileSync(path.join(DIST_DIR, '_redirects'), redirects, 'utf-8');
-console.log("✅ dist/_redirects generado.");
+// 5. En Cloudflare Workers Static Assets, wrangler.jsonc maneja el SPA fallback
+// mediante "not_found_handling": "single-page-application" (un _redirects con
+// "/* /index.html 200" provoca el error 100324 de bucle infinito en Wrangler).
+const redirectsPath = path.join(DIST_DIR, '_redirects');
+if (fs.existsSync(redirectsPath)) {
+  fs.rmSync(redirectsPath, { force: true });
+}
 
 // 6. Generar 404.html (para GitHub Pages SPA fallback)
 fs.copyFileSync(path.join(DIST_DIR, 'index.html'), path.join(DIST_DIR, '404.html'));
