@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Lock, Menu, X } from 'lucide-react';
 import './Navbar.css';
 import { getAssetUrl } from '../config/siteConfig';
 
@@ -107,7 +107,16 @@ export const Navbar = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexShrink: 0 }}>
+            <Link
+              to="/admin/login"
+              className="nav-admin-link"
+              title="Portal administrativo"
+            >
+              <Lock size={14} />
+              <span>Admin</span>
+            </Link>
+
             <button
               onClick={() => navigate('/formulario')}
               className={`btn ${isDarkNav ? 'btn-gold' : 'btn-primary'}`}
@@ -165,7 +174,7 @@ export const Navbar = () => {
               </Link>
             ))}
 
-            <div style={{ paddingTop: '1.25rem', marginTop: '0.5rem' }}>
+            <div style={{ paddingTop: '1.25rem', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               <button
                 onClick={() => {
                   navigate('/formulario');
@@ -177,6 +186,15 @@ export const Navbar = () => {
                 <WhatsAppIcon size={18} />
                 <span>Hablar con AMF</span>
               </button>
+
+              <Link
+                to="/admin/login"
+                onClick={() => setMobileOpen(false)}
+                className="nav-admin-link nav-admin-link--mobile"
+              >
+                <Lock size={16} />
+                <span>Acceso Administrativo</span>
+              </Link>
             </div>
           </div>
         )}

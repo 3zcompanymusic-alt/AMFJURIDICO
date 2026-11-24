@@ -481,7 +481,7 @@ export const AnniversaryFlow = () => {
 
         <div className="container aniv-hero-inner">
           <div className="aniv-hero-content">
-            <span className="badge badge-gold aniv-hero-badge">
+            <span className="badge badge-wine aniv-hero-badge">
               <Sparkles size={15} />
               <span>AMF FIRMA LEGAL S.A.S.</span>
             </span>
@@ -506,7 +506,7 @@ export const AnniversaryFlow = () => {
               <button
                 type="button"
                 onClick={scrollToForm}
-                className="btn btn-gold aniv-hero-cta"
+                className="btn btn-primary aniv-hero-cta"
               >
                 <span>QUIERO PARTICIPAR GRATIS</span>
                 <ArrowDown size={19} />
