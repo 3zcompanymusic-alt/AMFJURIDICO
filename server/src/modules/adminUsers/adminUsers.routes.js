@@ -10,6 +10,7 @@ export function createAdminUsersRouter() {
 
   router.get('/users', adminUsersController.listUsers);
   router.patch('/users/:id', adminUsersController.updateUser);
+  router.delete('/users/:id', adminUsersController.deleteUser);
 
   router.get('/invitations', adminUsersController.listInvitations);
   router.post('/invitations', adminUsersController.createInvitation);

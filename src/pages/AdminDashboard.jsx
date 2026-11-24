@@ -13,6 +13,7 @@ import {
   LogOut,
   RefreshCw,
   ShieldCheck,
+  Trash2,
   Users,
   X,
 } from 'lucide-react';
@@ -259,6 +260,31 @@ export const AdminDashboard = () => {
     setGlobalError('');
     try {
       await adminApi.updateUser(userRow.id, { activo: !userRow.activo });
+      await fetchAdminUsersModule();
+    } catch (err) {
+      setGlobalError(err.message);
+    }
+  };
+
+  const handleChangeUserRole = async (userRow, nextRole) => {
+    if (nextRole === userRow.rol) return;
+    setGlobalError('');
+    try {
+      await adminApi.updateUser(userRow.id, { rol: nextRole });
+      await fetchAdminUsersModule();
+    } catch (err) {
+      setGlobalError(err.message);
+    }
+  };
+
+  const handleDeleteUser = async (userRow) => {
+    const confirmed = window.confirm(
+      `¿Eliminar definitivamente al administrador "${userRow.nombreInterno}"? Esta acción revoca su acceso de inmediato.`,
+    );
+    if (!confirmed) return;
+    setGlobalError('');
+    try {
+      await adminApi.deleteUser(userRow.id);
       await fetchAdminUsersModule();
     } catch (err) {
       setGlobalError(err.message);
@@ -964,11 +990,26 @@ export const AdminDashboard = () => {
                                     borderRadius: '9999px',
                                   }}
                                 >
-                                  Fundador
+                                  Inicial
                                 </span>
                               )}
                             </td>
-                            <td>{u.rol}</td>
+                            <td>
+                              {Number(u.id) === Number(currentUser.id) ? (
+                                <span>{u.rol}</span>
+                              ) : (
+                                <select
+                                  aria-label={`Rol de ${u.nombreInterno}`}
+                                  value={u.rol}
+                                  onChange={(e) => handleChangeUserRole(u, e.target.value)}
+                                  className="admin-select"
+                                  style={{ minWidth: '130px', padding: '0.3rem 0.5rem', fontSize: '0.82rem' }}
+                                >
+                                  <option value="admin">admin</option>
+                                  <option value="super_admin">super_admin</option>
+                                </select>
+                              )}
+                            </td>
                             <td>
                               <span
                                 className={`admin-status-badge ${
@@ -981,12 +1022,12 @@ export const AdminDashboard = () => {
                             <td>{formatDateCo(u.ultimoAccesoAt)}</td>
                             <td>{formatDateCo(u.createdAt)}</td>
                             <td>
-                              {u.esFundador ? (
-                                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
-                                  Inamovible
+                              {Number(u.id) === Number(currentUser.id) ? (
+                                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
+                                  Sesión actual
                                 </span>
                               ) : (
-                                Number(u.id) !== Number(currentUser.id) && (
+                                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                                   <button
                                     type="button"
                                     onClick={() => handleToggleUserActive(u)}
@@ -994,7 +1035,17 @@ export const AdminDashboard = () => {
                                   >
                                     {u.activo ? 'Desactivar' : 'Activar'}
                                   </button>
-                                )
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeleteUser(u)}
+                                    className="btn btn-outline-wine admin-btn-sm"
+                                    style={{ borderColor: '#DC2626', color: '#B91C1C' }}
+                                    title="Eliminar usuario administrador"
+                                  >
+                                    <Trash2 size={14} />
+                                    <span>Eliminar</span>
+                                  </button>
+                                </div>
                               )}
                             </td>
                           </tr>

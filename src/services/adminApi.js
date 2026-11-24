@@ -112,6 +112,12 @@ export const adminApi = {
     });
   },
 
+  async deleteUser(id) {
+    return apiRequest(`/api/admin/users/users/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
   async listInvitations() {
     return apiRequest('/api/admin/users/invitations');
   },

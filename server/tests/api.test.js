@@ -233,7 +233,8 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
     }
     assert.equal('codigo_plano' in rawStore.codigosInvitacion[0], false);
 
-    // 10b. Otro Super Admin NO puede desactivar ni degradar al Fundador indestructible
+    // 10b. Traspaso al dueño final: crear segundo Super Admin y borrar al inicial,
+    // manteniendo el bootstrap maestro bloqueado de forma permanente.
     const invSuperRes = await fetch(`${ctx.baseUrl}/api/admin/users/invitations`, {
       method: 'POST',
       headers: {
@@ -241,7 +242,7 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
         Authorization: `Bearer ${superToken}`,
       },
       body: JSON.stringify({
-        etiquetaUsuario: 'Segundo Super Admin',
+        etiquetaUsuario: 'Dueño Final AMF',
         rolAsignado: 'super_admin',
         expiraEnHoras: 24,
       }),
@@ -252,35 +253,60 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idToken: 'google-id-token-super2' }),
     })).json();
-    const super2Token = (await (await fetch(`${ctx.baseUrl}/api/auth/register-with-code`, {
+    const super2Auth = await (await fetch(`${ctx.baseUrl}/api/auth/register-with-code`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         onboardingToken: gSuper2.data.onboardingToken,
         invitationCode: invSuperData.codigoPlano,
       }),
-    })).json()).data.accessToken;
+    })).json();
+    const super2Token = super2Auth.data.accessToken;
+    const super2Id = super2Auth.data.user.id;
 
+    // No puede eliminarse a sí mismo
+    const trySelfDelete = await fetch(`${ctx.baseUrl}/api/admin/users/users/${super2Id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${super2Token}` },
+    });
+    assert.equal(trySelfDelete.status, 400);
+
+    // El dueño final (segundo super_admin) SÍ puede eliminar al admin inicial/fundador
     const founderId = okBootJson.data.user.id;
-    const tryDisableFounder = await fetch(`${ctx.baseUrl}/api/admin/users/users/${founderId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${super2Token}`,
-      },
-      body: JSON.stringify({ activo: false }),
+    const deleteFounder = await fetch(`${ctx.baseUrl}/api/admin/users/users/${founderId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${super2Token}` },
     });
-    assert.equal(tryDisableFounder.status, 403);
+    assert.equal(deleteFounder.status, 200);
 
-    const tryDemoteFounder = await fetch(`${ctx.baseUrl}/api/admin/users/users/${founderId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${super2Token}`,
-      },
-      body: JSON.stringify({ rol: 'admin' }),
+    // El token del fundador eliminado deja de funcionar inmediatamente
+    const founderMe = await fetch(`${ctx.baseUrl}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${superToken}` },
     });
-    assert.equal(tryDemoteFounder.status, 403);
+    assert.equal(founderMe.status, 401);
+
+    // Tras borrar al fundador, la compuerta ADMIN_BOOTSTRAP_CODE sigue destruida para siempre
+    const cfgAfterFounderDeleted = await (await fetch(`${ctx.baseUrl}/api/auth/config`)).json();
+    assert.equal(cfgAfterFounderDeleted.data.requiresBootstrap, false);
+    assert.equal(cfgAfterFounderDeleted.data.bootstrapLocked, true);
+
+    const tryRebootstrap = await fetch(`${ctx.baseUrl}/api/auth/bootstrap-admin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        onboardingToken: intruderOnboarding.onboardingToken,
+        bootstrapCode: 'MASTER-TEST-CODE-2026',
+        nombreInterno: 'Re-intruso',
+      }),
+    });
+    assert.equal(tryRebootstrap.status, 409);
+
+    // No se puede eliminar al último Super Admin activo restante
+    const tryDeleteLastSuper = await fetch(`${ctx.baseUrl}/api/admin/users/users/${super2Id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${admin2Token}` },
+    });
+    assert.equal(tryDeleteLastSuper.status, 403);
 
     // 11. Admin regular NO puede acceder a gestión de usuarios (403)
     const admin2UsersDenied = await fetch(`${ctx.baseUrl}/api/admin/users/users`, {
@@ -400,10 +426,11 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
     assert.equal(workbook.worksheets[0].rowCount, 2); // header + 1 row
     assert.equal(workbook.worksheets[1].rowCount, 3); // header + 2 rows
 
-    // 15. Super Admin desactiva a Admin2 y su token deja de funcionar inmediatamente
+    // 15. Dueño final (super2) desactiva a Admin2 y su token deja de funcionar inmediatamente
     const usersListRes = await fetch(`${ctx.baseUrl}/api/admin/users/users`, {
-      headers: { Authorization: `Bearer ${superToken}` },
+      headers: { Authorization: `Bearer ${super2Token}` },
     });
+    assert.equal(usersListRes.status, 200);
     const usersList = (await usersListRes.json()).data;
     const admin2Row = usersList.find((u) => u.nombreInterno === 'Abogado Penal Cali');
 
@@ -411,7 +438,7 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${superToken}`,
+        Authorization: `Bearer ${super2Token}`,
       },
       body: JSON.stringify({ activo: false }),
     });

@@ -59,35 +59,11 @@ CREATE TRIGGER trg_lock_bootstrap_config
   FOR EACH ROW
   EXECUTE FUNCTION fn_lock_bootstrap_config();
 
--- Trigger PostgreSQL: protege al administrador fundador (indestructible e inamovible)
-CREATE OR REPLACE FUNCTION fn_protect_founder_admin()
-RETURNS TRIGGER AS $$
-BEGIN
-  IF TG_OP = 'DELETE' THEN
-    IF OLD.es_fundador = TRUE THEN
-      RAISE EXCEPTION 'El administrador fundador no puede eliminarse.';
-    END IF;
-    RETURN OLD;
-  END IF;
-
-  IF OLD.es_fundador = TRUE THEN
-    IF NEW.es_fundador IS DISTINCT FROM TRUE
-       OR NEW.activo IS DISTINCT FROM TRUE
-       OR NEW.rol IS DISTINCT FROM 'super_admin'
-       OR NEW.google_sub IS DISTINCT FROM OLD.google_sub THEN
-      RAISE EXCEPTION 'El administrador fundador es indestructible: no puede desactivarse, degradarse ni reasignarse.';
-    END IF;
-  END IF;
-
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
+-- Limpiar trigger antiguo si existió en despliegues previos:
+-- El bootstrap queda bloqueado de forma permanente, pero el admin inicial sí puede
+-- eliminarse o modificarse cuando ya exista otro Super Administrador activo.
 DROP TRIGGER IF EXISTS trg_protect_founder_admin ON usuarios_admin;
-CREATE TRIGGER trg_protect_founder_admin
-  BEFORE UPDATE OR DELETE ON usuarios_admin
-  FOR EACH ROW
-  EXECUTE FUNCTION fn_protect_founder_admin();
+DROP FUNCTION IF EXISTS fn_protect_founder_admin();
 
 CREATE TABLE IF NOT EXISTS codigos_invitacion (
   id BIGSERIAL PRIMARY KEY,
@@ -96,13 +72,21 @@ CREATE TABLE IF NOT EXISTS codigos_invitacion (
   etiqueta_usuario VARCHAR(120) NOT NULL,
   rol_asignado VARCHAR(30) NOT NULL DEFAULT 'admin'
     CHECK (rol_asignado IN ('super_admin', 'admin')),
-  creado_por_admin_id BIGINT NOT NULL REFERENCES usuarios_admin(id) ON DELETE CASCADE,
+  creado_por_admin_id BIGINT REFERENCES usuarios_admin(id) ON DELETE SET NULL,
   usado_por_admin_id BIGINT REFERENCES usuarios_admin(id) ON DELETE SET NULL,
   expira_at TIMESTAMPTZ NOT NULL,
   usado_at TIMESTAMPTZ,
   revocado BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE codigos_invitacion
+  ALTER COLUMN creado_por_admin_id DROP NOT NULL;
+ALTER TABLE codigos_invitacion
+  DROP CONSTRAINT IF EXISTS codigos_invitacion_creado_por_admin_id_fkey;
+ALTER TABLE codigos_invitacion
+  ADD CONSTRAINT codigos_invitacion_creado_por_admin_id_fkey
+  FOREIGN KEY (creado_por_admin_id) REFERENCES usuarios_admin(id) ON DELETE SET NULL;
 
 CREATE INDEX IF NOT EXISTS idx_codigos_invitacion_estado
   ON codigos_invitacion (revocado, usado_at, expira_at DESC);

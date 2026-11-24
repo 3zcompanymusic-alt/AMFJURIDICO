@@ -300,9 +300,6 @@ export const adminUsersRepository = {
       const store = readLocalStore();
       const idx = store.usuariosAdmin.findIndex((u) => Number(u.id) === Number(id));
       if (idx === -1) return null;
-      if (store.usuariosAdmin[idx].es_fundador && (updates.activo === false || (updates.rol && updates.rol !== ADMIN_ROLES.SUPER_ADMIN))) {
-        throw new ConflictError('El administrador fundador es indestructible.');
-      }
       if (updates.activo !== undefined) store.usuariosAdmin[idx].activo = updates.activo;
       if (updates.rol !== undefined) store.usuariosAdmin[idx].rol = updates.rol;
       store.usuariosAdmin[idx].updated_at = new Date().toISOString();
@@ -336,6 +333,74 @@ export const adminUsersRepository = {
       values,
     );
     return res.rows[0] || null;
+  },
+
+  async deleteAdmin(id) {
+    const targetId = Number(id);
+    if (isLocalDevFallbackEnabled()) {
+      const store = readLocalStore();
+      const idx = store.usuariosAdmin.findIndex((u) => Number(u.id) === targetId);
+      if (idx === -1) return null;
+
+      const target = store.usuariosAdmin[idx];
+      const remainingActiveSupers = store.usuariosAdmin.filter(
+        (u) => Number(u.id) !== targetId && u.rol === ADMIN_ROLES.SUPER_ADMIN && u.activo === true,
+      ).length;
+      if (remainingActiveSupers < 1) {
+        throw new ConflictError(
+          'Debe permanecer al menos un Super Administrador activo en el sistema.',
+        );
+      }
+
+      store.usuariosAdmin.splice(idx, 1);
+      for (const u of store.usuariosAdmin) {
+        if (Number(u.creado_por_admin_id) === targetId) u.creado_por_admin_id = null;
+      }
+      for (const inv of store.codigosInvitacion) {
+        if (Number(inv.creado_por_admin_id) === targetId) inv.creado_por_admin_id = null;
+        if (Number(inv.usado_por_admin_id) === targetId) inv.usado_por_admin_id = null;
+      }
+      for (const p of store.postulacionesAniversario) {
+        if (Number(p.revisado_por_admin_id) === targetId) p.revisado_por_admin_id = null;
+      }
+      for (const c of store.consultasGenerales) {
+        if (Number(c.revisado_por_admin_id) === targetId) c.revisado_por_admin_id = null;
+      }
+      writeLocalStore(store);
+      return target;
+    }
+
+    return withTransaction(async (client) => {
+      await client.query('SELECT pg_advisory_xact_lock(884202)');
+      const targetRes = await client.query(
+        `SELECT id, nombre_interno, rol, es_fundador, activo
+         FROM usuarios_admin
+         WHERE id = $1
+         FOR UPDATE`,
+        [targetId],
+      );
+      if (targetRes.rowCount === 0) return null;
+
+      const remainingRes = await client.query(
+        `SELECT COUNT(*)::int AS total
+         FROM usuarios_admin
+         WHERE id <> $1 AND rol = 'super_admin' AND activo = TRUE`,
+        [targetId],
+      );
+      if ((remainingRes.rows[0]?.total ?? 0) < 1) {
+        throw new ConflictError(
+          'Debe permanecer al menos un Super Administrador activo en el sistema.',
+        );
+      }
+
+      const deleted = await client.query(
+        `DELETE FROM usuarios_admin
+         WHERE id = $1
+         RETURNING id, nombre_interno, rol, es_fundador, activo`,
+        [targetId],
+      );
+      return deleted.rows[0] || null;
+    });
   },
 
   async createInvitation({

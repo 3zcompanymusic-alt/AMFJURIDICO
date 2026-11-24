@@ -41,10 +41,10 @@ Plataforma web corporativa de **AMF Firma Legal S.A.S.** con integración de for
 
 1. El frontend obtiene el **ID Token** mediante Google Identity Services (`VITE_GOOGLE_CLIENT_ID`).
 2. El backend verifica el token criptográficamente con `google-auth-library` (`GOOGLE_CLIENT_ID`), extrae **únicamente `sub` (Google ID)** y descarta el correo y demás datos de perfil.
-3. **Administrador inicial (Bootstrap irrevocable y Fundador indestructible):** mientras no exista registro en `sistema_configuracion` (`clave = 'bootstrap_admin'`) ni en `usuarios_admin`, el primer usuario que inicie con Google en `/admin/login` ingresa `ADMIN_BOOTSTRAP_CODE` y su alias interno para vincularse como `super_admin` fundador (`es_fundador = TRUE`). En la misma transacción:
+3. **Administrador inicial (Bootstrap irrevocable y traspaso seguro al dueño final):** mientras no exista registro en `sistema_configuracion` (`clave = 'bootstrap_admin'`) ni en `usuarios_admin`, el primer usuario que inicie con Google en `/admin/login` ingresa `ADMIN_BOOTSTRAP_CODE` y su alias interno para vincularse como `super_admin` inicial (`es_fundador = TRUE`). En la misma transacción:
    * Se sella `sistema_configuracion ('bootstrap_admin')` con un trigger PostgreSQL `BEFORE UPDATE OR DELETE` que impide modificar o borrar el bloqueo.
    * El código `ADMIN_BOOTSTRAP_CODE` queda inutilizable para siempre en el backend (cualquier intento posterior devuelve `409 Conflict`, aunque la variable siga definida en Render; igualmente puedes eliminarla de Render tras activar tu cuenta).
-   * Un segundo trigger PostgreSQL protege la fila del fundador (`es_fundador = TRUE`) contra eliminación, desactivación o degradación de rol.
+   * Cuando desees entregar el sistema al dueño final, lo invitas como `super_admin` mediante un código de un solo uso y ese nuevo `super_admin` puede **eliminar al administrador inicial** desde el panel (siempre manteniendo al menos 1 `super_admin` activo), sin que la compuerta del código maestro vuelva a abrirse jamás.
 4. **Nuevos administradores:** un `super_admin` genera códigos de invitación de un solo uso desde `/admin` (se guarda únicamente el hash SHA-256 en BD) con el alias interno del colaborador.
 
 ---

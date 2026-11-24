@@ -1,7 +1,6 @@
 import { ADMIN_ROLES } from '../../../../shared/constants.js';
 import {
   ConflictError,
-  ForbiddenError,
   NotFoundError,
   ValidationError,
 } from '../../shared/errors/AppError.js';
@@ -28,18 +27,16 @@ export const adminUsersService = {
       throw new NotFoundError('Administrador no encontrado.');
     }
 
-    if (
-      target.es_fundador &&
-      (updates.activo === false ||
-        (updates.rol && updates.rol !== ADMIN_ROLES.SUPER_ADMIN))
-    ) {
-      throw new ForbiddenError(
-        'El administrador fundador es indestructible: no puede desactivarse ni degradarse.',
-      );
-    }
-
     if (Number(target.id) === Number(actingAdminId) && updates.activo === false) {
       throw new ValidationError('No puedes desactivar tu propia cuenta administrativa.');
+    }
+
+    if (
+      Number(target.id) === Number(actingAdminId) &&
+      updates.rol &&
+      updates.rol !== ADMIN_ROLES.SUPER_ADMIN
+    ) {
+      throw new ValidationError('No puedes degradar tu propio rol de Super Administrador.');
     }
 
     const willRemoveSuperAdmin =
@@ -58,6 +55,34 @@ export const adminUsersService = {
 
     const updated = await adminUsersRepository.updateAdmin(targetUserId, updates);
     return toAdminUserResponseDto(updated);
+  },
+
+  async deleteUser(targetUserId, actingAdminId) {
+    if (Number(targetUserId) === Number(actingAdminId)) {
+      throw new ValidationError(
+        'No puedes eliminar tu propia cuenta mientras tienes sesión activa.',
+      );
+    }
+
+    const target = await adminUsersRepository.findById(targetUserId);
+    if (!target) {
+      throw new NotFoundError('Administrador no encontrado.');
+    }
+
+    if (target.rol === ADMIN_ROLES.SUPER_ADMIN && target.activo === true) {
+      const activeSuperAdmins = await adminUsersRepository.countActiveSuperAdmins();
+      if (activeSuperAdmins <= 1) {
+        throw new ConflictError(
+          'Debe permanecer al menos un Super Administrador activo en el sistema.',
+        );
+      }
+    }
+
+    const deleted = await adminUsersRepository.deleteAdmin(targetUserId);
+    if (!deleted) {
+      throw new NotFoundError('Administrador no encontrado.');
+    }
+    return toAdminUserResponseDto(deleted);
   },
 
   async createInvitationCode({ etiquetaUsuario, rolAsignado, expiraEnHoras }, actingAdminId) {

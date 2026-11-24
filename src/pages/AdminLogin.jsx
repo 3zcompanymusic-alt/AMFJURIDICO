@@ -254,8 +254,8 @@ export const AdminLogin = () => {
             <form onSubmit={handleBootstrapSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)' }}>
                 Cuenta de Google verificada. Ingresa el código maestro inicial definido en{' '}
-                <code>ADMIN_BOOTSTRAP_CODE</code>. Al completar este paso, el administrador
-                fundador queda blindado y el código maestro se destruye de forma irreversible.
+                <code>ADMIN_BOOTSTRAP_CODE</code>. Al completar este paso, el código maestro inicial
+                queda destruido de forma irreversible.
               </p>
 
               <div>

@@ -27,6 +27,16 @@ export const adminUsersController = {
     res.status(200).json({ ok: true, data: updated });
   }),
 
+  deleteUser: asyncHandler(async (req, res) => {
+    const targetId = parsePositiveId(req.params.id);
+    const deleted = await adminUsersService.deleteUser(targetId, req.admin.id);
+    res.status(200).json({
+      ok: true,
+      message: 'Administrador eliminado correctamente.',
+      data: deleted,
+    });
+  }),
+
   listInvitations: asyncHandler(async (_req, res) => {
     const codes = await adminUsersService.listInvitationCodes();
     res.status(200).json({ ok: true, data: codes });
