@@ -479,8 +479,9 @@ export const AnniversaryFlow = () => {
                 ocurrido en Bogotá, esta oportunidad es para ustedes.
               </p>
               <p>
-                Cuéntanos qué pasó. Nuestro equipo revisará los casos y seleccionará uno para
-                brindar defensa penal gratuita.
+                Cuéntanos qué pasó. Nuestro equipo jurídico evaluará rigurosamente cada caso, bajo
+                absoluta reserva, y seleccionará uno para brindar defensa penal gratuita, conforme a
+                las políticas de la firma y al criterio profesional de los abogados evaluadores.
               </p>
             </div>
 
