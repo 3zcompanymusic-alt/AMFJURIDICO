@@ -604,7 +604,7 @@ export const AdminDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <div className="admin-filter-actions">
                       <button
                         type="button"
                         onClick={() => fetchAniversario(anivFilters)}
@@ -771,7 +771,7 @@ export const AdminDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <div className="admin-filter-actions">
                       <button
                         type="button"
                         onClick={() => fetchConsultas(consFilters)}
@@ -955,7 +955,7 @@ export const AdminDashboard = () => {
                       ))}
                     </select>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                  <div className="admin-filter-actions">
                     <button
                       type="button"
                       onClick={() => setExportFilters(INITIAL_EXPORT_FILTERS)}
@@ -1102,15 +1102,7 @@ export const AdminDashboard = () => {
                   </div>
                 )}
 
-                <form
-                  onSubmit={handleCreateInvitation}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '0.85rem',
-                    alignItems: 'end',
-                  }}
-                >
+                <form onSubmit={handleCreateInvitation} className="admin-invite-form-grid">
                   <div>
                     <label className="admin-detail-label" htmlFor="etiquetaUsuario">
                       Nombre / Alias Interno *

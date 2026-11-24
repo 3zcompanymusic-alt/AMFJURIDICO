@@ -283,6 +283,8 @@
 .admin-content-body {
   padding: 1.75rem 2rem 3.5rem 2rem;
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* ── KPIS, SUBTABS & CARDS ── */
@@ -388,9 +390,10 @@
 }
 
 .admin-btn-sm {
-  padding: 0.52rem 0.95rem;
+  padding: 0.52rem 0.85rem;
   font-size: 0.85rem;
   border-radius: var(--radius-sm);
+  white-space: nowrap;
 }
 
 .admin-panel-card {
@@ -399,25 +402,63 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   padding: 1.4rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .admin-filters-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+  gap: 0.75rem;
   margin-bottom: 1.15rem;
+  align-items: end;
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-filters-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.admin-filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.admin-invite-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 0.85rem;
+  align-items: end;
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-invite-form-grid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .admin-input,
 .admin-select,
 .admin-textarea {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.62rem 0.85rem;
   border: 1px solid rgba(34, 26, 20, 0.22);
   border-radius: var(--radius-sm);
   background-color: #FFFFFF;
   color: var(--color-text-primary);
   font-size: 0.9rem;
+}
+
+.admin-select {
+  text-overflow: ellipsis;
 }
 
 .admin-input:focus,
@@ -672,8 +713,13 @@
   }
 
   .admin-export-actions .btn,
+  .admin-filter-actions .btn,
   .admin-sidebar-footer-actions .btn,
   .admin-content-header .btn {
     width: auto;
+  }
+
+  .admin-filter-actions .btn {
+    flex: 1 1 auto;
   }
 }
