@@ -631,12 +631,8 @@ export const AdminDashboard = () => {
                       <thead>
                         <tr>
                           <th>Código</th>
-                          <th>Fecha</th>
                           <th>Postulante</th>
                           <th>WhatsApp</th>
-                          <th>¿Bogotá?</th>
-                          <th>Situación</th>
-                          <th>Beneficio 60%</th>
                           <th>Estado</th>
                           <th>Acción</th>
                         </tr>
@@ -644,14 +640,14 @@ export const AdminDashboard = () => {
                       <tbody>
                         {anivLoading ? (
                           <tr>
-                            <td colSpan={9} style={{ textAlign: 'center', padding: '2rem' }}>
+                            <td colSpan={5} style={{ textAlign: 'center', padding: '2rem' }}>
                               Cargando postulaciones...
                             </td>
                           </tr>
                         ) : anivData.items.length === 0 ? (
                           <tr>
                             <td
-                              colSpan={9}
+                              colSpan={5}
                               style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}
                             >
                               No hay postulaciones con los filtros actuales.
@@ -660,24 +656,19 @@ export const AdminDashboard = () => {
                         ) : (
                           anivData.items.map((row) => (
                             <tr key={row.id}>
-                              <td><strong>{row.codigoPostulacion}</strong></td>
-                              <td style={{ whiteSpace: 'nowrap' }}>{formatDateCo(row.createdAt)}</td>
+                              <td style={{ whiteSpace: 'nowrap' }}>
+                                <strong>{row.codigoPostulacion}</strong>
+                                <div className="admin-cell-sub">{formatDateCo(row.createdAt)}</div>
+                              </td>
                               <td>
                                 <div><strong>{row.nombrePostulante}</strong></div>
                                 {row.nombrePersonaAfectada && (
-                                  <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
+                                  <div className="admin-cell-sub">
                                     Afectado: {row.nombrePersonaAfectada}
                                   </div>
                                 )}
                               </td>
                               <td style={{ whiteSpace: 'nowrap' }}>{row.celularWhatsapp}</td>
-                              <td>{row.ocurrioEnBogota}</td>
-                              <td>{row.situacionActual}</td>
-                              <td>
-                                <span className={`admin-status-badge admin-status--${row.decisionBeneficio}`}>
-                                  {row.decisionBeneficio}
-                                </span>
-                              </td>
                               <td>
                                 <span className={`admin-status-badge admin-status--${row.estadoRevision}`}>
                                   {row.estadoRevision}
@@ -689,7 +680,7 @@ export const AdminDashboard = () => {
                                   onClick={() => openDetailModal('aniversario', row)}
                                   className="btn btn-outline-wine admin-btn-sm"
                                 >
-                                  Ver / Gestionar
+                                  Ver detalle
                                 </button>
                               </td>
                             </tr>
@@ -798,11 +789,9 @@ export const AdminDashboard = () => {
                       <thead>
                         <tr>
                           <th>Código</th>
-                          <th>Fecha</th>
-                          <th>Origen</th>
-                          <th>Nombre / Empresa</th>
+                          <th>Contacto</th>
                           <th>WhatsApp</th>
-                          <th>Servicio / Necesidad</th>
+                          <th>Servicio</th>
                           <th>Estado</th>
                           <th>Acción</th>
                         </tr>
@@ -810,14 +799,14 @@ export const AdminDashboard = () => {
                       <tbody>
                         {consLoading ? (
                           <tr>
-                            <td colSpan={8} style={{ textAlign: 'center', padding: '2rem' }}>
+                            <td colSpan={6} style={{ textAlign: 'center', padding: '2rem' }}>
                               Cargando consultas...
                             </td>
                           </tr>
                         ) : consData.items.length === 0 ? (
                           <tr>
                             <td
-                              colSpan={8}
+                              colSpan={6}
                               style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}
                             >
                               No hay consultas registradas con los filtros actuales.
@@ -826,19 +815,19 @@ export const AdminDashboard = () => {
                         ) : (
                           consData.items.map((row) => (
                             <tr key={row.id}>
-                              <td><strong>{row.codigoConsulta}</strong></td>
-                              <td style={{ whiteSpace: 'nowrap' }}>{formatDateCo(row.createdAt)}</td>
-                              <td>
-                                {row.origenFormulario === 'diagnostico_compliance'
-                                  ? 'Compliance'
-                                  : 'General'}
+                              <td style={{ whiteSpace: 'nowrap' }}>
+                                <strong>{row.codigoConsulta}</strong>
+                                <div className="admin-cell-sub">
+                                  {formatDateCo(row.createdAt)} ·{' '}
+                                  {row.origenFormulario === 'diagnostico_compliance'
+                                    ? 'Compliance'
+                                    : 'General'}
+                                </div>
                               </td>
                               <td>
                                 <div><strong>{row.nombreCompleto}</strong></div>
                                 {row.empresaRazonSocial && (
-                                  <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                                    {row.empresaRazonSocial}
-                                  </div>
+                                  <div className="admin-cell-sub">{row.empresaRazonSocial}</div>
                                 )}
                               </td>
                               <td style={{ whiteSpace: 'nowrap' }}>{row.telefonoWhatsapp}</td>
@@ -854,7 +843,7 @@ export const AdminDashboard = () => {
                                   onClick={() => openDetailModal('consulta', row)}
                                   className="btn btn-outline-wine admin-btn-sm"
                                 >
-                                  Ver / Gestionar
+                                  Ver detalle
                                 </button>
                               </td>
                             </tr>
