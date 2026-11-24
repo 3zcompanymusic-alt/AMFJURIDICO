@@ -75,12 +75,49 @@ test('Validadores compartidos: postulación aniversario y consulta general', () 
   assert.equal(okAniv.sanitized.nombrePersona, null);
 
   const badAniv = validateAndSanitizePostulacion({
-    nombrePostulante: 'A',
-    celularWhatsapp: '123',
+    nombrePostulante: 'Laura 123',
+    celularWhatsapp: '301234',
+    nombrePersona: 'Carlos 99',
+    quienNecesita: 'Un familiar.',
     aceptaDatos: false,
   });
   assert.ok(badAniv.errors.nombrePostulante);
+  assert.ok(badAniv.errors.celularWhatsapp);
+  assert.ok(badAniv.errors.nombrePersona);
   assert.ok(badAniv.errors.aceptaDatos);
+
+  const badPhoneLetters = validateAndSanitizePostulacion({
+    nombrePostulante: 'Laura Gómez',
+    celularWhatsapp: '301abc1234',
+    quienNecesita: 'Yo.',
+    ocurrioBogota: 'Sí.',
+    situacionActual: 'No sé.',
+    relatoCaso: 'Necesito orientación jurídica en Bogotá.',
+    aceptaDatos: true,
+  });
+  assert.ok(badPhoneLetters.errors.celularWhatsapp);
+
+  const badPhoneEleven = validateAndSanitizePostulacion({
+    nombrePostulante: 'Laura Gómez',
+    celularWhatsapp: '30123456789',
+    quienNecesita: 'Yo.',
+    ocurrioBogota: 'Sí.',
+    situacionActual: 'No sé.',
+    relatoCaso: 'Necesito orientación jurídica en Bogotá.',
+    aceptaDatos: true,
+  });
+  assert.ok(badPhoneEleven.errors.celularWhatsapp);
+
+  const okPlus57 = validateAndSanitizePostulacion({
+    nombrePostulante: 'Laura Gómez',
+    celularWhatsapp: '+57 301 330 2160',
+    quienNecesita: 'Yo.',
+    ocurrioBogota: 'Sí.',
+    situacionActual: 'No sé.',
+    relatoCaso: 'Necesito orientación jurídica en Bogotá.',
+    aceptaDatos: true,
+  });
+  assert.deepEqual(okPlus57.errors, {});
 
   const okCons = validateAndSanitizeConsultaGeneral({
     origenFormulario: 'formulario_general',
@@ -93,6 +130,21 @@ test('Validadores compartidos: postulación aniversario y consulta general', () 
     aceptaDatos: true,
   });
   assert.deepEqual(okCons.errors, {});
+
+  const badCons = validateAndSanitizeConsultaGeneral({
+    origenFormulario: 'formulario_general',
+    nombre: 'Carlos 2',
+    telefono: '1234567',
+    email: 'carlos@ejemplo',
+    ciudad: 'Bogotá 12',
+    detalles: '1234567890',
+    aceptaDatos: true,
+  });
+  assert.ok(badCons.errors.nombre);
+  assert.ok(badCons.errors.telefono);
+  assert.ok(badCons.errors.email);
+  assert.ok(badCons.errors.ciudad);
+  assert.ok(badCons.errors.detalles);
 });
 
 test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitaciones, formularios y exportación XLSX/CSV', async () => {
@@ -314,18 +366,18 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
     });
     assert.equal(admin2UsersDenied.status, 403);
 
-    // 12. Envío público de formulario Aniversario (incluyendo payload con posible fórmula Excel)
+    // 12. Envío público de formulario Aniversario (incluyendo payload con posible fórmula Excel en relato)
     const postAniv = await fetch(`${ctx.baseUrl}/api/formularios/aniversario`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nombrePostulante: '=HYPERLINK("http://malicioso","Laura")',
+        nombrePostulante: 'Laura Gómez',
         celularWhatsapp: '3013302160',
         quienNecesita: 'Un familiar.',
         nombrePersona: 'Carlos Gómez',
         ocurrioBogota: 'Sí.',
         situacionActual: 'La capturaron hace poco.',
-        relatoCaso: 'Audiencia pendiente en Bogotá por situación urgente.',
+        relatoCaso: '=HYPERLINK("http://malicioso","Audiencia urgente en Bogotá")',
         aceptaDatos: true,
       }),
     });

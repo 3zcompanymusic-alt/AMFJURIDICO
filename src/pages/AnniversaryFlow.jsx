@@ -78,13 +78,24 @@ export const AnniversaryFlow = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const hasImmediateInputViolation = (name, value) => {
+    if (typeof value !== 'string') return false;
+    if ((name === 'nombrePostulante' || name === 'nombrePersona') && /[\d]/.test(value)) {
+      return true;
+    }
+    if (name === 'celularWhatsapp' && /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(value)) {
+      return true;
+    }
+    return false;
+  };
+
   const updateField = (name, value) => {
     const nextFormData = { ...formData, [name]: value };
     setFormData(nextFormData);
 
     if (submitError) setSubmitError('');
 
-    if (errors[name] || hasAttemptedSubmit) {
+    if (errors[name] || hasAttemptedSubmit || hasImmediateInputViolation(name, value)) {
       const err = validatePostulacionField(name, value, nextFormData);
       setErrors((prev) => {
         const next = { ...prev };
@@ -562,6 +573,7 @@ export const AnniversaryFlow = () => {
                     type="text"
                     name="nombrePostulante"
                     autoComplete="name"
+                    maxLength={150}
                     value={formData.nombrePostulante}
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}
@@ -584,7 +596,7 @@ export const AnniversaryFlow = () => {
                     2. ¿Cuál es tu número de celular? *
                   </label>
                   <p className="aniv-helper">
-                    Escribe el número donde podamos contactarte por WhatsApp.
+                    Escribe tu número celular de 10 dígitos para contactarte por WhatsApp.
                   </p>
                   <input
                     id="celularWhatsapp"
@@ -592,6 +604,7 @@ export const AnniversaryFlow = () => {
                     inputMode="tel"
                     name="celularWhatsapp"
                     autoComplete="tel"
+                    maxLength={18}
                     value={formData.celularWhatsapp}
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}
@@ -661,6 +674,7 @@ export const AnniversaryFlow = () => {
                     id="nombrePersona"
                     type="text"
                     name="nombrePersona"
+                    maxLength={150}
                     value={formData.nombrePersona}
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}

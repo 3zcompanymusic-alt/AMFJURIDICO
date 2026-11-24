@@ -10,8 +10,92 @@ export const cleanText = (value) => (typeof value === 'string' ? value.trim() : 
 
 export const extractDigits = (value) => cleanText(value).replace(/\D/g, '');
 
+const LETTER_REGEX = /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g;
+const PERSON_NAME_ALLOWED_REGEX = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'´.\-\s]+$/;
+const CITY_ALLOWED_REGEX = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ.,\-\s]+$/;
+const PHONE_ALLOWED_CHARS_REGEX = /^[+\d\s()-]+$/;
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
 export function isValidEmailFormat(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanText(email));
+  const v = cleanText(email);
+  return EMAIL_REGEX.test(v) && !v.includes('..');
+}
+
+function countLetters(str) {
+  return (str.match(LETTER_REGEX) || []).length;
+}
+
+export function validatePersonName(value, { required = true, emptyMsg, min, max }) {
+  const v = cleanText(value);
+  if (!v) return required ? emptyMsg : '';
+  if (/\d/.test(v)) {
+    return 'El nombre no puede contener números.';
+  }
+  if (!PERSON_NAME_ALLOWED_REGEX.test(v)) {
+    return 'El nombre solo debe contener letras y espacios (sin símbolos).';
+  }
+  if (v.length < min || countLetters(v) < 2) {
+    return 'Escribe un nombre válido (mínimo 2 letras).';
+  }
+  if (v.length > max) {
+    return `El nombre no puede superar ${max} caracteres.`;
+  }
+  return '';
+}
+
+export function validatePhone10Digits(value, emptyMsg) {
+  const v = cleanText(value);
+  if (!v) return emptyMsg;
+  if (/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(v)) {
+    return 'El número de teléfono no puede contener letras.';
+  }
+  if (!PHONE_ALLOWED_CHARS_REGEX.test(v)) {
+    return 'Ingresa solo dígitos numéricos (ej. 301 234 5678).';
+  }
+
+  let digits = extractDigits(v);
+  // Permite prefijo internacional explícito +57 seguido de 10 dígitos
+  if (v.startsWith('+57') && digits.length === 12) {
+    digits = digits.slice(2);
+  }
+
+  if (digits.length !== FIELD_LIMITS.telefonoExactDigits || v.length > FIELD_LIMITS.celularMaxLength) {
+    return 'El número de teléfono debe tener exactamente 10 dígitos (ej. 301 234 5678).';
+  }
+  return '';
+}
+
+export function validateCityName(value, { required = true }) {
+  const v = cleanText(value);
+  if (!v) return required ? 'La ciudad es obligatoria.' : '';
+  if (/\d/.test(v)) {
+    return 'La ciudad no puede contener números.';
+  }
+  if (!CITY_ALLOWED_REGEX.test(v)) {
+    return 'Ingresa un nombre de ciudad válido (solo letras).';
+  }
+  if (v.length < FIELD_LIMITS.ciudadMin || countLetters(v) < 2) {
+    return 'Ingresa el nombre completo de la ciudad.';
+  }
+  if (v.length > FIELD_LIMITS.ciudadMax) {
+    return `La ciudad no puede superar ${FIELD_LIMITS.ciudadMax} caracteres.`;
+  }
+  return '';
+}
+
+function validateCaseNarrative(value, { min, max, emptyMsg, minMsg, maxMsg }) {
+  const v = cleanText(value);
+  if (!v) return emptyMsg;
+  if (/^\d+$/.test(v.replace(/\s+/g, ''))) {
+    return 'Por favor describe el caso con palabras, no solo números.';
+  }
+  if (v.length < min || countLetters(v) < 4) {
+    return minMsg;
+  }
+  if (v.length > max) {
+    return maxMsg;
+  }
+  return '';
 }
 
 /**
@@ -20,31 +104,19 @@ export function isValidEmailFormat(email) {
  */
 export function validatePostulacionField(name, value, formValues = {}) {
   switch (name) {
-    case 'nombrePostulante': {
-      const v = cleanText(value);
-      if (!v) return 'Por favor escribe tu nombre y apellido.';
-      if (v.length < FIELD_LIMITS.nombrePostulanteMin) {
-        return 'Por favor escribe tu nombre y apellido completo.';
-      }
-      if (v.length > FIELD_LIMITS.nombrePostulanteMax) {
-        return `El nombre no puede superar ${FIELD_LIMITS.nombrePostulanteMax} caracteres.`;
-      }
-      return '';
-    }
+    case 'nombrePostulante':
+      return validatePersonName(value, {
+        required: true,
+        emptyMsg: 'Por favor escribe tu nombre y apellido.',
+        min: FIELD_LIMITS.nombrePostulanteMin,
+        max: FIELD_LIMITS.nombrePostulanteMax,
+      });
 
-    case 'celularWhatsapp': {
-      const v = cleanText(value);
-      const digits = extractDigits(v);
-      if (!v) return 'Por favor escribe tu número de celular para contactarte por WhatsApp.';
-      if (
-        digits.length < FIELD_LIMITS.celularMinDigits ||
-        digits.length > FIELD_LIMITS.celularMaxDigits ||
-        v.length > FIELD_LIMITS.celularMaxLength
-      ) {
-        return 'Ingresa un número de celular o WhatsApp válido (entre 7 y 15 dígitos).';
-      }
-      return '';
-    }
+    case 'celularWhatsapp':
+      return validatePhone10Digits(
+        value,
+        'Por favor escribe tu número de celular (10 dígitos) para contactarte por WhatsApp.',
+      );
 
     case 'quienNecesita': {
       const v = cleanText(value);
@@ -56,17 +128,13 @@ export function validatePostulacionField(name, value, formValues = {}) {
 
     case 'nombrePersona': {
       const quien = cleanText(formValues.quienNecesita);
-      const v = cleanText(value);
-      if (quien && quien !== 'Yo.') {
-        if (!v) return 'Escribe el nombre de la persona que necesita el abogado.';
-        if (v.length < FIELD_LIMITS.nombrePersonaMin) {
-          return 'Escribe el nombre completo o como la conozcan (mínimo 2 caracteres).';
-        }
-      }
-      if (v.length > FIELD_LIMITS.nombrePersonaMax) {
-        return `El nombre no puede superar ${FIELD_LIMITS.nombrePersonaMax} caracteres.`;
-      }
-      return '';
+      const isRequired = Boolean(quien && quien !== 'Yo.');
+      return validatePersonName(value, {
+        required: isRequired,
+        emptyMsg: 'Escribe el nombre de la persona que necesita el abogado.',
+        min: FIELD_LIMITS.nombrePersonaMin,
+        max: FIELD_LIMITS.nombrePersonaMax,
+      });
     }
 
     case 'ocurrioBogota': {
@@ -85,24 +153,20 @@ export function validatePostulacionField(name, value, formValues = {}) {
       return '';
     }
 
-    case 'relatoCaso': {
-      const v = cleanText(value);
-      if (!v) return 'Cuéntanos con tus propias palabras qué pasó y en qué va el caso.';
-      if (v.length < FIELD_LIMITS.relatoCasoMin) {
-        return 'Por favor danos un poco más de contexto sobre lo ocurrido (mínimo 10 caracteres).';
-      }
-      if (v.length > FIELD_LIMITS.relatoCasoMax) {
-        return `El relato no puede superar ${FIELD_LIMITS.relatoCasoMax} caracteres.`;
-      }
-      return '';
-    }
+    case 'relatoCaso':
+      return validateCaseNarrative(value, {
+        min: FIELD_LIMITS.relatoCasoMin,
+        max: FIELD_LIMITS.relatoCasoMax,
+        emptyMsg: 'Cuéntanos con tus propias palabras qué pasó y en qué va el caso.',
+        minMsg: 'Por favor danos un poco más de contexto sobre lo ocurrido (mínimo 10 caracteres).',
+        maxMsg: `El relato no puede superar ${FIELD_LIMITS.relatoCasoMax} caracteres.`,
+      });
 
-    case 'aceptaDatos': {
+    case 'aceptaDatos':
       if (value !== true) {
         return 'Debes autorizar la Política de Tratamiento de Datos Personales para enviar tu caso.';
       }
       return '';
-    }
 
     default:
       return '';
@@ -157,40 +221,24 @@ export function validateAndSanitizePostulacion(payload = {}) {
  */
 export function validateConsultaGeneralField(name, value, origenFormulario = FORM_ORIGINS.GENERAL) {
   switch (name) {
-    case 'nombre': {
-      const v = cleanText(value);
-      if (!v) return 'El nombre completo es obligatorio.';
-      if (v.length < FIELD_LIMITS.nombreGeneralMin) return 'Ingresa tu nombre completo.';
-      if (v.length > FIELD_LIMITS.nombreGeneralMax) {
-        return `El nombre no puede superar ${FIELD_LIMITS.nombreGeneralMax} caracteres.`;
-      }
-      return '';
-    }
+    case 'nombre':
+      return validatePersonName(value, {
+        required: true,
+        emptyMsg: 'El nombre completo es obligatorio.',
+        min: FIELD_LIMITS.nombreGeneralMin,
+        max: FIELD_LIMITS.nombreGeneralMax,
+      });
 
-    case 'telefono': {
-      const v = cleanText(value);
-      const digits = extractDigits(v);
-      if (!v) return 'El número de WhatsApp o teléfono es obligatorio.';
-      if (
-        digits.length < FIELD_LIMITS.celularMinDigits ||
-        digits.length > FIELD_LIMITS.celularMaxDigits ||
-        v.length > FIELD_LIMITS.celularMaxLength
-      ) {
-        return 'Ingresa un número de teléfono válido (entre 7 y 15 dígitos).';
-      }
-      return '';
-    }
+    case 'telefono':
+      return validatePhone10Digits(
+        value,
+        'El número de WhatsApp o teléfono (10 dígitos) es obligatorio.',
+      );
 
-    case 'ciudad': {
-      const v = cleanText(value);
-      if (origenFormulario === FORM_ORIGINS.GENERAL && !v) {
-        return 'La ciudad es obligatoria.';
-      }
-      if (v.length > FIELD_LIMITS.ciudadMax) {
-        return `La ciudad no puede superar ${FIELD_LIMITS.ciudadMax} caracteres.`;
-      }
-      return '';
-    }
+    case 'ciudad':
+      return validateCityName(value, {
+        required: origenFormulario === FORM_ORIGINS.GENERAL,
+      });
 
     case 'email': {
       const v = cleanText(value);
@@ -198,37 +246,60 @@ export function validateConsultaGeneralField(name, value, origenFormulario = FOR
         return 'El correo electrónico es obligatorio.';
       }
       if (v && (!isValidEmailFormat(v) || v.length > FIELD_LIMITS.emailMax)) {
-        return 'Ingresa un correo electrónico válido.';
+        return 'Ingresa un correo electrónico válido (ej. nombre@correo.com).';
       }
       return '';
     }
 
-    case 'detalles': {
-      const v = cleanText(value);
-      if (!v) return 'Por favor describe brevemente tu caso o consulta.';
-      if (v.length < FIELD_LIMITS.detallesMin) {
-        return 'Por favor brinda un poco más de detalle (mínimo 5 caracteres).';
-      }
-      if (v.length > FIELD_LIMITS.detallesMax) {
-        return `El detalle no puede superar ${FIELD_LIMITS.detallesMax} caracteres.`;
-      }
-      return '';
-    }
+    case 'detalles':
+      return validateCaseNarrative(value, {
+        min: FIELD_LIMITS.detallesMin,
+        max: FIELD_LIMITS.detallesMax,
+        emptyMsg: 'Por favor describe brevemente tu caso o consulta.',
+        minMsg: 'Por favor brinda un poco más de detalle sobre tu consulta (mínimo 10 caracteres).',
+        maxMsg: `El detalle no puede superar ${FIELD_LIMITS.detallesMax} caracteres.`,
+      });
 
     case 'empresaRazonSocial': {
       const v = cleanText(value);
       if (origenFormulario === FORM_ORIGINS.COMPLIANCE && !v) {
         return 'La razón social o nombre de la empresa es obligatorio.';
       }
+      if (v) {
+        if (v.length < FIELD_LIMITS.empresaMin || countLetters(v) < 2) {
+          return 'Ingresa un nombre de empresa válido (mínimo 2 letras).';
+        }
+        if (v.length > FIELD_LIMITS.empresaMax) {
+          return `La razón social no puede superar ${FIELD_LIMITS.empresaMax} caracteres.`;
+        }
+      }
       return '';
     }
 
-    case 'aceptaDatos': {
+    case 'empresaSector': {
+      const v = cleanText(value);
+      if (origenFormulario === FORM_ORIGINS.COMPLIANCE && !v) {
+        return 'El sector de actividad es obligatorio.';
+      }
+      if (v) {
+        if (/\d/.test(v)) {
+          return 'El sector no debe contener números.';
+        }
+        if (v.length < FIELD_LIMITS.sectorMin || countLetters(v) < 2) {
+          return 'Ingresa un sector de actividad válido.';
+        }
+        if (v.length > FIELD_LIMITS.sectorMax) {
+          return `El sector no puede superar ${FIELD_LIMITS.sectorMax} caracteres.`;
+        }
+      }
+      return '';
+    }
+
+    case 'aceptaDatos':
       if (value !== true) {
         return 'Debes autorizar el tratamiento de datos personales conforme a la ley colombiana.';
       }
       return '';
-    }
 
     default:
       return '';
@@ -236,7 +307,7 @@ export function validateConsultaGeneralField(name, value, origenFormulario = FOR
 }
 
 /**
- * Valida y sanitiza la consulta general (/formulario) o diagnóstico de compliance.
+ * Valida y normaliza la consulta general (/formulario) o diagnóstico de compliance.
  */
 export function validateAndSanitizeConsultaGeneral(payload = {}) {
   const origenFormulario =
@@ -252,7 +323,9 @@ export function validateAndSanitizeConsultaGeneral(payload = {}) {
     telefono: cleanText(payload.telefono),
     email: cleanText(payload.email),
     ciudad: cleanText(payload.ciudad),
-    necesidad: cleanText(payload.necesidad) || (isCompliance ? 'Diagnóstico Compliance Corporativo' : 'Consulta General / Orientación Legal'),
+    necesidad:
+      cleanText(payload.necesidad) ||
+      (isCompliance ? 'Diagnóstico Compliance Corporativo' : 'Consulta General / Orientación Legal'),
     institucion: cleanText(payload.institucion) || null,
     planInteres: cleanText(payload.planInteres) || null,
     situacionPenal: cleanText(payload.situacionPenal) || null,
@@ -271,7 +344,7 @@ export function validateAndSanitizeConsultaGeneral(payload = {}) {
 
   const errors = {};
   const requiredFields = isCompliance
-    ? ['empresaRazonSocial', 'nombre', 'telefono', 'detalles', 'aceptaDatos']
+    ? ['empresaRazonSocial', 'empresaSector', 'nombre', 'telefono', 'detalles', 'aceptaDatos']
     : ['nombre', 'telefono', 'ciudad', 'email', 'detalles', 'aceptaDatos'];
 
   for (const field of requiredFields) {

@@ -18,6 +18,10 @@ import { SEOHead } from '../components/SEOHead';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import { whatsappLink, WA_MESSAGES } from '../config/siteConfig';
 import { submitConsultaGeneral } from '../services/formsApi';
+import {
+  validateAndSanitizeConsultaGeneral,
+  validateConsultaGeneralField,
+} from '../../shared/validators';
 import './ComplianceCorporativo.css';
 
 export const ComplianceCorporativo = () => {
@@ -34,38 +38,93 @@ export const ComplianceCorporativo = () => {
     aceptaDatos: false
   });
 
+  const [fieldErrors, setFieldErrors] = useState({});
   const [diagnosticState, setDiagnosticState] = useState({
     loading: false,
     error: '',
     codigoConsulta: null,
   });
 
+  const mapDiagnosticFieldToValidatorKey = (formKey) => {
+    if (formKey === 'empresa') return 'empresaRazonSocial';
+    if (formKey === 'sector') return 'empresaSector';
+    if (formKey === 'contacto') return 'nombre';
+    return formKey;
+  };
+
+  const handleDiagnosticChange = (formKey, value) => {
+    setFormData((prev) => ({ ...prev, [formKey]: value }));
+    if (diagnosticState.error) {
+      setDiagnosticState((prev) => ({ ...prev, error: '' }));
+    }
+
+    const validatorKey = mapDiagnosticFieldToValidatorKey(formKey);
+    const immediateViolation =
+      typeof value === 'string' &&
+      (((validatorKey === 'nombre' || validatorKey === 'empresaSector') && /\d/.test(value)) ||
+        (validatorKey === 'telefono' && /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(value)));
+
+    if (fieldErrors[validatorKey] || immediateViolation) {
+      const err = validateConsultaGeneralField(validatorKey, value, 'diagnostico_compliance');
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        if (err) next[validatorKey] = err;
+        else delete next[validatorKey];
+        return next;
+      });
+    }
+  };
+
+  const handleDiagnosticBlur = (formKey, value) => {
+    const validatorKey = mapDiagnosticFieldToValidatorKey(formKey);
+    const err = validateConsultaGeneralField(validatorKey, value, 'diagnostico_compliance');
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      if (err) next[validatorKey] = err;
+      else delete next[validatorKey];
+      return next;
+    });
+  };
+
   const handleSubmitDiagnostic = async (e) => {
     e.preventDefault();
     if (diagnosticState.loading) return;
 
+    const payload = {
+      origenFormulario: 'diagnostico_compliance',
+      empresaRazonSocial: formData.empresa,
+      empresaSector: formData.sector,
+      empresaTamano: formData.tamano,
+      necesidad: 'Diagnóstico Compliance Corporativo',
+      nombre: formData.contacto,
+      telefono: formData.telefono,
+      detalles: `Prioridad: ${formData.preocupacion}. Sector: ${formData.sector || 'General'}. Tamaño: ${formData.tamano}.`,
+      aceptaDatos: formData.aceptaDatos,
+    };
+
+    const { errors, sanitized } = validateAndSanitizeConsultaGeneral(payload);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setDiagnosticState({
+        loading: false,
+        error: 'Revisa los campos señalados en rojo antes de enviar el diagnóstico.',
+        codigoConsulta: null,
+      });
+      return;
+    }
+
     setDiagnosticState({ loading: true, error: '', codigoConsulta: null });
     try {
-      const created = await submitConsultaGeneral({
-        origenFormulario: 'diagnostico_compliance',
-        empresaRazonSocial: formData.empresa,
-        empresaSector: formData.sector,
-        empresaTamano: formData.tamano,
-        necesidad: 'Diagnóstico Compliance Corporativo',
-        nombre: formData.contacto,
-        telefono: formData.telefono,
-        detalles: `Prioridad: ${formData.preocupacion}. Sector: ${formData.sector || 'General'}. Tamaño: ${formData.tamano}.`,
-        aceptaDatos: formData.aceptaDatos,
-      });
+      const created = await submitConsultaGeneral(sanitized);
 
       const textMsg = `*Diagnóstico Corporativo Web AMF Firma Legal*\n` +
         (created?.codigoConsulta ? `*Código:* ${created.codigoConsulta}\n\n` : '\n') +
-        `• *Empresa:* ${formData.empresa || 'No especificada'}\n` +
-        `• *Sector:* ${formData.sector || 'General'}\n` +
-        `• *Tamaño:* ${formData.tamano}\n` +
+        `• *Empresa:* ${sanitized.empresaRazonSocial || 'No especificada'}\n` +
+        `• *Sector:* ${sanitized.empresaSector || 'General'}\n` +
+        `• *Tamaño:* ${sanitized.empresaTamano}\n` +
         `• *Prioridad:* ${formData.preocupacion}\n` +
-        `• *Contacto:* ${formData.contacto}\n` +
-        `• *Teléfono:* ${formData.telefono}`;
+        `• *Contacto:* ${sanitized.nombre}\n` +
+        `• *Teléfono:* ${sanitized.telefono}`;
 
       setDiagnosticState({
         loading: false,
@@ -77,6 +136,7 @@ export const ComplianceCorporativo = () => {
         window.open(whatsappLink(undefined, textMsg), '_blank');
       }, 300);
     } catch (err) {
+      if (err.fieldErrors) setFieldErrors(err.fieldErrors);
       setDiagnosticState({
         loading: false,
         error: err.message || 'Verifica los campos e intenta nuevamente.',
@@ -298,32 +358,46 @@ export const ComplianceCorporativo = () => {
             </div>
 
             <div className="diagnostic-form-col">
-              <form onSubmit={handleSubmitDiagnostic} className="compliance-form-box">
+              <form onSubmit={handleSubmitDiagnostic} noValidate className="compliance-form-box">
                 <h3 className="text-serif" style={{ fontSize: '1.3rem', color: 'var(--color-wine)', marginBottom: '1.2rem' }}>
                   Datos Básicos de la Empresa
                 </h3>
 
                 <div className="form-group-field">
-                  <label>Razón Social o Nombre de la Empresa</label>
+                  <label>Razón Social o Nombre de la Empresa *</label>
                   <input
                     type="text"
-                    required
+                    maxLength={150}
                     placeholder="Ej. Inversiones &amp; Logística S.A.S."
                     value={formData.empresa}
-                    onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
+                    onChange={(e) => handleDiagnosticChange('empresa', e.target.value)}
+                    onBlur={(e) => handleDiagnosticBlur('empresa', e.target.value)}
+                    style={fieldErrors.empresaRazonSocial ? { borderColor: '#DC2626', backgroundColor: '#FEF2F2' } : undefined}
                   />
+                  {fieldErrors.empresaRazonSocial && (
+                    <span style={{ color: '#DC2626', fontSize: '0.8rem', fontWeight: 600 }}>
+                      {fieldErrors.empresaRazonSocial}
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-group-row">
                   <div className="form-group-field">
-                    <label>Sector de Actividad</label>
+                    <label>Sector de Actividad *</label>
                     <input
                       type="text"
-                      required
+                      maxLength={120}
                       placeholder="Ej. Transporte, Salud, Comercio"
                       value={formData.sector}
-                      onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
+                      onChange={(e) => handleDiagnosticChange('sector', e.target.value)}
+                      onBlur={(e) => handleDiagnosticBlur('sector', e.target.value)}
+                      style={fieldErrors.empresaSector ? { borderColor: '#DC2626', backgroundColor: '#FEF2F2' } : undefined}
                     />
+                    {fieldErrors.empresaSector && (
+                      <span style={{ color: '#DC2626', fontSize: '0.8rem', fontWeight: 600 }}>
+                        {fieldErrors.empresaSector}
+                      </span>
+                    )}
                   </div>
                   <div className="form-group-field">
                     <label>Tamaño / Empleados</label>
@@ -355,39 +429,58 @@ export const ComplianceCorporativo = () => {
 
                 <div className="form-group-row">
                   <div className="form-group-field">
-                    <label>Nombre del Contacto</label>
+                    <label>Nombre del Contacto *</label>
                     <input
                       type="text"
-                      required
-                      placeholder="Nombre y cargo"
+                      maxLength={150}
+                      placeholder="Nombre completo"
                       value={formData.contacto}
-                      onChange={(e) => setFormData({ ...formData, contacto: e.target.value })}
+                      onChange={(e) => handleDiagnosticChange('contacto', e.target.value)}
+                      onBlur={(e) => handleDiagnosticBlur('contacto', e.target.value)}
+                      style={fieldErrors.nombre ? { borderColor: '#DC2626', backgroundColor: '#FEF2F2' } : undefined}
                     />
+                    {fieldErrors.nombre && (
+                      <span style={{ color: '#DC2626', fontSize: '0.8rem', fontWeight: 600 }}>
+                        {fieldErrors.nombre}
+                      </span>
+                    )}
                   </div>
                   <div className="form-group-field">
-                    <label>Teléfono o Celular WhatsApp</label>
+                    <label>Teléfono / WhatsApp (10 dígitos) *</label>
                     <input
                       type="tel"
-                      required
+                      inputMode="tel"
+                      maxLength={18}
                       placeholder="Ej. 310 123 4567"
                       value={formData.telefono}
-                      onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                      onChange={(e) => handleDiagnosticChange('telefono', e.target.value)}
+                      onBlur={(e) => handleDiagnosticBlur('telefono', e.target.value)}
+                      style={fieldErrors.telefono ? { borderColor: '#DC2626', backgroundColor: '#FEF2F2' } : undefined}
                     />
+                    {fieldErrors.telefono && (
+                      <span style={{ color: '#DC2626', fontSize: '0.8rem', fontWeight: 600 }}>
+                        {fieldErrors.telefono}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.84rem', color: 'var(--color-text-muted)', marginTop: '0.6rem', cursor: 'pointer' }}>
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.84rem', color: fieldErrors.aceptaDatos ? '#DC2626' : 'var(--color-text-muted)', marginTop: '0.6rem', cursor: 'pointer' }}>
                   <input
                     type="checkbox"
-                    required
                     checked={formData.aceptaDatos}
-                    onChange={(e) => setFormData({ ...formData, aceptaDatos: e.target.checked })}
+                    onChange={(e) => handleDiagnosticChange('aceptaDatos', e.target.checked)}
                     style={{ marginTop: '0.2rem', accentColor: 'var(--color-wine)' }}
                   />
                   <span>
                     Autorizo el tratamiento de datos personales conforme a la <Link to="/privacidad" style={{ textDecoration: 'underline', color: 'var(--color-wine)', fontWeight: 600 }}>Política de Privacidad (Ley 1581 de 2012)</Link>.
                   </span>
                 </label>
+                {fieldErrors.aceptaDatos && (
+                  <span style={{ color: '#DC2626', fontSize: '0.8rem', fontWeight: 600, display: 'block', marginTop: '0.25rem' }}>
+                    {fieldErrors.aceptaDatos}
+                  </span>
+                )}
 
                 {diagnosticState.error && (
                   <p style={{ color: '#DC2626', fontSize: '0.86rem', fontWeight: 600, marginTop: '0.5rem' }}>

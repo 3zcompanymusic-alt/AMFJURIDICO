@@ -99,6 +99,13 @@ export const Formulario = () => {
     return newErrors;
   };
 
+  const hasImmediateInputViolation = (name, value) => {
+    if (typeof value !== 'string') return false;
+    if ((name === 'nombre' || name === 'ciudad') && /\d/.test(value)) return true;
+    if (name === 'telefono' && /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(value)) return true;
+    return false;
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const val = type === 'checkbox' ? checked : value;
@@ -107,8 +114,8 @@ export const Formulario = () => {
       [name]: val
     }));
 
-    // If this field currently has an error, validate on change to clear or update it
-    if (errors[name] || hasAttemptedSubmit) {
+    // Valida en cambio si el campo tenía error, si ya intentó enviar o si ingresó caracteres inválidos
+    if (errors[name] || hasAttemptedSubmit || hasImmediateInputViolation(name, val)) {
       const err = validateField(name, val);
       setErrors(prev => {
         const next = { ...prev };
@@ -373,6 +380,7 @@ export const Formulario = () => {
                     type="text"
                     name="nombre"
                     required
+                    maxLength={150}
                     value={formData.nombre}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -390,12 +398,14 @@ export const Formulario = () => {
                 <div className="grid-2">
                   <div>
                     <label style={getLabelStyle('telefono')}>
-                      WhatsApp / Teléfono *
+                      WhatsApp / Teléfono (10 dígitos) *
                     </label>
                     <input 
                       type="tel"
+                      inputMode="tel"
                       name="telefono"
                       required
+                      maxLength={18}
                       value={formData.telefono}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -418,6 +428,7 @@ export const Formulario = () => {
                       type="text"
                       name="ciudad"
                       required
+                      maxLength={100}
                       value={formData.ciudad}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -441,6 +452,7 @@ export const Formulario = () => {
                     type="email"
                     name="email"
                     required
+                    maxLength={160}
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -975,6 +987,11 @@ export const Formulario = () => {
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({ ...prev, aceptaDatos: true }));
+                  setErrors(prev => {
+                    const next = { ...prev };
+                    delete next.aceptaDatos;
+                    return next;
+                  });
                   setErrorDatos(false);
                   setShowPolicyModal(false);
                 }}
