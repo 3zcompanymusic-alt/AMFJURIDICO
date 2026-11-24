@@ -475,7 +475,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Burbuja flotante inferior izquierda: Regalo de aniversario */}
+      {/* Burbuja flotante inferior derecha: Regalo de aniversario */}
       <Link
         to="/aniversario-bogota"
         className="home-anniv-bubble"

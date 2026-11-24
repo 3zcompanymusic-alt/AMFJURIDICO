@@ -1,6 +1,7 @@
 import { Router } from 'express';
+import { ADMIN_ROLES } from '../../../../shared/constants.js';
 import { createRateLimiter } from '../../shared/middlewares/rateLimiters.js';
-import { requireAuth } from '../auth/auth.middleware.js';
+import { requireAuth, requireRole } from '../auth/auth.middleware.js';
 import { formsController } from './forms.controller.js';
 
 export function createPublicFormsRouter() {
@@ -34,13 +35,15 @@ export function createLegacyPostulacionesRouter() {
 
 export function createAdminFormsRouter() {
   const router = Router();
-  router.use(requireAuth);
+  router.use(requireAuth, requireRole(ADMIN_ROLES.SUPER_ADMIN, ADMIN_ROLES.ADMIN));
 
   router.get('/resumen', formsController.adminSummary);
   router.get('/aniversario', formsController.adminListAniversario);
   router.patch('/aniversario/:id', formsController.adminUpdateAniversario);
+  router.delete('/aniversario/:id', formsController.adminDeleteAniversario);
   router.get('/consultas', formsController.adminListConsultas);
   router.patch('/consultas/:id', formsController.adminUpdateConsulta);
+  router.delete('/consultas/:id', formsController.adminDeleteConsulta);
 
   return router;
 }

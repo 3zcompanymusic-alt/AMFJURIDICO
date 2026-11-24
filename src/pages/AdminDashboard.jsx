@@ -115,6 +115,7 @@ export const AdminDashboard = () => {
   const [reviewEstado, setReviewEstado] = useState('recibido');
   const [reviewNotas, setReviewNotas] = useState('');
   const [savingReview, setSavingReview] = useState(false);
+  const [deletingKey, setDeletingKey] = useState('');
 
   // Exportación
   const [exportFilters, setExportFilters] = useState(INITIAL_EXPORT_FILTERS);
@@ -321,6 +322,51 @@ export const AdminDashboard = () => {
       setGlobalError(err.message);
     } finally {
       setSavingReview(false);
+    }
+  };
+
+  const handleDeleteRecord = async (kind, row) => {
+    const key = `${kind}-${row.id}`;
+    if (deletingKey) return;
+
+    const codigo = kind === 'aniversario' ? row.codigoPostulacion : row.codigoConsulta;
+    const nombre = kind === 'aniversario' ? row.nombrePostulante : row.nombreCompleto;
+    const confirmed = window.confirm(
+      `¿Eliminar definitivamente el registro ${codigo} (${nombre})? Esta acción no se puede deshacer.`,
+    );
+    if (!confirmed) return;
+
+    setDeletingKey(key);
+    setGlobalError('');
+    try {
+      if (kind === 'aniversario') {
+        await adminApi.deleteAniversario(row.id);
+        const nextPage =
+          anivData.items.length === 1 && anivFilters.page > 1
+            ? anivFilters.page - 1
+            : anivFilters.page;
+        const nextFilters = { ...anivFilters, page: nextPage };
+        if (nextPage !== anivFilters.page) setAnivFilters(nextFilters);
+        await fetchAniversario(nextFilters);
+      } else {
+        await adminApi.deleteConsulta(row.id);
+        const nextPage =
+          consData.items.length === 1 && consFilters.page > 1
+            ? consFilters.page - 1
+            : consFilters.page;
+        const nextFilters = { ...consFilters, page: nextPage };
+        if (nextPage !== consFilters.page) setConsFilters(nextFilters);
+        await fetchConsultas(nextFilters);
+      }
+
+      if (selectedRecord?.kind === kind && Number(selectedRecord.row.id) === Number(row.id)) {
+        setSelectedRecord(null);
+      }
+      await fetchSummary();
+    } catch (err) {
+      setGlobalError(err.message);
+    } finally {
+      setDeletingKey('');
     }
   };
 
@@ -705,13 +751,25 @@ export const AdminDashboard = () => {
                                 </span>
                               </td>
                               <td>
-                                <button
-                                  type="button"
-                                  onClick={() => openDetailModal('aniversario', row)}
-                                  className="btn btn-outline-wine admin-btn-sm"
-                                >
-                                  Ver detalle
-                                </button>
+                                <div className="admin-table-actions">
+                                  <button
+                                    type="button"
+                                    onClick={() => openDetailModal('aniversario', row)}
+                                    className="btn btn-outline-wine admin-btn-sm"
+                                  >
+                                    Ver detalle
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={deletingKey === `aniversario-${row.id}`}
+                                    onClick={() => handleDeleteRecord('aniversario', row)}
+                                    className="btn btn-outline-wine admin-btn-sm admin-btn-danger-outline admin-btn-icon"
+                                    title="Eliminar postulación"
+                                    aria-label={`Eliminar postulación ${row.codigoPostulacion}`}
+                                  >
+                                    <Trash2 size={14} />
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           ))
@@ -842,13 +900,25 @@ export const AdminDashboard = () => {
                                 </span>
                               </td>
                               <td>
-                                <button
-                                  type="button"
-                                  onClick={() => openDetailModal('consulta', row)}
-                                  className="btn btn-outline-wine admin-btn-sm"
-                                >
-                                  Ver detalle
-                                </button>
+                                <div className="admin-table-actions">
+                                  <button
+                                    type="button"
+                                    onClick={() => openDetailModal('consulta', row)}
+                                    className="btn btn-outline-wine admin-btn-sm"
+                                  >
+                                    Ver detalle
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={deletingKey === `consulta-${row.id}`}
+                                    onClick={() => handleDeleteRecord('consulta', row)}
+                                    className="btn btn-outline-wine admin-btn-sm admin-btn-danger-outline admin-btn-icon"
+                                    title="Eliminar consulta"
+                                    aria-label={`Eliminar consulta ${row.codigoConsulta}`}
+                                  >
+                                    <Trash2 size={14} />
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           ))
@@ -1536,14 +1606,29 @@ export const AdminDashboard = () => {
                 <div className="admin-modal-actions">
                   <button
                     type="button"
-                    onClick={() => setSelectedRecord(null)}
-                    className="btn btn-outline-wine admin-btn-sm"
+                    disabled={Boolean(deletingKey)}
+                    onClick={() => handleDeleteRecord(selectedRecord.kind, selectedRecord.row)}
+                    className="btn btn-outline-wine admin-btn-sm admin-btn-danger-outline"
                   >
-                    Cancelar
+                    <Trash2 size={14} />
+                    <span>
+                      {deletingKey === `${selectedRecord.kind}-${selectedRecord.row.id}`
+                        ? 'Eliminando...'
+                        : 'Eliminar registro'}
+                    </span>
                   </button>
-                  <button type="submit" disabled={savingReview} className="btn btn-gold admin-btn-sm">
-                    {savingReview ? 'Guardando...' : 'Guardar Seguimiento'}
-                  </button>
+                  <div className="admin-modal-actions-right">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedRecord(null)}
+                      className="btn btn-outline-wine admin-btn-sm"
+                    >
+                      Cancelar
+                    </button>
+                    <button type="submit" disabled={savingReview} className="btn btn-gold admin-btn-sm">
+                      {savingReview ? 'Guardando...' : 'Guardar Seguimiento'}
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>

@@ -478,6 +478,55 @@ test('Flujo completo E2E: Auth Google ID (sin correos/contraseñas), invitacione
     assert.equal(workbook.worksheets[0].rowCount, 2); // header + 1 row
     assert.equal(workbook.worksheets[1].rowCount, 3); // header + 2 rows
 
+    // 14b. Eliminación de registros recibidos (requiere auth y borra correctamente)
+    const unauthDel = await fetch(
+      `${ctx.baseUrl}/api/admin/formularios/aniversario/${createdAniv.id}`,
+      { method: 'DELETE' },
+    );
+    assert.equal(unauthDel.status, 401);
+
+    const delAniv = await fetch(
+      `${ctx.baseUrl}/api/admin/formularios/aniversario/${createdAniv.id}`,
+      {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${admin2Token}` },
+      },
+    );
+    assert.equal(delAniv.status, 200);
+
+    const delAnivAgain = await fetch(
+      `${ctx.baseUrl}/api/admin/formularios/aniversario/${createdAniv.id}`,
+      {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${admin2Token}` },
+      },
+    );
+    assert.equal(delAnivAgain.status, 404);
+
+    const listAnivAfterDel = await (
+      await fetch(`${ctx.baseUrl}/api/admin/formularios/aniversario`, {
+        headers: { Authorization: `Bearer ${admin2Token}` },
+      })
+    ).json();
+    assert.equal(listAnivAfterDel.data.items.length, 0);
+
+    const createdGeneral = (await postGeneral.json()).data;
+    const delCons = await fetch(
+      `${ctx.baseUrl}/api/admin/formularios/consultas/${createdGeneral.id}`,
+      {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${admin2Token}` },
+      },
+    );
+    assert.equal(delCons.status, 200);
+
+    const listConsAfterDel = await (
+      await fetch(`${ctx.baseUrl}/api/admin/formularios/consultas`, {
+        headers: { Authorization: `Bearer ${admin2Token}` },
+      })
+    ).json();
+    assert.equal(listConsAfterDel.data.items.length, 1);
+
     // 15. Dueño final (super2) desactiva a Admin2 y su token deja de funcionar inmediatamente
     const usersListRes = await fetch(`${ctx.baseUrl}/api/admin/users/users`, {
       headers: { Authorization: `Bearer ${super2Token}` },

@@ -81,6 +81,12 @@ export const adminApi = {
     });
   },
 
+  async deleteAniversario(id) {
+    return apiRequest(`/api/admin/formularios/aniversario/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
   async listConsultas(params) {
     return apiRequest(`/api/admin/formularios/consultas${toQueryString(params)}`);
   },
@@ -89,6 +95,12 @@ export const adminApi = {
     return apiRequest(`/api/admin/formularios/consultas/${id}`, {
       method: 'PATCH',
       body: payload,
+    });
+  },
+
+  async deleteConsulta(id) {
+    return apiRequest(`/api/admin/formularios/consultas/${id}`, {
+      method: 'DELETE',
     });
   },
 

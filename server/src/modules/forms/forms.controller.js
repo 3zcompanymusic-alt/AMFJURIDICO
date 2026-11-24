@@ -65,6 +65,16 @@ export const formsController = {
     res.status(200).json({ ok: true, data: updated });
   }),
 
+  adminDeleteAniversario: asyncHandler(async (req, res) => {
+    const id = parsePositiveId(req.params.id);
+    const deleted = await formsService.deleteAniversarioForAdmin(id);
+    res.status(200).json({
+      ok: true,
+      message: 'Postulación eliminada correctamente.',
+      data: deleted,
+    });
+  }),
+
   adminListConsultas: asyncHandler(async (req, res) => {
     const filters = parseAdminFormsQueryDto(req.query);
     const data = await formsService.listConsultasForAdmin(filters);
@@ -76,5 +86,15 @@ export const formsController = {
     const dto = parseUpdateReviewDto(req.body);
     const updated = await formsService.updateConsultaReview(id, dto, req.admin.id);
     res.status(200).json({ ok: true, data: updated });
+  }),
+
+  adminDeleteConsulta: asyncHandler(async (req, res) => {
+    const id = parsePositiveId(req.params.id);
+    const deleted = await formsService.deleteConsultaForAdmin(id);
+    res.status(200).json({
+      ok: true,
+      message: 'Consulta eliminada correctamente.',
+      data: deleted,
+    });
   }),
 };

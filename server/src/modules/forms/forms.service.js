@@ -50,6 +50,14 @@ export const formsService = {
     return toAniversarioAdminDto(updated);
   },
 
+  async deleteAniversarioForAdmin(id) {
+    const deleted = await formsRepository.deleteAniversario(id);
+    if (!deleted) {
+      throw new NotFoundError('Postulación de aniversario no encontrada.');
+    }
+    return deleted;
+  },
+
   async listConsultasForAdmin(filters) {
     const { items, total } = await formsRepository.listConsultasGenerales(filters, {
       paginate: true,
@@ -74,5 +82,13 @@ export const formsService = {
       throw new NotFoundError('Consulta general no encontrada.');
     }
     return toConsultaGeneralAdminDto(updated);
+  },
+
+  async deleteConsultaForAdmin(id) {
+    const deleted = await formsRepository.deleteConsultaGeneral(id);
+    if (!deleted) {
+      throw new NotFoundError('Consulta general no encontrada.');
+    }
+    return deleted;
   },
 };

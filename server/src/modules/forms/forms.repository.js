@@ -401,6 +401,34 @@ export const formsRepository = {
     return full.rows[0];
   },
 
+  async deleteAniversario(id) {
+    const targetId = Number(id);
+    if (isLocalDevFallbackEnabled()) {
+      const store = readLocalStore();
+      const idx = store.postulacionesAniversario.findIndex((r) => Number(r.id) === targetId);
+      if (idx === -1) return null;
+      const [removed] = store.postulacionesAniversario.splice(idx, 1);
+      writeLocalStore(store);
+      return {
+        id: Number(removed.id),
+        codigoPostulacion: removed.codigo_postulacion,
+      };
+    }
+
+    await ensureSchema();
+    const res = await getPool().query(
+      `DELETE FROM postulaciones_aniversario
+       WHERE id = $1
+       RETURNING id, codigo_postulacion`,
+      [targetId],
+    );
+    if (res.rowCount === 0) return null;
+    return {
+      id: Number(res.rows[0].id),
+      codigoPostulacion: res.rows[0].codigo_postulacion,
+    };
+  },
+
   async listConsultasGenerales(filters, { paginate = true } = {}) {
     if (isLocalDevFallbackEnabled()) {
       const store = readLocalStore();
@@ -567,6 +595,34 @@ export const formsRepository = {
       [id],
     );
     return full.rows[0];
+  },
+
+  async deleteConsultaGeneral(id) {
+    const targetId = Number(id);
+    if (isLocalDevFallbackEnabled()) {
+      const store = readLocalStore();
+      const idx = store.consultasGenerales.findIndex((r) => Number(r.id) === targetId);
+      if (idx === -1) return null;
+      const [removed] = store.consultasGenerales.splice(idx, 1);
+      writeLocalStore(store);
+      return {
+        id: Number(removed.id),
+        codigoConsulta: removed.codigo_consulta,
+      };
+    }
+
+    await ensureSchema();
+    const res = await getPool().query(
+      `DELETE FROM consultas_generales
+       WHERE id = $1
+       RETURNING id, codigo_consulta`,
+      [targetId],
+    );
+    if (res.rowCount === 0) return null;
+    return {
+      id: Number(res.rows[0].id),
+      codigoConsulta: res.rows[0].codigo_consulta,
+    };
   },
 
   async getDashboardSummary() {
