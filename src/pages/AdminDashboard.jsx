@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -132,6 +132,11 @@ export const AdminDashboard = () => {
   const [generatedCodeBanner, setGeneratedCodeBanner] = useState(null);
   const [copiedCode, setCopiedCode] = useState(false);
 
+  const anivSearchTimerRef = useRef(null);
+  const consSearchTimerRef = useRef(null);
+  const anivReqSeqRef = useRef(0);
+  const consReqSeqRef = useRef(0);
+
   const fetchSummary = useCallback(async () => {
     try {
       const data = await adminApi.getFormsSummary();
@@ -142,30 +147,83 @@ export const AdminDashboard = () => {
   }, []);
 
   const fetchAniversario = useCallback(async (filtersToUse) => {
+    const seq = ++anivReqSeqRef.current;
     setAnivLoading(true);
     setGlobalError('');
     try {
       const data = await adminApi.listAniversario({ ...filtersToUse, pageSize: 25 });
-      setAnivData(data);
+      if (seq === anivReqSeqRef.current) {
+        setAnivData(data);
+      }
     } catch (err) {
-      setGlobalError(err.message);
+      if (seq === anivReqSeqRef.current) {
+        setGlobalError(err.message);
+      }
     } finally {
-      setAnivLoading(false);
+      if (seq === anivReqSeqRef.current) {
+        setAnivLoading(false);
+      }
     }
   }, []);
 
   const fetchConsultas = useCallback(async (filtersToUse) => {
+    const seq = ++consReqSeqRef.current;
     setConsLoading(true);
     setGlobalError('');
     try {
       const data = await adminApi.listConsultas({ ...filtersToUse, pageSize: 25 });
-      setConsData(data);
+      if (seq === consReqSeqRef.current) {
+        setConsData(data);
+      }
     } catch (err) {
-      setGlobalError(err.message);
+      if (seq === consReqSeqRef.current) {
+        setGlobalError(err.message);
+      }
     } finally {
-      setConsLoading(false);
+      if (seq === consReqSeqRef.current) {
+        setConsLoading(false);
+      }
     }
   }, []);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(anivSearchTimerRef.current);
+      clearTimeout(consSearchTimerRef.current);
+    };
+  }, []);
+
+  const handleAnivFilterChange = (patch) => {
+    clearTimeout(anivSearchTimerRef.current);
+    const next = { ...anivFilters, ...patch, page: 1 };
+    setAnivFilters(next);
+    fetchAniversario(next);
+  };
+
+  const handleAnivSearchChange = (value) => {
+    const next = { ...anivFilters, search: value, page: 1 };
+    setAnivFilters(next);
+    clearTimeout(anivSearchTimerRef.current);
+    anivSearchTimerRef.current = setTimeout(() => {
+      fetchAniversario(next);
+    }, 280);
+  };
+
+  const handleConsFilterChange = (patch) => {
+    clearTimeout(consSearchTimerRef.current);
+    const next = { ...consFilters, ...patch, page: 1 };
+    setConsFilters(next);
+    fetchConsultas(next);
+  };
+
+  const handleConsSearchChange = (value) => {
+    const next = { ...consFilters, search: value, page: 1 };
+    setConsFilters(next);
+    clearTimeout(consSearchTimerRef.current);
+    consSearchTimerRef.current = setTimeout(() => {
+      fetchConsultas(next);
+    }, 280);
+  };
 
   const fetchAdminUsersModule = useCallback(async () => {
     setUsersLoading(true);
@@ -557,16 +615,12 @@ export const AdminDashboard = () => {
                       type="text"
                       placeholder="Buscar por código, nombre, celular o relato..."
                       value={anivFilters.search}
-                      onChange={(e) =>
-                        setAnivFilters({ ...anivFilters, search: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleAnivSearchChange(e.target.value)}
                       className="admin-input"
                     />
                     <select
                       value={anivFilters.estadoRevision}
-                      onChange={(e) =>
-                        setAnivFilters({ ...anivFilters, estadoRevision: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleAnivFilterChange({ estadoRevision: e.target.value })}
                       className="admin-select"
                     >
                       <option value="">Todos los estados</option>
@@ -578,9 +632,7 @@ export const AdminDashboard = () => {
                     </select>
                     <select
                       value={anivFilters.ocurrioBogota}
-                      onChange={(e) =>
-                        setAnivFilters({ ...anivFilters, ocurrioBogota: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleAnivFilterChange({ ocurrioBogota: e.target.value })}
                       className="admin-select"
                     >
                       <option value="">¿Ocurrió en Bogotá? (Todos)</option>
@@ -592,9 +644,7 @@ export const AdminDashboard = () => {
                     </select>
                     <select
                       value={anivFilters.situacionActual}
-                      onChange={(e) =>
-                        setAnivFilters({ ...anivFilters, situacionActual: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleAnivFilterChange({ situacionActual: e.target.value })}
                       className="admin-select"
                     >
                       <option value="">Todas las situaciones</option>
@@ -604,26 +654,6 @@ export const AdminDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <div className="admin-filter-actions">
-                      <button
-                        type="button"
-                        onClick={() => fetchAniversario(anivFilters)}
-                        className="btn btn-primary admin-btn-sm"
-                      >
-                        <RefreshCw size={14} />
-                        <span>Filtrar</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setAnivFilters(INITIAL_ANIV_FILTERS);
-                          fetchAniversario(INITIAL_ANIV_FILTERS);
-                        }}
-                        className="btn btn-outline-wine admin-btn-sm"
-                      >
-                        Limpiar
-                      </button>
-                    </div>
                   </div>
 
                   <div className="admin-table-wrap">
@@ -732,16 +762,12 @@ export const AdminDashboard = () => {
                       type="text"
                       placeholder="Buscar por código, nombre, correo, empresa..."
                       value={consFilters.search}
-                      onChange={(e) =>
-                        setConsFilters({ ...consFilters, search: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleConsSearchChange(e.target.value)}
                       className="admin-input"
                     />
                     <select
                       value={consFilters.origenFormulario}
-                      onChange={(e) =>
-                        setConsFilters({ ...consFilters, origenFormulario: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleConsFilterChange({ origenFormulario: e.target.value })}
                       className="admin-select"
                     >
                       <option value="">Todos los orígenes</option>
@@ -750,9 +776,7 @@ export const AdminDashboard = () => {
                     </select>
                     <select
                       value={consFilters.estadoRevision}
-                      onChange={(e) =>
-                        setConsFilters({ ...consFilters, estadoRevision: e.target.value, page: 1 })
-                      }
+                      onChange={(e) => handleConsFilterChange({ estadoRevision: e.target.value })}
                       className="admin-select"
                     >
                       <option value="">Todos los estados</option>
@@ -762,26 +786,6 @@ export const AdminDashboard = () => {
                         </option>
                       ))}
                     </select>
-                    <div className="admin-filter-actions">
-                      <button
-                        type="button"
-                        onClick={() => fetchConsultas(consFilters)}
-                        className="btn btn-primary admin-btn-sm"
-                      >
-                        <RefreshCw size={14} />
-                        <span>Filtrar</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setConsFilters(INITIAL_CONS_FILTERS);
-                          fetchConsultas(INITIAL_CONS_FILTERS);
-                        }}
-                        className="btn btn-outline-wine admin-btn-sm"
-                      >
-                        Limpiar
-                      </button>
-                    </div>
                   </div>
 
                   <div className="admin-table-wrap">
@@ -896,9 +900,20 @@ export const AdminDashboard = () => {
           {activeSection === 'exportar' && (
             <section style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div className="admin-panel-card">
-                <h2 className="text-serif" style={{ fontSize: '1.2rem', color: 'var(--color-wine)', marginBottom: '0.75rem' }}>
-                  Filtros opcionales para la exportación
-                </h2>
+                <div className="admin-export-header">
+                  <h2 className="text-serif" style={{ fontSize: '1.2rem', color: 'var(--color-wine)', margin: 0 }}>
+                    Filtros opcionales para la exportación
+                  </h2>
+                  {(exportFilters.dateFrom || exportFilters.dateTo || exportFilters.estadoRevision) && (
+                    <button
+                      type="button"
+                      onClick={() => setExportFilters(INITIAL_EXPORT_FILTERS)}
+                      className="admin-link-reset"
+                    >
+                      Restablecer
+                    </button>
+                  )}
+                </div>
                 <div className="admin-filters-grid" style={{ marginBottom: 0 }}>
                   <div>
                     <label className="admin-detail-label" htmlFor="exportDateFrom">
@@ -943,15 +958,6 @@ export const AdminDashboard = () => {
                         </option>
                       ))}
                     </select>
-                  </div>
-                  <div className="admin-filter-actions">
-                    <button
-                      type="button"
-                      onClick={() => setExportFilters(INITIAL_EXPORT_FILTERS)}
-                      className="btn btn-outline-wine admin-btn-sm"
-                    >
-                      Limpiar filtros
-                    </button>
                   </div>
                 </div>
               </div>
@@ -1156,43 +1162,45 @@ export const AdminDashboard = () => {
                   <table className="admin-table">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Alias / Nombre Interno</th>
+                        <th>Administrador</th>
                         <th>Rol</th>
                         <th>Estado</th>
                         <th>Último Acceso</th>
-                        <th>Creado</th>
                         <th>Acción</th>
                       </tr>
                     </thead>
                     <tbody>
                       {usersLoading ? (
                         <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '1.5rem' }}>
+                          <td colSpan={5} style={{ textAlign: 'center', padding: '1.5rem' }}>
                             Cargando...
                           </td>
                         </tr>
                       ) : (
                         adminUsers.map((u) => (
                           <tr key={u.id}>
-                            <td>#{u.id}</td>
                             <td>
-                              <strong>{u.nombreInterno}</strong>
-                              {u.esFundador && (
-                                <span
-                                  style={{
-                                    marginLeft: '0.5rem',
-                                    fontSize: '0.72rem',
-                                    fontWeight: 700,
-                                    backgroundColor: 'var(--color-gold)',
-                                    color: '#1E0004',
-                                    padding: '0.12rem 0.5rem',
-                                    borderRadius: '9999px',
-                                  }}
-                                >
-                                  Inicial
-                                </span>
-                              )}
+                              <div>
+                                <strong>{u.nombreInterno}</strong>
+                                {u.esFundador && (
+                                  <span
+                                    style={{
+                                      marginLeft: '0.45rem',
+                                      fontSize: '0.7rem',
+                                      fontWeight: 700,
+                                      backgroundColor: 'var(--color-gold)',
+                                      color: '#1E0004',
+                                      padding: '0.12rem 0.48rem',
+                                      borderRadius: '9999px',
+                                    }}
+                                  >
+                                    Inicial
+                                  </span>
+                                )}
+                              </div>
+                              <div className="admin-cell-sub">
+                                #{u.id} · Creado {formatDateCo(u.createdAt)}
+                              </div>
                             </td>
                             <td>
                               {Number(u.id) === Number(currentUser.id) ? (
@@ -1203,7 +1211,7 @@ export const AdminDashboard = () => {
                                   value={u.rol}
                                   onChange={(e) => handleChangeUserRole(u, e.target.value)}
                                   className="admin-select"
-                                  style={{ minWidth: '130px', padding: '0.3rem 0.5rem', fontSize: '0.82rem' }}
+                                  style={{ minWidth: '125px', padding: '0.32rem 0.5rem', fontSize: '0.82rem' }}
                                 >
                                   <option value="admin">admin</option>
                                   <option value="super_admin">super_admin</option>
@@ -1219,15 +1227,14 @@ export const AdminDashboard = () => {
                                 {u.activo ? 'activo' : 'inactivo'}
                               </span>
                             </td>
-                            <td>{formatDateCo(u.ultimoAccesoAt)}</td>
-                            <td>{formatDateCo(u.createdAt)}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>{formatDateCo(u.ultimoAccesoAt)}</td>
                             <td>
                               {Number(u.id) === Number(currentUser.id) ? (
                                 <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
                                   Sesión actual
                                 </span>
                               ) : (
-                                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                                <div className="admin-table-actions">
                                   <button
                                     type="button"
                                     onClick={() => handleToggleUserActive(u)}
@@ -1264,12 +1271,10 @@ export const AdminDashboard = () => {
                   <table className="admin-table">
                     <thead>
                       <tr>
-                        <th>Código (Enmascarado)</th>
-                        <th>Etiqueta Destinatario</th>
+                        <th>Código</th>
+                        <th>Destinatario</th>
                         <th>Rol</th>
                         <th>Estado</th>
-                        <th>Expira</th>
-                        <th>Usado Por</th>
                         <th>Acción</th>
                       </tr>
                     </thead>
@@ -1277,7 +1282,7 @@ export const AdminDashboard = () => {
                       {invitations.length === 0 ? (
                         <tr>
                           <td
-                            colSpan={7}
+                            colSpan={5}
                             style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--color-text-muted)' }}
                           >
                             Aún no has generado códigos de invitación.
@@ -1286,16 +1291,22 @@ export const AdminDashboard = () => {
                       ) : (
                         invitations.map((inv) => (
                           <tr key={inv.id}>
-                            <td><code>{inv.codigoPreview}</code></td>
-                            <td><strong>{inv.etiquetaUsuario}</strong></td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <code>{inv.codigoPreview}</code>
+                              <div className="admin-cell-sub">Expira {formatDateCo(inv.expiraAt)}</div>
+                            </td>
+                            <td>
+                              <strong>{inv.etiquetaUsuario}</strong>
+                              {inv.usadoPorNombre && (
+                                <div className="admin-cell-sub">Usado por: {inv.usadoPorNombre}</div>
+                              )}
+                            </td>
                             <td>{inv.rolAsignado}</td>
                             <td>
                               <span className={`admin-status-badge admin-status--${inv.estado}`}>
                                 {inv.estado}
                               </span>
                             </td>
-                            <td>{formatDateCo(inv.expiraAt)}</td>
-                            <td>{inv.usadoPorNombre || '—'}</td>
                             <td>
                               {inv.estado === 'activo' && (
                                 <button
@@ -1482,7 +1493,7 @@ export const AdminDashboard = () => {
                   paddingTop: '1rem',
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
+                <div className="admin-modal-review-grid">
                   <div>
                     <label className="admin-detail-label" htmlFor="reviewEstado">
                       Estado de Revisión
@@ -1522,7 +1533,7 @@ export const AdminDashboard = () => {
                   />
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+                <div className="admin-modal-actions">
                   <button
                     type="button"
                     onClick={() => setSelectedRecord(null)}
