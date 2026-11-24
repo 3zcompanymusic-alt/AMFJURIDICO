@@ -179,46 +179,63 @@
   background-color: rgba(169, 134, 62, 0.15) !important;
 }
 
-.nav-admin-link {
+.nav-admin-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  padding: 0.5rem 0.8rem;
-  border-radius: var(--radius-md);
-  font-size: 0.82rem;
-  font-weight: 600;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   color: var(--color-wine);
-  border: 1px solid rgba(53, 1, 8, 0.28);
-  background-color: transparent;
-  white-space: nowrap;
+  background-color: rgba(53, 1, 8, 0.06);
+  border: 1px solid rgba(53, 1, 8, 0.16);
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
-.nav-admin-link:hover {
-  background-color: var(--color-wine-light);
-  border-color: var(--color-wine);
-}
-
-.navbar.navbar-dark .nav-admin-link {
+.nav-admin-icon-btn:hover {
+  background-color: var(--color-wine);
   color: var(--color-paper);
-  border-color: rgba(253, 249, 242, 0.35);
+  border-color: var(--color-wine);
+  transform: translateY(-1px);
 }
 
-.navbar.navbar-dark .nav-admin-link:hover {
-  color: var(--color-gold);
+.navbar.navbar-dark .nav-admin-icon-btn {
+  color: var(--color-paper);
+  background-color: rgba(253, 249, 242, 0.08);
+  border-color: rgba(253, 249, 242, 0.25);
+}
+
+.navbar.navbar-dark .nav-admin-icon-btn:hover {
+  color: #1E0004;
+  background-color: var(--color-gold);
   border-color: var(--color-gold);
-  background-color: rgba(169, 134, 62, 0.14);
 }
 
-.nav-admin-link--mobile {
+.nav-admin-mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
   width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 0.92rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.navbar.navbar-dark .nav-admin-mobile-link {
+  color: var(--color-text-on-dark-muted);
+}
+
+.nav-admin-mobile-link:hover {
+  color: var(--color-gold);
 }
 
 @media (max-width: 1100px) {
-  .navbar-content .nav-admin-link:not(.nav-admin-link--mobile) {
+  .nav-admin-icon-btn {
     display: none;
   }
 }
