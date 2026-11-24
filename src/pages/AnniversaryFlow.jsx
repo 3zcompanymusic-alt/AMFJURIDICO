@@ -281,7 +281,7 @@ export const AnniversaryFlow = () => {
               <div className="aniv-offer-box">
                 <div className="aniv-offer-header">
                   <Video size={22} className="text-gold" />
-                  <h2 className="text-serif">ASESORÍA PENAL POR VIDEOLLAMADA</h2>
+                  <h2 className="text-serif">ASESORÍA PENAL POR VIDEOCONFERENCIA</h2>
                 </div>
 
                 <div className="aniv-discount-badge">¡60 % DE DESCUENTO!</div>

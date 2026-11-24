@@ -41,7 +41,7 @@ export const buildDiscountAdviceWhatsAppUrl = ({
     "Hola AMF Firma Legal S.A.S., acabo de registrar mi postulación gratuita por el aniversario de 1 año en Bogotá",
     codigoPostulacion ? `(Código: ${codigoPostulacion})` : "",
     nombrePostulante ? `a nombre de ${nombrePostulante}` : "",
-    "y quiero acceder a la ASESORÍA PENAL POR VIDEOLLAMADA con el 60% de descuento ($60.000).",
+    "y quiero acceder a la ASESORÍA PENAL POR VIDEOCONFERENCIA con el 60% de descuento ($60.000).",
   ].filter(Boolean);
 
   return whatsappLink(WHATSAPP_NUMBER, parts.join(" "));
