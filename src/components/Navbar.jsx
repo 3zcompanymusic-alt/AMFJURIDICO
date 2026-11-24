@@ -107,13 +107,19 @@ export const Navbar = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', flexShrink: 0 }}>
             <button
               onClick={() => navigate('/formulario')}
               className={`btn ${isDarkNav ? 'btn-gold' : 'btn-primary'}`}
-              style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem', whiteSpace: 'nowrap' }}
+              style={{
+                padding: '0.42rem 0.85rem',
+                fontSize: '0.78rem',
+                gap: '0.4rem',
+                borderRadius: '10px',
+                whiteSpace: 'nowrap',
+              }}
             >
-              <WhatsAppIcon size={16} />
+              <WhatsAppIcon size={14} />
               <span>Hablar con AMF</span>
             </button>
 
@@ -123,7 +129,7 @@ export const Navbar = () => {
               aria-label="Acceso administrativo"
               title="Acceso administrativo"
             >
-              <UserRound size={17} />
+              <UserRound size={15} />
             </Link>
 
             {/* Mobile Menu Toggle Button */}
